@@ -42,6 +42,8 @@
 - **建構**：Vite 6+
 - **樣式**：Tailwind CSS 3.4+（custom theme）
 - **i18n**：自寫 `LanguageProvider` Context + TS object 字典（不用 i18n 框架）
+- **Icons**：`lucide-react`（輕量、tree-shake 友善、含 Sparkles / Send / Video / Image / ChevronUp 等本站需要的 icon）
+- **字型載入**：`@fontsource/inter` + `@fontsource/noto-sans-tc`（自托管、不打 Google Fonts CDN）
 - **測試**：Vitest + @testing-library/react + jsdom
 - **Lint**：ESLint flat config（沿用 prompt-tool 設定模板）
 
@@ -82,7 +84,7 @@
 |---|---|---|
 | 1 | **Nav**（sticky top） | logo「✦ AI 人像工作室」+ 三個 anchor 連結（方案 / Demo / 聯絡）+ 中/EN 語言切換 |
 | 2 | **Hero** | sparkle badge「AI 智能 ・ 創新 ・ 專業 ・ 服務」+ 大標「AI 人像工作室」+ 雙副標（定位 + 詳細說明）+ 雙 CTA（紫色主 fill「查看作品展示」+ ghost outline「立即諮詢」）+ scroll hint mouse icon |
-| 3 | **Demo（tab 切換）** | 上 badge「✦ 作品展示」+ 標題「AI 生成作品範例」+ 副標 + tab segment「🖼 圖片人像生成 / 🎬 影片人像生成」（**預設 active = 圖片**）+ 2-3 卡 grid + 下方紫色 outline tech explainer banner（補 B2B 文案密度） |
+| 3 | **Demo（tab 切換）** | 上 badge「✦ 作品展示」+ 標題「AI 生成作品範例」+ 副標 + tab segment「🖼 圖片人像生成 / 🎬 影片人像生成」（**預設 active = 圖片**）+ 2-3 卡 grid + 下方紫色 outline tech explainer banner（補 B2B 文案密度）。影片卡：右上角黑底半透明膠囊時長 tag、中央圓形紫底 play icon、**poster + click-to-play**、**所有斷點都不自動播放**（省流量、省電、避免 hero 區音訊驚擾） |
 | 4 | **Pricing** | badge「✦ 服務方案」+ 標題「選擇適合您的方案」+ 副標 + 三卡橫排（基礎 / 專業 / 企業）；中卡「專業方案」突出方式：紫色描邊 + 底部 glow + 右上「最熱門」桃紫色標籤 + 紫色 fill CTA；左右卡 ghost outline CTA |
 | 5 | **加購服務** | 標題「加購服務」+ 副標 + 三卡（額外影片 / 加速交付 / 額外訓練照片），每卡：項目名 + 短描述 + 紫色單價 + 計量單位 |
 | 6 | **Final CTA** | **紫色漸層邊框框**（1px gradient border + 內發光） + 標題「不確定哪個方案適合您？」+ 說服文 + 紫色 fill「✦ 免費諮詢」按鈕 |
@@ -199,7 +201,7 @@ theme: {
 
 - 所有 button / link 點擊區 ≥ **44 × 44 px**（footer 連結特別注意）
 - Pricing 中卡「最熱門」標籤的響應式位置切換（425 改卡頂）
-- 影片：mobile 不自動播放、改 poster + click-to-play（省流量、省電）
+- 影片：**所有斷點**都用 poster + click-to-play、永不自動播放（§3 表 3 同步）
 - `<html lang>` 屬性跟著語言切換（screen reader / SEO）
 - 所有圖片 `<img alt="">`，裝飾性圖片 `alt=""`、有意義圖片寫描述
 - 鍵盤導航：Tab 順序符合視覺順序；focus ring 維持可見（紫色 outline）
@@ -504,6 +506,7 @@ jobs:
 3. **5 張參考截圖** 的實際素材（demo 區圖片 / 影片）來源是什麼？需要使用者提供初版 URL（可先 placeholder Unsplash + YouTube embed 公開影片）。
 4. **方案資料**（基礎 / 專業 / 企業 / 加購）的細項數字 / deliverables 是否確定？spec 沿用參考圖文案，需確認是最終版還是 placeholder。
 5. **服務條款 / 隱私政策** 連結要不要實際寫？還是先放 `#` 死連結 / 直接隱藏？個人推廣門面通常不需要正式法律文件。
+6. **i18n 預設語言初次偵測規則**（§7.2 `detectInitialLang`）：目前寫成「navigator.language 開頭 zh → 'zh'，其他 → 'en'」。但定位是「台灣 B2B 為主」，是否應該改為「**初訪一律 zh、僅當使用者主動切才換 en**」？兩種行為對 B2B 流量的體感差異不大、但對國際分享（IG / Twitter 國際讀者）的第一印象不同。
 
 ---
 
