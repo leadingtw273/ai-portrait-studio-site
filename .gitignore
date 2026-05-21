@@ -1,0 +1,14 @@
+node_modules/
+.pnpm-store/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.log
+coverage/
+.nyc_output/
