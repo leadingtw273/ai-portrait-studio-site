@@ -26,8 +26,17 @@ export function Nav() {
           <span className="text-sm tablet:text-base">{t.hero.title}</span>
         </a>
 
+        {/* Desktop inline nav */}
+        <nav
+          aria-label="Desktop navigation"
+          className="hidden desktop:flex items-center gap-6 text-gray-300 text-sm"
+        >
+          <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
+          <a href="#demo" className="hover:text-white">{t.nav.demo}</a>
+          <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
+        </nav>
+
         <div className="flex items-center gap-2">
-          {/* 三語切換（所有斷點皆可見） */}
           <div className="flex items-center gap-1 text-xs">
             {LANGS.map((l) => (
               <button
@@ -44,7 +53,6 @@ export function Nav() {
             ))}
           </div>
 
-          {/* Hamburger toggle：mobile / tablet 顯示、desktop 隱藏 */}
           <button
             type="button"
             aria-label={open ? closeMenuLabel : openMenuLabel}
@@ -58,10 +66,10 @@ export function Nav() {
         </div>
       </div>
 
-      {/* Drawer：mobile/tablet 時 open 才渲染，desktop 用 CSS 顯示為 inline nav */}
       {open && (
         <nav
           id="nav-drawer"
+          aria-label="Mobile navigation"
           className="desktop:hidden border-t border-border-subtle bg-bg-elevated"
         >
           <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-sm">

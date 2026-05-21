@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, beforeEach } from 'vitest'
 import { Nav } from '@/sections/Nav'
@@ -23,6 +23,14 @@ describe('Nav', () => {
     expect(screen.getByRole('button', { name: 'EN' })).toBeInTheDocument()
   })
 
+  it('renders desktop inline nav with three anchors (always in DOM, hidden by CSS on mobile/tablet)', () => {
+    render(withProvider(<Nav />))
+    const desktopNav = screen.getByRole('navigation', { name: 'Desktop navigation' })
+    expect(within(desktopNav).getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
+    expect(within(desktopNav).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
+    expect(within(desktopNav).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
+  })
+
   it('renders hamburger toggle button with proper aria', () => {
     render(withProvider(<Nav />))
     const toggle = screen.getByRole('button', { name: /開啟選單/ })
@@ -30,24 +38,26 @@ describe('Nav', () => {
     expect(toggle).toHaveAttribute('aria-controls', 'nav-drawer')
   })
 
-  it('drawer is collapsed by default (anchor links not in document)', () => {
+  it('mobile drawer is collapsed by default (Mobile navigation not in DOM)', () => {
     render(withProvider(<Nav />))
-    expect(screen.queryByRole('link', { name: '方案' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('navigation', { name: 'Mobile navigation' })).not.toBeInTheDocument()
   })
 
-  it('opening hamburger reveals three anchor links', async () => {
+  it('opening hamburger reveals mobile drawer with three anchors', async () => {
     render(withProvider(<Nav />))
     await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
-    expect(screen.getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
-    expect(screen.getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
-    expect(screen.getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
+    const drawer = screen.getByRole('navigation', { name: 'Mobile navigation' })
+    expect(within(drawer).getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
+    expect(within(drawer).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
+    expect(within(drawer).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
   })
 
-  it('clicking an anchor closes the drawer', async () => {
+  it('clicking a drawer anchor closes the drawer', async () => {
     render(withProvider(<Nav />))
     await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
-    await userEvent.click(screen.getByRole('link', { name: '方案' }))
-    expect(screen.queryByRole('link', { name: '方案' })).not.toBeInTheDocument()
+    const drawer = screen.getByRole('navigation', { name: 'Mobile navigation' })
+    await userEvent.click(within(drawer).getByRole('link', { name: '方案' }))
+    expect(screen.queryByRole('navigation', { name: 'Mobile navigation' })).not.toBeInTheDocument()
   })
 
   it('switching language updates header text', async () => {
