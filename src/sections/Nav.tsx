@@ -1,0 +1,94 @@
+import { useState } from 'react'
+import { Sparkles, Menu, X } from 'lucide-react'
+import { useT } from '@/i18n/useT'
+import type { Lang } from '@/i18n/LanguageProvider'
+import { cn } from '@/lib/cn'
+
+const LANGS: Lang[] = ['zh-Hant', 'zh-Hans', 'en']
+
+export function Nav() {
+  const { t, lang, setLang } = useT()
+  const [open, setOpen] = useState(false)
+
+  const openMenuLabel = lang === 'en' ? 'Open menu' : '開啟選單'
+  const closeMenuLabel = lang === 'en' ? 'Close menu' : '關閉選單'
+
+  return (
+    <header
+      className={cn(
+        'sticky top-0 z-30 w-full',
+        'bg-bg-base/80 backdrop-blur-card border-b border-border-subtle',
+      )}
+    >
+      <div className="max-w-7xl mx-auto px-4 tablet:px-6 desktop:px-8 h-14 flex items-center justify-between gap-4">
+        <a href="#top" className="flex items-center gap-2 text-white font-semibold">
+          <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
+          <span className="text-sm tablet:text-base">{t.hero.title}</span>
+        </a>
+
+        <div className="flex items-center gap-2">
+          {/* 三語切換（所有斷點皆可見） */}
+          <div className="flex items-center gap-1 text-xs">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setLang(l)}
+                className={cn(
+                  'px-2 py-1 rounded min-w-[44px] min-h-[32px]',
+                  lang === l ? 'text-white bg-surface' : 'text-gray-400 hover:text-white',
+                )}
+              >
+                {t.languageSwitcher[l]}
+              </button>
+            ))}
+          </div>
+
+          {/* Hamburger toggle：mobile / tablet 顯示、desktop 隱藏 */}
+          <button
+            type="button"
+            aria-label={open ? closeMenuLabel : openMenuLabel}
+            aria-expanded={open}
+            aria-controls="nav-drawer"
+            onClick={() => setOpen((o) => !o)}
+            className="desktop:hidden inline-flex items-center justify-center w-11 h-11 rounded text-gray-300 hover:text-white"
+          >
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Drawer：mobile/tablet 時 open 才渲染，desktop 用 CSS 顯示為 inline nav */}
+      {open && (
+        <nav
+          id="nav-drawer"
+          className="desktop:hidden border-t border-border-subtle bg-bg-elevated"
+        >
+          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-sm">
+            <a
+              href="#pricing"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+            >
+              {t.nav.plans}
+            </a>
+            <a
+              href="#demo"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+            >
+              {t.nav.demo}
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white"
+            >
+              {t.nav.contact}
+            </a>
+          </div>
+        </nav>
+      )}
+    </header>
+  )
+}
