@@ -6,7 +6,7 @@
 
 **Architecture:** React 19 SPA、Vite build、Tailwind 3 custom theme（紫色 accent + glass + glow）；自寫 LanguageProvider Context + 3 套 TS object 字典（zh-Hant 為型別 source、zh-Hans / en 對應 shape）；anchor scroll 取代 router；素材 URL 集中放 `src/data/content.ts`、本版上線時用 placeholder URL（Unsplash + YouTube）；GH Actions deploy → `gh-pages`。
 
-**Tech Stack:** React 19.2 / TypeScript 5.6 / Vite 6 / Tailwind CSS 3.4 / Vitest 4 / @testing-library/react / lucide-react / @fontsource/inter + noto-sans-tc / pnpm 9 / Node 20
+**Tech Stack:** React 19.2 / TypeScript 5.6 / Vite 8 / Tailwind CSS 3.4 / Vitest 4 / @testing-library/react / lucide-react / @fontsource/inter + noto-sans-tc / pnpm 9 / Node 20
 
 **Spec:** `docs/superpowers/specs/2026-05-21-landing-site-design.md`
 
@@ -144,7 +144,8 @@
 - [ ] **Step 1.3：建立 vite.config.ts**
 
 ```ts
-import { defineConfig } from 'vite'
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'node:url'
 
@@ -162,6 +163,8 @@ export default defineConfig({
   },
 })
 ```
+
+> 用 `vitest/config` 的 `defineConfig` 才認得 `test` field、避免 typecheck error。Vite plugin 在 dev / build 時自動 ignore `test` field。
 
 - [ ] **Step 1.4：建立 tailwind.config.ts（先放 minimal、設計 token 在 Task 2 補完）**
 
@@ -353,40 +356,9 @@ git commit -m "feat: scaffold Vite + React 19 + TS + Tailwind + Vitest"
 - Modify: `src/styles/globals.css`
 - Create: `tests/theme.test.tsx`
 
-- [ ] **Step 2.1：寫失敗測試 — 驗證 design token class 可以套用**
+- [ ] **Step 2.1：擴充 tailwind.config.ts theme**
 
-`tests/theme.test.tsx`：
-```tsx
-import { render } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
-
-describe('design tokens', () => {
-  it('bg-bg-base class produces background color #0E0B1F', () => {
-    const { container } = render(<div className="bg-bg-base">x</div>)
-    const div = container.firstChild as HTMLElement
-    // class 存在 — Tailwind 在 jsdom 不會 compute color，只能驗 className 套上
-    expect(div).toHaveClass('bg-bg-base')
-  })
-
-  it('shadow-glow-md class applies', () => {
-    const { container } = render(<div className="shadow-glow-md">x</div>)
-    expect(container.firstChild as HTMLElement).toHaveClass('shadow-glow-md')
-  })
-
-  it('.glass utility renders', () => {
-    const { container } = render(<div className="glass">x</div>)
-    expect(container.firstChild as HTMLElement).toHaveClass('glass')
-  })
-})
-```
-
-```bash
-pnpm test theme.test
-```
-
-Expected：3 test pass（這個測試只驗 className 存在，不驗 computed style — 因為 jsdom 沒跑 Tailwind compile）；如果 fail，下面實作再讓它過。
-
-- [ ] **Step 2.2：擴充 tailwind.config.ts theme**
+（Theme token 不寫 vitest test — jsdom 無法 compute style、寫 className 存在的 assert 無實質意義；改用 Task 18.2 dev server 手動視覺驗證）
 
 ```ts
 import type { Config } from 'tailwindcss'
@@ -474,19 +446,26 @@ export default {
 }
 ```
 
-- [ ] **Step 2.4：跑測試 + dev server 視覺驗證**
+- [ ] **Step 2.4：dev server 手動視覺驗證**
 
 ```bash
-pnpm test
 pnpm dev
 ```
 
-Expected：測試 pass、dev server 打開瀏覽器看到深紫色背景（`#0E0B1F`）、白字標題。
+Expected：打開瀏覽器看到深紫色背景（`#0E0B1F`）、白字標題；Ctrl-C 關閉。
 
-- [ ] **Step 2.5：Commit**
+- [ ] **Step 2.5：跑 typecheck 確認 Tailwind config TS 對**
 
 ```bash
-git add tailwind.config.ts src/styles/globals.css tests/theme.test.tsx
+pnpm typecheck
+```
+
+Expected：no error。
+
+- [ ] **Step 2.6：Commit**
+
+```bash
+git add tailwind.config.ts src/styles/globals.css
 git commit -m "feat: tailwind theme — bg / brand colors / glow shadows / glass utility"
 ```
 
@@ -568,22 +547,24 @@ export const TELEGRAM_URL = `https://t.me/${TELEGRAM_HANDLE.slice(1)}`
 export type DemoImage = { src: string; alt: string }
 export type DemoVideo = { youtubeId: string; posterUrl: string; durationSec: string }
 
+// 注意：3 張 image（spec §3 寫 2-3 卡）
 export const DEMO_IMAGES: DemoImage[] = [
   { src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80', alt: 'AI portrait sample 1' },
   { src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&q=80', alt: 'AI portrait sample 2' },
-  { src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80', alt: 'AI portrait sample 3' },
-  { src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80', alt: 'AI portrait sample 4' },
+  { src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80', alt: 'AI portrait sample 3' },
 ]
 
+// 注意：YouTube placeholder 用 YouTube Developers 官方頻道「YouTube API Intro」(M7lc1UVf-VE)
+// 避免 Rickroll 風險、上線前 leadi 替換為真實影片 ID
 export const DEMO_VIDEOS: DemoVideo[] = [
   {
-    youtubeId: 'dQw4w9WgXcQ',  // placeholder — 上線前換
-    posterUrl: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+    youtubeId: 'M7lc1UVf-VE',
+    posterUrl: 'https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg',
     durationSec: '3-5',
   },
   {
-    youtubeId: 'dQw4w9WgXcQ',
-    posterUrl: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+    youtubeId: 'M7lc1UVf-VE',
+    posterUrl: 'https://i.ytimg.com/vi/M7lc1UVf-VE/hqdefault.jpg',
     durationSec: '2-4',
   },
 ]
@@ -1255,11 +1236,6 @@ describe('Badge', () => {
     // lucide-react Sparkles renders as <svg>
     expect(container.querySelector('svg')).toBeInTheDocument()
   })
-
-  it('applies className from props', () => {
-    const { container } = render(<Badge className="test-extra">x</Badge>)
-    expect(container.firstChild as HTMLElement).toHaveClass('test-extra')
-  })
 })
 ```
 
@@ -1312,7 +1288,7 @@ import { SectionHeader } from '@/components/SectionHeader'
 describe('SectionHeader', () => {
   it('renders badge, title, subtitle when all provided', () => {
     render(<SectionHeader badge="服務" title="選擇方案" subtitle="符合需求" />)
-    expect(screen.getByText('服務')).toBeInTheDocument()
+    expect(screen.getByText(/服務/)).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: '選擇方案' })).toBeInTheDocument()
     expect(screen.getByText('符合需求')).toBeInTheDocument()
   })
@@ -1320,12 +1296,6 @@ describe('SectionHeader', () => {
   it('renders without badge when omitted', () => {
     render(<SectionHeader title="加購服務" subtitle="額外" />)
     expect(screen.getByRole('heading', { name: '加購服務' })).toBeInTheDocument()
-    expect(screen.queryByText('服務')).not.toBeInTheDocument()
-  })
-
-  it('renders without subtitle when omitted', () => {
-    render(<SectionHeader title="標題" />)
-    expect(screen.getByRole('heading', { name: '標題' })).toBeInTheDocument()
   })
 })
 ```
@@ -1856,7 +1826,7 @@ git commit -m "feat: DemoCard image / video variants with poster + click-to-play
 
 ## Phase 4 — Sections（Task 10-16）
 
-### Task 10：Nav section（sticky + 三語切換 + anchor）
+### Task 10：Nav section（sticky + 三語切換 + desktop 直接 anchor / mobile + tablet 漢堡 drawer）
 
 **Files:**
 - Create: `src/sections/Nav.tsx`
@@ -1866,13 +1836,14 @@ git commit -m "feat: DemoCard image / video variants with poster + click-to-play
 
 `tests/sections/Nav.test.tsx`：
 ```tsx
+import { type ReactNode } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, beforeEach } from 'vitest'
 import { Nav } from '@/sections/Nav'
 import { LanguageProvider } from '@/i18n/LanguageProvider'
 
-function withProvider(node: React.ReactNode) {
+function withProvider(node: ReactNode) {
   return <LanguageProvider>{node}</LanguageProvider>
 }
 
@@ -1882,22 +1853,45 @@ describe('Nav', () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
   })
 
-  it('renders logo and three anchor links and three language switches', () => {
+  it('renders logo and language switcher always', () => {
     render(withProvider(<Nav />))
     expect(screen.getByText(/AI 人像工作室/)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
-    expect(screen.getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
-    expect(screen.getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
     expect(screen.getByRole('button', { name: '繁中' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '简中' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'EN' })).toBeInTheDocument()
   })
 
+  it('renders hamburger toggle button with proper aria', () => {
+    render(withProvider(<Nav />))
+    const toggle = screen.getByRole('button', { name: /開啟選單/ })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(toggle).toHaveAttribute('aria-controls', 'nav-drawer')
+  })
+
+  it('drawer is collapsed by default (anchor links not in document)', () => {
+    render(withProvider(<Nav />))
+    expect(screen.queryByRole('link', { name: '方案' })).not.toBeInTheDocument()
+  })
+
+  it('opening hamburger reveals three anchor links', async () => {
+    render(withProvider(<Nav />))
+    await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
+    expect(screen.getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
+    expect(screen.getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
+    expect(screen.getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
+  })
+
+  it('clicking an anchor closes the drawer', async () => {
+    render(withProvider(<Nav />))
+    await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
+    await userEvent.click(screen.getByRole('link', { name: '方案' }))
+    expect(screen.queryByRole('link', { name: '方案' })).not.toBeInTheDocument()
+  })
+
   it('switching language updates header text', async () => {
     render(withProvider(<Nav />))
-    expect(screen.getByText('方案')).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'EN' }))
-    expect(screen.getByText('Plans')).toBeInTheDocument()
+    expect(screen.getByText(/AI Portrait Studio/)).toBeInTheDocument()
   })
 })
 ```
@@ -1911,7 +1905,8 @@ Expected：FAIL。
 - [ ] **Step 10.2：實作 src/sections/Nav.tsx**
 
 ```tsx
-import { Sparkles } from 'lucide-react'
+import { useState } from 'react'
+import { Sparkles, Menu, X } from 'lucide-react'
 import { useT } from '@/i18n/useT'
 import type { Lang } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/cn'
@@ -1920,6 +1915,13 @@ const LANGS: Lang[] = ['zh-Hant', 'zh-Hans', 'en']
 
 export function Nav() {
   const { t, lang, setLang } = useT()
+  const [open, setOpen] = useState(false)
+
+  // 中文使用者「開啟選單」/ 英文「Open menu」— i18n 預設我們先寫死 aria label，使用者很少改 nav lang
+  // 實際在 hamburger 上掛 aria-label 是 nav 控制按鈕；t 字典沒分專屬 key、用個簡單 fallback
+  const openMenuLabel = lang === 'en' ? 'Open menu' : '開啟選單'
+  const closeMenuLabel = lang === 'en' ? 'Close menu' : '關閉選單'
+
   return (
     <header
       className={cn(
@@ -1932,35 +1934,77 @@ export function Nav() {
           <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
           <span className="text-sm tablet:text-base">{t.hero.title}</span>
         </a>
-        <nav className="hidden tablet:flex items-center gap-6 text-gray-300 text-sm">
+
+        {/* Desktop: anchor 直接展開 */}
+        <nav className="hidden desktop:flex items-center gap-6 text-gray-300 text-sm">
           <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
           <a href="#demo" className="hover:text-white">{t.nav.demo}</a>
           <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
         </nav>
-        <div className="flex items-center gap-1 text-xs">
-          {LANGS.map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setLang(l)}
-              className={cn(
-                'px-2 py-1 rounded min-w-[44px] min-h-[32px]',
-                lang === l ? 'text-white bg-surface' : 'text-gray-400 hover:text-white',
-              )}
-            >
-              {t.languageSwitcher[l]}
-            </button>
-          ))}
+
+        <div className="flex items-center gap-2">
+          {/* 三語切換（所有斷點皆可見） */}
+          <div className="flex items-center gap-1 text-xs">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setLang(l)}
+                className={cn(
+                  'px-2 py-1 rounded min-w-[44px] min-h-[32px]',
+                  lang === l ? 'text-white bg-surface' : 'text-gray-400 hover:text-white',
+                )}
+              >
+                {t.languageSwitcher[l]}
+              </button>
+            ))}
+          </div>
+
+          {/* Hamburger toggle：mobile / tablet 顯示、desktop 隱藏 */}
+          <button
+            type="button"
+            aria-label={open ? closeMenuLabel : openMenuLabel}
+            aria-expanded={open}
+            aria-controls="nav-drawer"
+            onClick={() => setOpen((o) => !o)}
+            className="desktop:hidden inline-flex items-center justify-center w-11 h-11 rounded text-gray-300 hover:text-white"
+          >
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
-      {/* mobile / tablet 下隱藏的 anchor，仍可被 screen reader & keyboard 看到 */}
-      <nav className="tablet:hidden border-t border-border-subtle">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-around text-gray-300 text-xs">
-          <a href="#pricing" className="py-2 px-3 min-h-[44px] flex items-center hover:text-white">{t.nav.plans}</a>
-          <a href="#demo" className="py-2 px-3 min-h-[44px] flex items-center hover:text-white">{t.nav.demo}</a>
-          <a href="#contact" className="py-2 px-3 min-h-[44px] flex items-center hover:text-white">{t.nav.contact}</a>
-        </div>
-      </nav>
+
+      {/* Drawer（mobile / tablet only、open 時展開） */}
+      {open && (
+        <nav
+          id="nav-drawer"
+          className="desktop:hidden border-t border-border-subtle bg-bg-elevated"
+        >
+          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-sm">
+            <a
+              href="#pricing"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+            >
+              {t.nav.plans}
+            </a>
+            <a
+              href="#demo"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+            >
+              {t.nav.demo}
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white"
+            >
+              {t.nav.contact}
+            </a>
+          </div>
+        </nav>
+      )}
     </header>
   )
 }
@@ -1971,7 +2015,7 @@ export function Nav() {
 ```bash
 pnpm test Nav.test
 git add src/sections/Nav.tsx tests/sections/Nav.test.tsx
-git commit -m "feat: Nav sticky section + 3-lang switcher + anchor links"
+git commit -m "feat: Nav sticky + hamburger drawer (mobile/tablet) + desktop inline anchors + 3-lang switcher"
 ```
 
 ---
@@ -2173,7 +2217,7 @@ export function Demo() {
         </div>
 
         {tab === 'image' ? (
-          <div className="grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-3 gap-4">
             {DEMO_IMAGES.map((img, i) => (
               <DemoCard key={i} variant="image" src={img.src} alt={t.demo.imageCardAlt} />
             ))}
@@ -2202,7 +2246,7 @@ export function Demo() {
         )}
 
         {/* Tech explainer banner */}
-        <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/8 shadow-glow-md">
+        <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/10 shadow-glow-md">
           <div className="flex items-center gap-2 text-white font-medium mb-2">
             <VideoIcon className="w-4 h-4 text-brand-300" aria-hidden="true" />
             {t.demo.techBanner.title}
@@ -2363,7 +2407,7 @@ export function AddOns() {
     <section className="px-4 py-12 tablet:py-16">
       <div className="max-w-6xl mx-auto">
         <SectionHeader title={t.addons.title} subtitle={t.addons.subtitle} />
-        <div className="grid grid-cols-1 tablet:grid-cols-3 gap-4 mt-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4 mt-8">
           {ADDONS.map((a) => {
             const i = i18nByKey[a.key]
             return (
@@ -2692,6 +2736,12 @@ git commit -m "feat: ScrollToTop floating button with scroll listener + 3 tests"
 **Files:**
 - Modify: `src/App.tsx`
 
+- [ ] **Step 18.0：刪除 Task 1.13 的 scaffold smoke test（內容已過時）**
+
+```bash
+rm tests/scaffold.test.tsx
+```
+
 - [ ] **Step 18.1：更新 src/App.tsx**
 
 ```tsx
@@ -2728,11 +2778,13 @@ export function App() {
 pnpm dev
 ```
 
-打開瀏覽器 → 應該看到完整的 8 區塊頁面：Nav → Hero → Demo → Pricing → AddOns → FinalCTA → Footer。檢查：
+打開瀏覽器 → 應該看到完整的 6 section + Nav + ScrollToTop 頁面：Nav → Hero → Demo → Pricing → AddOns → FinalCTA → Footer，scroll 過 hero 後右下角出現紫色 ↑ 按鈕。檢查：
 - 三語切換 [繁中 / 简中 / EN] 點擊後內容變
+- mobile / tablet 寬度（Chrome DevTools 切到 425 / 768）右上角漢堡按鈕點開展開三個 anchor、點 anchor 後 drawer 自動收起
+- desktop 寬度（1024+）nav 直接顯示三個 anchor
 - Demo tab 點圖片 / 影片切換 grid
 - Pricing 中卡有「最熱門」標籤
-- scroll 過 hero 後右下出現紫色 ↑ 按鈕
+- ScrollToTop scroll 過 hero 後出現、點擊回頂部
 
 Ctrl-C 關閉。
 
@@ -2749,8 +2801,8 @@ Expected：全 pass、無 error / no warning。
 - [ ] **Step 18.4：Commit**
 
 ```bash
-git add src/App.tsx
-git commit -m "feat: assemble all sections in App.tsx"
+git add -A
+git commit -m "feat: assemble all sections in App.tsx (remove obsolete scaffold smoke test)"
 ```
 
 ---
@@ -2870,6 +2922,7 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+      - uses: actions/configure-pages@v5
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
@@ -3013,7 +3066,7 @@ GitHub UI 操作：
 6. ✅ Final CTA 紫框 + Telegram 按鈕點擊開新 tab
 7. ✅ Footer Telegram 按鈕點擊開新 tab、無服務條款 / 隱私連結
 8. ✅ Scroll-to-top 按鈕 scroll 過 hero 後出現
-9. ✅ Mobile (Chrome DevTools 425 寬度) 不破版：Nav 變底部 anchor、Pricing 卡 vertical stack、中卡「最熱門」標籤改卡頂置中
+9. ✅ Mobile (Chrome DevTools 425 寬度) 不破版：Nav 漢堡按鈕 + drawer 可開合、Pricing 卡 vertical stack、中卡「最熱門」標籤改卡頂置中
 10. ✅ Tablet (768)、Desktop (1024)、4K (2560 用瀏覽器 zoom 模擬) 各斷點佈局正常
 
 任一失敗 → 開 fix issue 後續處理。
@@ -3045,3 +3098,29 @@ GitHub UI 操作：
 4. **方案數字 / deliverables** — `src/i18n/messages.{zh-hant,zh-hans,en}.ts` 是 placeholder 還是最終版本？需要 leadi 確認
 
 這 4 點在 plan 執行階段都用 placeholder 完成；上線前 leadi 替換真實值後 push 自動 redeploy。
+
+---
+
+## 附錄：Codex review v2 採納紀錄（2026-05-21）
+
+Codex 對 plan v1 review，使用者裁決後採納項目：
+
+| Codex 意見 | 處理 |
+|---|---|
+| §1.2.1 Hero 視覺承諾 | **駁回**（使用者裁決保持現狀、參考圖 Hero 也只 gradient + 文案） |
+| §3 Demo image 4 卡 vs spec 2-3 | 採納、改 3 卡 |
+| §5 Nav mobile/tablet 漢堡 | **採納、Task 10 大改**（漢堡 + drawer + aria-expanded + 點 anchor 自動 close） |
+| §5 AddOns tablet 3 欄 vs spec 2 欄 | 採納、改 `tablet:grid-cols-2 desktop:grid-cols-3` |
+| Task 1 vite.config.ts test 認不到 | 採納、改用 `vitest/config` 的 `defineConfig` |
+| Task 10 test 用 React.ReactNode 漏 import | 採納、改 `import { type ReactNode } from 'react'` |
+| Task 1.13 scaffold test 在 Task 18 整合後過時 | 採納、Task 18.0 加 step 刪 scaffold.test.tsx |
+| Plan 序言 Vite 版本口徑 | 採納、序言改 Vite 8 |
+| Task 3 YouTube `dQw4w9WgXcQ`（Rickroll）placeholder 風險 | 採納、改 `M7lc1UVf-VE`（YouTube Developers 公開教學） |
+| Task 2 theme test 不會 fail | 採納、刪 theme test、改 Task 18.2 dev server 手動驗證 |
+| Task 10 Nav test multiple match | 採納漢堡後自動消失（只一組 anchor、不再 desktop + mobile 雙存在） |
+| Task 12 `bg-brand-500/8` 不是 Tailwind 內建 opacity | 採納、改 `bg-brand-500/10` |
+| Task 20 workflow 缺 configure-pages step | 採納、加 `actions/configure-pages@v5` |
+| Badge / SectionHeader 測試 YAGNI | 部分採納、刪減低價值 assert |
+| Manual smoke list 漏 ScrollToTop | 採納、Task 18.2 補進 smoke checklist |
+| cn 物件 flatten 過度 | 駁回（5 行不算重、未來性夠） |
+
