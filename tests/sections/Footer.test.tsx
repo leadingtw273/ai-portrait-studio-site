@@ -10,12 +10,15 @@ describe('Footer', () => {
   })
 
   it('renders logo, tagline, telegram cta, response time, copyright', () => {
-    render(<LanguageProvider><Footer /></LanguageProvider>)
-    expect(screen.getByText(/AI 人像工作室/)).toBeInTheDocument()
+    const { container } = render(<LanguageProvider><Footer /></LanguageProvider>)
+    // logo 與 copyright 兩處都有 "AI 人像工作室"
+    expect(screen.getAllByText(/AI 人像工作室/).length).toBeGreaterThanOrEqual(2)
     expect(screen.getByText(/數位形象/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Telegram/ })).toHaveAttribute('href', expect.stringMatching(/t\.me/))
     expect(screen.getByText(/24 小時內/)).toBeInTheDocument()
     expect(screen.getByText(/© 2026/)).toBeInTheDocument()
+    // 確認 copyright 文案是繁中（不是被改成英文）
+    expect(container.textContent).toContain('© 2026 AI 人像工作室. All rights reserved.')
   })
 
   it('does NOT render terms of service or privacy policy links', () => {

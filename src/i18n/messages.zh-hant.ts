@@ -111,7 +111,7 @@ export const zhHant = {
     contactTitle:   '聯絡我們',
     telegramButton: 'Telegram 諮詢',
     responseTime:   '回覆時間：通常 24 小時內',
-    copyright:      '© 2026 AI Portrait Studio. All rights reserved.',
+    copyright:      '© 2026 AI 人像工作室. All rights reserved.',
   },
   scrollToTop: {
     label: '回到頂部',
