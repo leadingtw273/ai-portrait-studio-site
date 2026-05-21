@@ -7,7 +7,7 @@ import { cn } from '@/lib/cn'
 export function Hero() {
   const { t } = useT()
   return (
-    <section id="top" className="relative min-h-[80vh] flex items-center justify-center px-4 py-20 tablet:py-28">
+    <section id="top" className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28">
       {/* 背景 — 低調 gradient + 微弱光暈 */}
       <div
         aria-hidden="true"
