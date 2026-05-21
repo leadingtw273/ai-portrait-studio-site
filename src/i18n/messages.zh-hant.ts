@@ -123,4 +123,12 @@ export const zhHant = {
   },
 } as const
 
-export type Messages = typeof zhHant
+// DeepString: recursively replace all leaf string-literal types with `string`
+// so that zh-Hans / en can hold different translations while still enforcing the same shape.
+type DeepString<T> = T extends readonly string[]
+  ? readonly string[]
+  : T extends string
+  ? string
+  : { readonly [K in keyof T]: DeepString<T[K]> }
+
+export type Messages = DeepString<typeof zhHant>

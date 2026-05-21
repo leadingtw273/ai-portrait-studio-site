@@ -8,9 +8,12 @@ import '@fontsource/noto-sans-tc/600.css'
 import '@fontsource/noto-sans-tc/700.css'
 import './styles/globals.css'
 import { App } from './App'
+import { LanguageProvider } from './i18n/LanguageProvider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </StrictMode>,
 )
