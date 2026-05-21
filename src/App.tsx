@@ -1,7 +1,25 @@
+import { Nav } from './sections/Nav'
+import { Hero } from './sections/Hero'
+import { Demo } from './sections/Demo'
+import { Pricing } from './sections/Pricing'
+import { AddOns } from './sections/AddOns'
+import { FinalCTA } from './sections/FinalCTA'
+import { Footer } from './sections/Footer'
+import { ScrollToTop } from './sections/ScrollToTop'
+
 export function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <h1 className="text-2xl">AI 人像工作室 — Scaffolding</h1>
-    </main>
+    <div className="min-h-screen bg-bg-base text-white">
+      <Nav />
+      <main>
+        <Hero />
+        <Demo />
+        <Pricing />
+        <AddOns />
+        <FinalCTA />
+      </main>
+      <Footer />
+      <ScrollToTop />
+    </div>
   )
 }
