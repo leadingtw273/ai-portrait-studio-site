@@ -1,18 +1,33 @@
-import { Send, ChevronDown } from 'lucide-react'
+import { Send, Mouse } from 'lucide-react'
 import { Badge } from '@/components/Badge'
 import { useT } from '@/i18n/useT'
 import { TELEGRAM_URL } from '@/data/content'
 import { cn } from '@/lib/cn'
+import heroBg from '@/assets/hero-bg.jpg'
 
 export function Hero() {
   const { t } = useT()
   return (
-    <section id="top" className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28">
-      {/* 背景 — 低調 gradient + 微弱光暈 */}
+    <section
+      id="top"
+      className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28 overflow-hidden"
+    >
+      {/* 背景圖 */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-br from-bg-base via-bg-elevated to-bg-base"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg})` }}
       />
+      {/* dark gradient overlay — 確保文字可讀（下半部較暗、CTA 周圍對比夠） */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(14,11,31,0.35) 0%, rgba(14,11,31,0.55) 50%, rgba(14,11,31,0.8) 100%)',
+        }}
+      />
+      {/* 微弱紫光（保留 hero 氛圍） */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-30 pointer-events-none"
@@ -28,7 +43,7 @@ export function Hero() {
         <h1 className="text-4xl tablet:text-6xl desktop:text-7xl font-bold text-white mb-4">
           {t.hero.title}
         </h1>
-        <p className="text-base tablet:text-xl text-gray-300 mb-2">{t.hero.subtitle}</p>
+        <p className="text-base tablet:text-lg text-gray-300 mb-2">{t.hero.subtitle}</p>
         <p className="text-sm tablet:text-base text-gray-400 mb-8 max-w-2xl mx-auto">
           {t.hero.description}
         </p>
@@ -57,8 +72,8 @@ export function Hero() {
             {t.hero.ctaSecondary}
           </a>
         </div>
-        <ChevronDown
-          className="w-6 h-6 text-gray-500 mx-auto mt-10 animate-bounce"
+        <Mouse
+          className="w-6 h-6 text-gray-400 mx-auto mt-10 animate-bounce"
           aria-label={t.hero.scrollHint}
         />
       </div>

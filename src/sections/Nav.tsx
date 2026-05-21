@@ -17,7 +17,7 @@ export function Nav() {
     <header
       className={cn(
         'sticky top-0 z-30 w-full',
-        'bg-bg-base/80 backdrop-blur-card border-b border-border-subtle',
+        'bg-bg-base/50 backdrop-blur-card border-b border-border-subtle',
       )}
     >
       <div className="max-w-7xl mx-auto px-4 tablet:px-6 desktop:px-8 h-14 flex items-center justify-between gap-4">
@@ -44,8 +44,10 @@ export function Nav() {
                 type="button"
                 onClick={() => setLang(l)}
                 className={cn(
-                  'px-2 py-1 rounded min-w-[44px] min-h-[32px]',
-                  lang === l ? 'text-white bg-surface' : 'text-gray-400 hover:text-white',
+                  'px-2 py-1 rounded min-w-[44px] min-h-[32px] transition-colors',
+                  lang === l
+                    ? 'text-white bg-brand-500/25 border border-border-brand'
+                    : 'text-gray-400 hover:text-white hover:bg-surface',
                 )}
               >
                 {t.languageSwitcher[l]}

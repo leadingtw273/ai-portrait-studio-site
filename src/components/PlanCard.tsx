@@ -34,7 +34,7 @@ export function PlanCard({
         <span
           className={cn(
             'absolute px-3 py-1 rounded-full text-xs font-semibold',
-            'bg-brand-accent text-white shadow-glow-md',
+            'bg-brand-500 text-white shadow-glow-md',
             // desktop：右上角；mobile：卡頂置中
             'top-3 right-3 desktop:top-3 desktop:right-3',
             'mobile:top-[-12px] mobile:left-1/2 mobile:-translate-x-1/2 mobile:right-auto desktop:translate-x-0',
@@ -43,9 +43,9 @@ export function PlanCard({
           {hottestLabel}
         </span>
       )}
-      <div className="text-gray-300 text-sm mb-1">{name}</div>
-      {tagline && <div className="text-gray-400 text-xs mb-3">{tagline}</div>}
-      <div className="text-3xl font-bold text-white mb-5">
+      <div className="text-gray-200 text-lg font-medium mb-1">{name}</div>
+      {tagline && <div className="text-gray-400 text-sm mb-3">{tagline}</div>}
+      <div className="text-5xl font-bold text-white mb-5">
         {priceLabel} {price.toLocaleString()}
       </div>
       <ul className="space-y-2 mb-6 flex-1">
