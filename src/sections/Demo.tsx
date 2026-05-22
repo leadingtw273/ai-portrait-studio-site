@@ -18,21 +18,21 @@ export function Demo() {
   ]
 
   return (
-    <section id="demo" className="min-h-screen flex flex-col justify-center px-4 py-16 tablet:py-24">
-      <div className="max-w-7xl mx-auto w-full">
+    <section id="demo" className="min-h-screen flex flex-col px-4 py-16 tablet:py-24">
+      <div className="max-w-6xl mx-auto w-full flex-1 flex flex-col">
         <SectionHeader badge={t.demo.badge} title={t.demo.title} subtitle={t.demo.subtitle} />
         <div className="flex justify-center my-8">
           <TabSegment tabs={tabs} value={tab} onChange={setTab} />
         </div>
 
         {tab === 'image' ? (
-          <div className="grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-3 gap-4">
+          <div className="flex-1 min-h-0 grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-3 gap-4">
             {DEMO_IMAGES.map((img, i) => (
               <DemoCard key={i} variant="image" src={img.src} alt={t.demo.imageCardAlt} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
+          <div className="flex-1 min-h-0 grid grid-cols-1 tablet:grid-cols-2 gap-6">
             <DemoCard
               variant="video"
               posterUrl={DEMO_VIDEOS[0].posterUrl}
