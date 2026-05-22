@@ -17,11 +17,11 @@ export function AddOnCard({ name, desc, price, unit, priceLabel = 'NT$', classNa
         className,
       )}
     >
-      <div className="text-white text-base font-medium mb-1">{name}</div>
-      <div className="text-gray-400 text-xs mb-3">{desc}</div>
-      <div className="text-brand-300 text-xl font-bold">
+      <div className="text-white text-lg font-medium mb-1">{name}</div>
+      <div className="text-gray-400 text-sm mb-3">{desc}</div>
+      <div className="text-brand-300 text-2xl font-bold">
         {priceLabel} {price.toLocaleString()}{' '}
-        <span className="text-gray-500 text-sm font-normal">{unit}</span>
+        <span className="text-gray-500 text-base font-normal">{unit}</span>
       </div>
     </div>
   )

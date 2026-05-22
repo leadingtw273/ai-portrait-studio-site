@@ -40,11 +40,11 @@ export function Hero() {
         <Badge className="mb-6">
           {t.hero.badge}
         </Badge>
-        <h1 className="text-4xl tablet:text-6xl desktop:text-7xl font-bold text-white mb-4">
+        <h1 className="text-5xl tablet:text-7xl desktop:text-8xl font-bold text-white mb-4">
           {t.hero.title}
         </h1>
-        <p className="text-base tablet:text-lg text-gray-300 mb-2">{t.hero.subtitle}</p>
-        <p className="text-sm tablet:text-base text-gray-400 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg tablet:text-xl text-gray-300 mb-2">{t.hero.subtitle}</p>
+        <p className="text-base tablet:text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
           {t.hero.description}
         </p>
         <div className="flex flex-col mobile:flex-row items-center justify-center gap-3">
@@ -52,7 +52,7 @@ export function Hero() {
             href="#demo"
             className={cn(
               'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg',
-              'bg-brand-500 hover:bg-brand-400 text-white font-semibold',
+              'bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg',
               'transition-colors shadow-glow-md min-h-[44px]',
             )}
           >
@@ -64,7 +64,7 @@ export function Hero() {
             rel="noopener noreferrer"
             className={cn(
               'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg',
-              'border border-border-subtle text-white hover:bg-surface-hover',
+              'border border-border-subtle text-white hover:bg-surface-hover text-lg',
               'transition-colors min-h-[44px]',
             )}
           >

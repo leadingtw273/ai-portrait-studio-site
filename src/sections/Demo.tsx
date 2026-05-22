@@ -56,11 +56,11 @@ export function Demo() {
 
         {/* Tech explainer banner */}
         <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/10 shadow-glow-md">
-          <div className="flex items-center gap-2 text-white font-medium mb-2">
+          <div className="flex items-center gap-2 text-white font-medium mb-2 text-lg">
             <VideoIcon className="w-4 h-4 text-brand-300" aria-hidden="true" />
             {t.demo.techBanner.title}
           </div>
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-gray-400 text-base leading-relaxed">
             {t.demo.techBanner.description}
           </p>
         </div>

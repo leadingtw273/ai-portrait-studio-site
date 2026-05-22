@@ -23,13 +23,13 @@ export function Nav() {
       <div className="max-w-7xl mx-auto px-4 tablet:px-6 desktop:px-8 h-14 flex items-center justify-between gap-4">
         <a href="#top" className="flex items-center gap-2 text-white font-semibold">
           <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
-          <span className="text-sm tablet:text-base">{t.hero.title}</span>
+          <span className="text-base tablet:text-lg">{t.hero.title}</span>
         </a>
 
         {/* Desktop inline nav */}
         <nav
           aria-label="Desktop navigation"
-          className="hidden desktop:flex items-center gap-6 text-gray-300 text-sm"
+          className="hidden desktop:flex items-center gap-6 text-gray-300 text-base"
         >
           <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
           <a href="#demo" className="hover:text-white">{t.nav.demo}</a>
@@ -37,7 +37,7 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 text-xs">
+          <div className="flex items-center gap-1 text-sm">
             {LANGS.map((l) => (
               <button
                 key={l}
@@ -74,7 +74,7 @@ export function Nav() {
           aria-label="Mobile navigation"
           className="desktop:hidden border-t border-border-subtle bg-bg-elevated"
         >
-          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-sm">
+          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-base">
             <a
               href="#pricing"
               onClick={() => setOpen(false)}

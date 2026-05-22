@@ -9,17 +9,17 @@ export function FinalCTA() {
       <div className="max-w-3xl mx-auto">
         <div className="glow-border-gradient shadow-glow-xl">
           <div className="p-8 tablet:p-10 text-center">
-            <h3 className="text-2xl tablet:text-3xl font-bold text-white mb-3">
+            <h3 className="text-3xl tablet:text-4xl font-bold text-white mb-3">
               {t.finalCta.title}
             </h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-300 mb-6 text-lg">
               {t.finalCta.description}
             </p>
             <a
               href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold transition-colors shadow-glow-md min-h-[44px]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg transition-colors shadow-glow-md min-h-[44px]"
             >
               <Sparkles className="w-4 h-4" aria-hidden="true" />
               {t.finalCta.button}

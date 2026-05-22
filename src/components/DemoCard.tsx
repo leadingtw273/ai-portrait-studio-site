@@ -58,7 +58,7 @@ function VideoDemoCard({
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
-            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-[10px]">
+            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs">
               {durationSec} 秒
             </span>
             <button
@@ -78,8 +78,8 @@ function VideoDemoCard({
         )}
       </div>
       <div className="p-4">
-        <div className="text-white font-medium mb-1">{title}</div>
-        <div className="text-gray-400 text-sm">{desc}</div>
+        <div className="text-white font-medium mb-1 text-lg">{title}</div>
+        <div className="text-gray-400 text-base">{desc}</div>
       </div>
     </div>
   )

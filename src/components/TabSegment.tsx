@@ -40,7 +40,7 @@ export function TabSegment<T extends string>({ tabs, value, onChange, className 
             onClick={() => onChange(tab.id)}
             onKeyDown={(e) => handleKey(e, idx)}
             className={cn(
-              'inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm transition-colors',
+              'inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-base transition-colors',
               'min-h-[44px]',
               active
                 ? 'bg-brand-500 text-white shadow-glow-md'
