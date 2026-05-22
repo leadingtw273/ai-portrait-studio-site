@@ -61,60 +61,71 @@ export function AddOnsCarousel() {
   const trackTranslatePct = -(startIdx * cardWidthPct)
 
   return (
-    <div className="relative">
-      {/* 左右箭頭 */}
-      <button
-        type="button"
-        onClick={() => handleNav(-1)}
-        aria-label={t.addons.prevLabel}
-        className={cn(
-          'absolute z-10 top-1/2 -translate-y-1/2 left-0 tablet:-left-4 desktop:-left-6',
-          'w-10 h-10 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand',
-          'inline-flex items-center justify-center text-brand-300 hover:bg-brand-500/20 hover:text-white',
-          'transition-colors shadow-glow-md',
-        )}
-      >
-        <ChevronLeft className="w-5 h-5" aria-hidden="true" />
-      </button>
-      <button
-        type="button"
-        onClick={() => handleNav(1)}
-        aria-label={t.addons.nextLabel}
-        className={cn(
-          'absolute z-10 top-1/2 -translate-y-1/2 right-0 tablet:-right-4 desktop:-right-6',
-          'w-10 h-10 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand',
-          'inline-flex items-center justify-center text-brand-300 hover:bg-brand-500/20 hover:text-white',
-          'transition-colors shadow-glow-md',
-        )}
-      >
-        <ChevronRight className="w-5 h-5" aria-hidden="true" />
-      </button>
-
-      {/* Carousel track */}
-      <div className="overflow-hidden px-12 tablet:px-8 desktop:px-10">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(${trackTranslatePct}%)` }}
+    <div>
+      {/* 卡片區（含左右箭頭）— 用獨立 relative wrapper，讓箭頭 top-1/2 對的是卡片中線而非含 dots 的整體中線 */}
+      <div className="relative">
+        {/* 左右箭頭 */}
+        <button
+          type="button"
+          onClick={() => handleNav(-1)}
+          aria-label={t.addons.prevLabel}
+          className={cn(
+            'absolute z-10 top-1/2 -translate-y-1/2 left-0 tablet:-left-4 desktop:-left-6',
+            'w-10 h-10 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand',
+            'inline-flex items-center justify-center text-brand-300 hover:bg-brand-500/20 hover:text-white',
+            'transition-colors shadow-glow-md',
+          )}
         >
-          {ADDON_CARDS.map((card) => {
-            const i18nCard = t.addons.cards[card.key]
-            return (
-              <div
-                key={card.key}
-                className="shrink-0 px-2"
-                style={{ width: `${cardWidthPct}%` }}
-              >
-                <AddOnCard
-                  emoji={card.emoji}
-                  name={i18nCard.name}
-                  desc={i18nCard.desc}
-                  priceMain={i18nCard.priceMain}
-                  tagLabel={'tagLabel' in i18nCard ? i18nCard.tagLabel : undefined}
-                  tagVariant={card.tagVariant}
-                />
-              </div>
-            )
-          })}
+          <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          onClick={() => handleNav(1)}
+          aria-label={t.addons.nextLabel}
+          className={cn(
+            'absolute z-10 top-1/2 -translate-y-1/2 right-0 tablet:-right-4 desktop:-right-6',
+            'w-10 h-10 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand',
+            'inline-flex items-center justify-center text-brand-300 hover:bg-brand-500/20 hover:text-white',
+            'transition-colors shadow-glow-md',
+          )}
+        >
+          <ChevronRight className="w-5 h-5" aria-hidden="true" />
+        </button>
+
+        {/* Carousel track — 左右邊緣以 mask 漸層淡出，避免相鄰卡片被銳利切斷 */}
+        <div
+          className="overflow-hidden px-12 tablet:px-8 desktop:px-10"
+          style={{
+            WebkitMaskImage:
+              'linear-gradient(to right, transparent 0, black 48px, black calc(100% - 48px), transparent 100%)',
+            maskImage:
+              'linear-gradient(to right, transparent 0, black 48px, black calc(100% - 48px), transparent 100%)',
+          }}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(${trackTranslatePct}%)` }}
+          >
+            {ADDON_CARDS.map((card) => {
+              const i18nCard = t.addons.cards[card.key]
+              return (
+                <div
+                  key={card.key}
+                  className="shrink-0 px-2"
+                  style={{ width: `${cardWidthPct}%` }}
+                >
+                  <AddOnCard
+                    emoji={card.emoji}
+                    name={i18nCard.name}
+                    desc={i18nCard.desc}
+                    priceMain={i18nCard.priceMain}
+                    tagLabel={'tagLabel' in i18nCard ? i18nCard.tagLabel : undefined}
+                    tagVariant={card.tagVariant}
+                  />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
 

@@ -159,7 +159,7 @@ export const en: Messages = {
         desc:        'Cinematic lighting, special textures, complex scenes',
         priceMain:   'NT$ 4,800 / theme',
         priceBonus:  '',
-        tagLabel:    'Pro clients only 🔒',
+        tagLabel:    'Pro only 🔒',
       },
       rush48h: {
         name:        'Rush Delivery 48h',
