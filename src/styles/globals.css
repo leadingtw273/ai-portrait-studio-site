@@ -39,23 +39,27 @@
     border-radius: 13px;
   }
 
-  /* LoRA 箭頭流動動效 — 指示方向性（往右 / 往下） */
-  @keyframes flow-right {
-    0%, 100% { transform: translateX(-6px); opacity: 0.6; }
-    50%      { transform: translateX(6px);  opacity: 1; }
+  /* LoRA 箭頭顏色流動 — 兩個 chevron staggered opacity、模擬光點由左至右 */
+  @keyframes chevron-pulse-step-1 {
+    0%, 100% { opacity: 0.25; }
+    25%      { opacity: 1; }
+    50%, 75% { opacity: 0.25; }
   }
-  @keyframes flow-down {
-    0%, 100% { transform: translateY(-6px); opacity: 0.6; }
-    50%      { transform: translateY(6px);  opacity: 1; }
+  @keyframes chevron-pulse-step-2 {
+    0%, 100% { opacity: 0.25; }
+    25%      { opacity: 0.25; }
+    50%      { opacity: 1; }
+    75%      { opacity: 0.25; }
   }
-  .animate-flow-right { animation: flow-right 1.4s ease-in-out infinite; }
-  .animate-flow-down  { animation: flow-down  1.4s ease-in-out infinite; }
+  .animate-chev-step-1 { animation: chevron-pulse-step-1 1.4s ease-in-out infinite; }
+  .animate-chev-step-2 { animation: chevron-pulse-step-2 1.4s ease-in-out infinite; }
 
   /* 尊重 prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
-    .animate-flow-right,
-    .animate-flow-down {
+    .animate-chev-step-1,
+    .animate-chev-step-2 {
       animation: none;
+      opacity: 1;
     }
   }
 }

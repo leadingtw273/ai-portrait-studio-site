@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image as ImageIcon, Video as VideoIcon, Sparkles, ChevronsRight, ChevronsDown, Zap } from 'lucide-react'
+import { Image as ImageIcon, Video as VideoIcon, Sparkles, ChevronRight, ChevronDown, Zap } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
@@ -35,18 +35,16 @@ export function Demo() {
               role="img"
               aria-label={t.demo.loraArrowLabel}
             >
-              {/* mobile: 雙下箭頭 + 流動向下 */}
-              <ChevronsDown
-                className="tablet:hidden w-12 h-12 animate-flow-down"
-                strokeWidth={2.5}
-                aria-hidden="true"
-              />
-              {/* tablet+: 雙右箭頭 + 流動向右 */}
-              <ChevronsRight
-                className="hidden tablet:block w-12 h-12 desktop:w-14 desktop:h-14 animate-flow-right"
-                strokeWidth={2.5}
-                aria-hidden="true"
-              />
+              {/* mobile: 雙下箭頭、光點由上到下 */}
+              <div className="tablet:hidden flex flex-col items-center -gap-y-3">
+                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-4" strokeWidth={2.5} aria-hidden="true" />
+                <ChevronDown className="w-10 h-10 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
+              </div>
+              {/* tablet+: 雙右箭頭、光點由左到右 */}
+              <div className="hidden tablet:inline-flex items-center">
+                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-5" strokeWidth={2.5} aria-hidden="true" />
+                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
+              </div>
             </div>
             <div className="relative">
               <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
