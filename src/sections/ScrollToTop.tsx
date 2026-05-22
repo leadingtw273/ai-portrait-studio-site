@@ -24,13 +24,13 @@ export function ScrollToTop() {
       aria-label={t.scrollToTop.label}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className={cn(
-        'fixed right-4 bottom-4 z-40',
-        'w-11 h-11 rounded-full bg-brand-500 hover:bg-brand-400',
+        'fixed right-8 bottom-8 z-40',
+        'w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-400',
         'shadow-glow-lg transition-colors',
         'flex items-center justify-center',
       )}
     >
-      <ChevronUp className="w-5 h-5 text-white" aria-hidden="true" />
+      <ChevronUp className="w-6 h-6 text-white" aria-hidden="true" />
     </button>
   )
 }

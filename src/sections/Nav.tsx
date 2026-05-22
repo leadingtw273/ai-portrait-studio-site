@@ -31,8 +31,8 @@ export function Nav() {
           aria-label="Desktop navigation"
           className="hidden desktop:flex items-center gap-6 text-gray-300 text-base"
         >
-          <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
           <a href="#demo" className="hover:text-white">{t.nav.demo}</a>
+          <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
           <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
         </nav>
 
@@ -76,18 +76,18 @@ export function Nav() {
         >
           <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-base">
             <a
-              href="#pricing"
-              onClick={() => setOpen(false)}
-              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
-            >
-              {t.nav.plans}
-            </a>
-            <a
               href="#demo"
               onClick={() => setOpen(false)}
               className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
             >
               {t.nav.demo}
+            </a>
+            <a
+              href="#pricing"
+              onClick={() => setOpen(false)}
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+            >
+              {t.nav.plans}
             </a>
             <a
               href="#contact"
