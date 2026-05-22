@@ -28,7 +28,7 @@ export function Demo() {
         </div>
 
         {tab === 'image' ? (
-          <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-4 tablet:gap-6">
+          <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-2 tablet:gap-3">
             <DemoCard variant="image" src={loraBefore} alt={t.demo.loraBefore} />
             <div
               className="flex items-center justify-center text-brand-300"
@@ -36,13 +36,13 @@ export function Demo() {
               aria-label={t.demo.loraArrowLabel}
             >
               {/* mobile: 雙下箭頭、光點由上到下 */}
-              <div className="tablet:hidden flex flex-col items-center -gap-y-3">
-                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-4" strokeWidth={2.5} aria-hidden="true" />
+              <div className="tablet:hidden flex flex-col items-center">
+                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-6" strokeWidth={2.5} aria-hidden="true" />
                 <ChevronDown className="w-10 h-10 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
               </div>
               {/* tablet+: 雙右箭頭、光點由左到右 */}
               <div className="hidden tablet:inline-flex items-center">
-                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-5" strokeWidth={2.5} aria-hidden="true" />
+                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-7" strokeWidth={2.5} aria-hidden="true" />
                 <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
               </div>
             </div>
