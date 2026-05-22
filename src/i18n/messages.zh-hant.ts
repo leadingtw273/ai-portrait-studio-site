@@ -94,6 +94,18 @@ export const zhHant = {
       ],
     },
     priceLabel: 'NT$',
+    discovery: {
+      badge:       '試做包 / 30 天可全額折抵',
+      name:        'Discovery Pack',
+      tagline:     '第一次合作？先試試我們的成果再決定是否長期合作',
+      ctaLabel:    '立即試做',
+      deliverables: [
+        '50-55 張延伸內容',
+        '2 支圖生影短片',
+        '5 個工作日交付',
+        '30 天內升級可全額折抵',
+      ],
+    },
   },
   addons: {
     title:    '加購服務',

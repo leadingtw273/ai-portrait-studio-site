@@ -40,6 +40,9 @@ export const PLAN_PRICES: Record<PlanTier, number> = {
 }
 export const PLAN_HIGHLIGHTED: PlanTier = 'pro'  // 中卡突出「最熱門」
 
+// Discovery Pack — 試做卡（介於方案三卡與加購之間的入門包）
+export const DISCOVERY_PRICE = 3500
+
 // 加購服務
 export type AddOnKey = 'extraVideo' | 'rushDelivery' | 'extraTrainingPhotos'
 export type AddOn = { key: AddOnKey; price: number; unit: 'video' | 'order' | 'photo' }

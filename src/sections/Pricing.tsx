@@ -1,9 +1,9 @@
-import { Sparkles, Star, Crown } from 'lucide-react'
+import { Sparkles, Star, Crown, Sprout, Check } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { PlanCard } from '@/components/PlanCard'
 import { AddOnCard } from '@/components/AddOnCard'
 import { useT } from '@/i18n/useT'
-import { PLAN_PRICES, PLAN_HIGHLIGHTED, ADDONS, TELEGRAM_URL } from '@/data/content'
+import { PLAN_PRICES, PLAN_HIGHLIGHTED, ADDONS, DISCOVERY_PRICE, TELEGRAM_URL } from '@/data/content'
 
 export function Pricing() {
   const { t } = useT()
@@ -61,6 +61,58 @@ export function Pricing() {
             highlighted={PLAN_HIGHLIGHTED === 'enterprise'}
             badge={{ label: t.pricing.limited, variant: 'gold' }}
           />
+        </div>
+
+        {/* Discovery Pack — 橫向試做卡（介於方案與加購之間） */}
+        <div className="mt-12 tablet:mt-16">
+          <div className="relative rounded-2xl p-6 desktop:p-8 border border-border-brand bg-gradient-to-r from-brand-500/10 to-brand-500/5 shadow-glow-md">
+            {/* Badge — mobile 浮頂 / desktop corner-attached */}
+            <span
+              className="absolute px-3 py-1 text-sm font-semibold bg-brand-500 text-white shadow-glow-md
+                         top-[-12px] left-1/2 -translate-x-1/2 rounded-full
+                         desktop:top-0 desktop:right-0 desktop:left-auto desktop:translate-x-0
+                         desktop:rounded-tl-none desktop:rounded-br-none desktop:rounded-tr-2xl desktop:rounded-bl-2xl"
+            >
+              {t.pricing.discovery.badge}
+            </span>
+
+            <div className="flex flex-col desktop:flex-row items-center gap-6 desktop:gap-8">
+              {/* 左：icon */}
+              <span
+                aria-hidden="true"
+                className="shrink-0 inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/20 border border-border-brand"
+              >
+                <Sprout className="w-8 h-8 text-brand-300" />
+              </span>
+
+              {/* 中：內容 */}
+              <div className="flex-1 text-center desktop:text-left w-full">
+                <div className="text-xl font-medium text-white mb-1">{t.pricing.discovery.name}</div>
+                <div className="text-gray-400 text-base mb-3">{t.pricing.discovery.tagline}</div>
+                <div className="text-3xl font-bold text-white mb-3 whitespace-nowrap">
+                  {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
+                </div>
+                <ul className="grid grid-cols-1 mobile:grid-cols-2 gap-x-6 gap-y-1 text-left">
+                  {t.pricing.discovery.deliverables.map((d) => (
+                    <li key={d} className="flex items-start gap-2 text-gray-300 text-sm">
+                      <Check className="w-4 h-4 text-brand-300 mt-0.5 flex-none" aria-hidden="true" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 右：CTA */}
+              <a
+                href={TELEGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center justify-center px-6 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-base shadow-glow-md min-h-[44px] transition-colors"
+              >
+                {t.pricing.discovery.ctaLabel}
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* 加購服務 — 內嵌為 Pricing 的 sub-section */}

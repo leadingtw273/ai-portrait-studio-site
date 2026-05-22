@@ -96,6 +96,18 @@ export const zhHans: Messages = {
       ],
     },
     priceLabel: 'NT$',
+    discovery: {
+      badge:       '试做包 / 30 天可全额折抵',
+      name:        'Discovery Pack',
+      tagline:     '第一次合作？先试试我们的成果再决定是否长期合作',
+      ctaLabel:    '立即试做',
+      deliverables: [
+        '50-55 张延伸内容',
+        '2 支图生影短片',
+        '5 个工作日交付',
+        '30 天内升级可全额折抵',
+      ],
+    },
   },
   addons: {
     title:    '加购服务',

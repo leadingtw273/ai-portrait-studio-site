@@ -96,6 +96,18 @@ export const en: Messages = {
       ],
     },
     priceLabel: 'NT$',
+    discovery: {
+      badge:       'Trial pack / 100% credit within 30 days',
+      name:        'Discovery Pack',
+      tagline:     'First time? Try a sample before committing to a long-term plan.',
+      ctaLabel:    'Start Trial',
+      deliverables: [
+        '50-55 extended content pieces',
+        '2 image-to-video short clips',
+        '5 business days delivery',
+        '100% credit toward upgrades within 30 days',
+      ],
+    },
   },
   addons: {
     title:    'Add-ons',
