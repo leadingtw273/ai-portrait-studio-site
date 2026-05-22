@@ -145,7 +145,7 @@ export const en: Messages = {
         desc:        'Complete files + encryption + tutorial video',
         priceMain:   'NT$ 12,800',
         priceBonus:  '',
-        tagLabel:    'Free for first Pro engagement ⭐',
+        tagLabel:    'Free on first Pro ⭐',
       },
       strategyCall: {
         name:        'Strategy Consultation Call',
