@@ -12,7 +12,7 @@ export function Badge({ children, className }: { children: ReactNode; className?
         className,
       )}
     >
-      <Sparkles className="w-3 h-3 text-brand-300" aria-hidden="true" />
+      <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
       {children}
     </span>
   )
