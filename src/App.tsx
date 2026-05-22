@@ -78,8 +78,8 @@ export function App() {
       endTimer = setTimeout(() => {
         const vh = window.innerHeight
         const y = window.scrollY
-        // 只 snap 在 hero 80%~100% 區間（dead zone）
-        if (y > vh * 0.8 && y < vh) {
+        // 只 snap 在 hero 70%~100% 區間（dead zone）
+        if (y > vh * 0.7 && y < vh) {
           const demo = document.getElementById('demo')
           if (!demo) return
           isAutoScrolling = true
