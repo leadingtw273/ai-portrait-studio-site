@@ -38,4 +38,24 @@
     background: linear-gradient(135deg, #1A0F2F, #100820);
     border-radius: 13px;
   }
+
+  /* LoRA 箭頭流動動效 — 指示方向性（往右 / 往下） */
+  @keyframes flow-right {
+    0%, 100% { transform: translateX(-6px); opacity: 0.6; }
+    50%      { transform: translateX(6px);  opacity: 1; }
+  }
+  @keyframes flow-down {
+    0%, 100% { transform: translateY(-6px); opacity: 0.6; }
+    50%      { transform: translateY(6px);  opacity: 1; }
+  }
+  .animate-flow-right { animation: flow-right 1.4s ease-in-out infinite; }
+  .animate-flow-down  { animation: flow-down  1.4s ease-in-out infinite; }
+
+  /* 尊重 prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-flow-right,
+    .animate-flow-down {
+      animation: none;
+    }
+  }
 }

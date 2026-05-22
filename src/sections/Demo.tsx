@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image as ImageIcon, Video as VideoIcon, Sparkles, ArrowRight, Zap } from 'lucide-react'
+import { Image as ImageIcon, Video as VideoIcon, Sparkles, ChevronsRight, ChevronsDown, Zap } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
@@ -35,8 +35,15 @@ export function Demo() {
               role="img"
               aria-label={t.demo.loraArrowLabel}
             >
-              <ArrowRight
-                className="w-10 h-10 tablet:w-12 tablet:h-12 rotate-90 tablet:rotate-0"
+              {/* mobile: 雙下箭頭 + 流動向下 */}
+              <ChevronsDown
+                className="tablet:hidden w-12 h-12 animate-flow-down"
+                strokeWidth={2.5}
+                aria-hidden="true"
+              />
+              {/* tablet+: 雙右箭頭 + 流動向右 */}
+              <ChevronsRight
+                className="hidden tablet:block w-12 h-12 desktop:w-14 desktop:h-14 animate-flow-right"
                 strokeWidth={2.5}
                 aria-hidden="true"
               />
