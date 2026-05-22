@@ -76,7 +76,7 @@ export function Pricing() {
               {t.pricing.discovery.badge}
             </span>
 
-            <div className="flex flex-col tablet:flex-row tablet:items-center gap-6 tablet:gap-8 tablet:pt-2">
+            <div className="flex flex-col tablet:flex-row tablet:items-center gap-6 tablet:gap-8">
               {/* 左：icon 垂直置中 */}
               <span
                 aria-hidden="true"
@@ -94,7 +94,7 @@ export function Pricing() {
                 </div>
 
                 {/* row 1 / col 2：price（與標題副標同行、text-5xl 對齊 plan card）*/}
-                <div className="text-5xl font-bold text-white whitespace-nowrap shrink-0 text-center tablet:text-right">
+                <div className="text-5xl font-bold text-white whitespace-nowrap shrink-0 text-center tablet:text-right tablet:pt-2">
                   {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
                 </div>
 
