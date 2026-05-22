@@ -29,8 +29,8 @@ export const zhHans: Messages = {
     loraArrowLabel: 'LoRA 训练流程：原始照片转换为训练后输出',
     loraAiGeneratedTag: 'AI 生成',
     videoCard: {
-      title1: '电影级人像动态',
-      desc1:  '流畅自然的人像动态视频',
+      title1: '产品宣传短片',
+      desc1:  '品牌代言视觉：AI 人脸 × 茶园实景 × 产品手持',
       title2: '动态表情生成',
       desc2:  '逼真的微笑与表情变化',
       playLabel: '点击播放视频',

@@ -27,8 +27,8 @@ export const zhHant = {
     loraArrowLabel: 'LoRA 訓練流程：原始照片轉換為訓練後輸出',
     loraAiGeneratedTag: 'AI 生成',
     videoCard: {
-      title1: '電影級人像動態',
-      desc1:  '流暢自然的人像動態影片',
+      title1: '產品宣傳短片',
+      desc1:  '品牌代言視覺：AI 人臉 × 茶園實景 × 產品手持',
       title2: '動態表情生成',
       desc2:  '逼真的微笑與表情變化',
       playLabel: '點擊播放影片',

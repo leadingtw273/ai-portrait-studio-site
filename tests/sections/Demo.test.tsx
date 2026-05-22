@@ -28,7 +28,7 @@ describe('Demo', () => {
     render(<LanguageProvider><Demo /></LanguageProvider>)
     await userEvent.click(screen.getByRole('tab', { name: /影片人像生成/ }))
     expect(screen.getByRole('tab', { name: /影片人像生成/ })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByText('電影級人像動態')).toBeInTheDocument()
+    expect(screen.getByText('產品宣傳短片')).toBeInTheDocument()
     // banner 切換到 video 版本
     expect(screen.getByText('AI 影片人像生成')).toBeInTheDocument()
     expect(screen.getByText(/我們可以將靜態人像/)).toBeInTheDocument()

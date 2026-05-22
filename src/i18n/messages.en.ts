@@ -29,8 +29,8 @@ export const en: Messages = {
     loraArrowLabel: 'LoRA training flow: source photo transformed to trained output',
     loraAiGeneratedTag: 'AI Generated',
     videoCard: {
-      title1: 'Cinematic Portrait Motion',
-      desc1:  'Smooth, natural motion for portrait video',
+      title1: 'Product Commercial',
+      desc1:  'Brand visual: AI face × tea garden × product in hand',
       title2: 'Dynamic Expression',
       desc2:  'Realistic smiles and facial expressions',
       playLabel: 'Click to play',

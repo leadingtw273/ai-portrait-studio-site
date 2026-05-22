@@ -7,6 +7,7 @@ import { useT } from '@/i18n/useT'
 import { DEMO_VIDEOS } from '@/data/content'
 import loraBefore from '@/assets/lora-before.jpg'
 import loraAfter from '@/assets/lora-after.png'
+import teaPromo from '@/assets/tea-product-promo.mp4'
 
 type TabId = 'image' | 'video'
 
@@ -62,17 +63,16 @@ export function Demo() {
             <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
               <DemoCard
                 variant="video"
-                posterUrl={DEMO_VIDEOS[0].posterUrl}
-                youtubeId={DEMO_VIDEOS[0].youtubeId}
-                durationSec={DEMO_VIDEOS[0].durationSec}
+                source={{ type: 'mp4', src: teaPromo }}
+                durationSec="15-30"
                 title={t.demo.videoCard.title1}
                 desc={t.demo.videoCard.desc1}
                 playLabel={t.demo.videoCard.playLabel}
               />
               <DemoCard
                 variant="video"
+                source={{ type: 'youtube', id: DEMO_VIDEOS[1].youtubeId }}
                 posterUrl={DEMO_VIDEOS[1].posterUrl}
-                youtubeId={DEMO_VIDEOS[1].youtubeId}
                 durationSec={DEMO_VIDEOS[1].durationSec}
                 title={t.demo.videoCard.title2}
                 desc={t.demo.videoCard.desc2}
