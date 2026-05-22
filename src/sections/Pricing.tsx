@@ -76,30 +76,30 @@ export function Pricing() {
               {t.pricing.discovery.badge}
             </span>
 
-            <div className="flex flex-col tablet:flex-row tablet:items-start gap-6 tablet:gap-8">
-              {/* 左：icon */}
+            <div className="flex flex-col tablet:flex-row tablet:items-center gap-6 tablet:gap-8 tablet:pt-2">
+              {/* 左：icon 垂直置中 */}
               <span
                 aria-hidden="true"
-                className="shrink-0 self-center tablet:self-start inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/20 border border-border-brand"
+                className="shrink-0 self-center inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/20 border border-border-brand"
               >
                 <Sprout className="w-8 h-8 text-brand-300" />
               </span>
 
-              {/* 右側：標題列 + deliverables + CTA */}
-              <div className="flex-1 flex flex-col w-full min-w-0">
-                {/* 標題列：左 name+tagline / 右 price 同行 */}
-                <div className="flex flex-col mobile:flex-row mobile:items-start mobile:justify-between mobile:gap-4 mb-4 text-center mobile:text-left">
-                  <div className="min-w-0">
-                    <div className="text-xl font-medium text-white mb-1">{t.pricing.discovery.name}</div>
-                    <div className="text-gray-400 text-base">{t.pricing.discovery.tagline}</div>
-                  </div>
-                  <div className="text-3xl font-bold text-white whitespace-nowrap shrink-0 mt-2 mobile:mt-0">
-                    {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
-                  </div>
+              {/* 右側：grid 2x2 — 左欄(name+tagline / deliverables)、右欄(price / CTA) */}
+              <div className="flex-1 grid grid-cols-1 tablet:grid-cols-[1fr_auto] gap-y-5 gap-x-6 tablet:gap-x-12 items-start w-full min-w-0">
+                {/* row 1 / col 1：name + tagline（對齊 plan card 樣式） */}
+                <div className="text-center tablet:text-left min-w-0">
+                  <div className="text-gray-200 text-xl font-medium mb-1">{t.pricing.discovery.name}</div>
+                  <div className="text-gray-400 text-base">{t.pricing.discovery.tagline}</div>
                 </div>
 
-                {/* deliverables 2x2 grid */}
-                <ul className="grid grid-cols-1 mobile:grid-cols-2 gap-x-6 gap-y-2 mb-5 text-left">
+                {/* row 1 / col 2：price（與標題副標同行、text-5xl 對齊 plan card）*/}
+                <div className="text-5xl font-bold text-white whitespace-nowrap shrink-0 text-center tablet:text-right">
+                  {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
+                </div>
+
+                {/* row 2 / col 1：deliverables 2x2、只占左欄寬 */}
+                <ul className="grid grid-cols-1 mobile:grid-cols-2 gap-x-6 gap-y-2 text-left">
                   {t.pricing.discovery.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-2 text-gray-300 text-sm">
                       <Check className="w-4 h-4 text-brand-300 mt-0.5 flex-none" aria-hidden="true" />
@@ -108,8 +108,8 @@ export function Pricing() {
                   ))}
                 </ul>
 
-                {/* CTA：右下（mobile 全寬置中）*/}
-                <div className="flex justify-center tablet:justify-end">
+                {/* row 2 / col 2：CTA 右下（mobile 全寬置中） */}
+                <div className="flex justify-center tablet:justify-end self-end">
                   <a
                     href={TELEGRAM_URL}
                     target="_blank"
