@@ -33,8 +33,8 @@ export function AddOnCard({
         </div>
       </div>
 
-      {/* Bottom row：mobile (<tablet) 垂直 tag→price stack 避擠；tablet+ 左下 tag / 右下 price 同行 */}
-      <div className="flex flex-col items-start gap-2 tablet:flex-row tablet:items-end tablet:justify-between tablet:gap-3 mt-auto">
+      {/* Bottom row：< desktop (1024) 垂直 tag→price stack；desktop+ 左下 tag / 右下 price 同行 */}
+      <div className="flex flex-col items-start gap-2 desktop:flex-row desktop:items-end desktop:justify-between desktop:gap-3 mt-auto">
         {tagLabel && (
           <span
             className={cn(
@@ -47,7 +47,7 @@ export function AddOnCard({
             {tagLabel}
           </span>
         )}
-        <div className="text-brand-300 text-xl font-bold whitespace-nowrap self-start tablet:self-auto tablet:text-right tablet:ml-auto">
+        <div className="text-brand-300 text-xl font-bold whitespace-nowrap self-start desktop:self-auto desktop:text-right desktop:ml-auto">
           {priceMain}
         </div>
       </div>
