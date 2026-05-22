@@ -27,71 +27,74 @@ export function Demo() {
           <TabSegment tabs={tabs} value={tab} onChange={setTab} />
         </div>
 
-        {tab === 'image' ? (
-          <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-2 tablet:gap-3">
-            <DemoCard variant="image" src={loraBefore} alt={t.demo.loraBefore} />
-            <div
-              className="flex items-center justify-center text-brand-300"
-              role="img"
-              aria-label={t.demo.loraArrowLabel}
-            >
-              {/* mobile: 雙下箭頭、光點由上到下 */}
-              <div className="tablet:hidden flex flex-col items-center">
-                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-8" strokeWidth={2.5} aria-hidden="true" />
-                <ChevronDown className="w-10 h-10 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
-              </div>
-              {/* tablet+: 雙右箭頭、光點由左到右 */}
-              <div className="hidden tablet:inline-flex items-center">
-                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-9" strokeWidth={2.5} aria-hidden="true" />
-                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
-              </div>
-            </div>
-            <div className="relative">
-              <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
-              <span
-                className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand text-xs text-purple-200 shadow-glow-md"
+        {/* tab 切換時 key 變動觸發 fade-in-slide 動畫（含 grid + tech banner 同步淡入）*/}
+        <div key={tab} className="animate-fade-in-slide">
+          {tab === 'image' ? (
+            <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-2 tablet:gap-3">
+              <DemoCard variant="image" src={loraBefore} alt={t.demo.loraBefore} />
+              <div
+                className="flex items-center justify-center text-brand-300"
+                role="img"
+                aria-label={t.demo.loraArrowLabel}
               >
-                <Zap className="w-3.5 h-3.5 text-brand-300" fill="currentColor" aria-hidden="true" />
-                {t.demo.loraAiGeneratedTag}
-              </span>
+                {/* mobile: 雙下箭頭、光點由上到下 */}
+                <div className="tablet:hidden flex flex-col items-center">
+                  <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-8" strokeWidth={2.5} aria-hidden="true" />
+                  <ChevronDown className="w-10 h-10 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
+                </div>
+                {/* tablet+: 雙右箭頭、光點由左到右 */}
+                <div className="hidden tablet:inline-flex items-center">
+                  <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-9" strokeWidth={2.5} aria-hidden="true" />
+                  <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
+                </div>
+              </div>
+              <div className="relative">
+                <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
+                <span
+                  className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand text-xs text-purple-200 shadow-glow-md"
+                >
+                  <Zap className="w-3.5 h-3.5 text-brand-300" fill="currentColor" aria-hidden="true" />
+                  {t.demo.loraAiGeneratedTag}
+                </span>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
-            <DemoCard
-              variant="video"
-              posterUrl={DEMO_VIDEOS[0].posterUrl}
-              youtubeId={DEMO_VIDEOS[0].youtubeId}
-              durationSec={DEMO_VIDEOS[0].durationSec}
-              title={t.demo.videoCard.title1}
-              desc={t.demo.videoCard.desc1}
-              playLabel={t.demo.videoCard.playLabel}
-            />
-            <DemoCard
-              variant="video"
-              posterUrl={DEMO_VIDEOS[1].posterUrl}
-              youtubeId={DEMO_VIDEOS[1].youtubeId}
-              durationSec={DEMO_VIDEOS[1].durationSec}
-              title={t.demo.videoCard.title2}
-              desc={t.demo.videoCard.desc2}
-              playLabel={t.demo.videoCard.playLabel}
-            />
-          </div>
-        )}
+          ) : (
+            <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
+              <DemoCard
+                variant="video"
+                posterUrl={DEMO_VIDEOS[0].posterUrl}
+                youtubeId={DEMO_VIDEOS[0].youtubeId}
+                durationSec={DEMO_VIDEOS[0].durationSec}
+                title={t.demo.videoCard.title1}
+                desc={t.demo.videoCard.desc1}
+                playLabel={t.demo.videoCard.playLabel}
+              />
+              <DemoCard
+                variant="video"
+                posterUrl={DEMO_VIDEOS[1].posterUrl}
+                youtubeId={DEMO_VIDEOS[1].youtubeId}
+                durationSec={DEMO_VIDEOS[1].durationSec}
+                title={t.demo.videoCard.title2}
+                desc={t.demo.videoCard.desc2}
+                playLabel={t.demo.videoCard.playLabel}
+              />
+            </div>
+          )}
 
-        {/* Tech explainer banner — image / video tab 分別不同說明 */}
-        <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/10 shadow-glow-md">
-          <div className="flex items-center gap-2 text-white font-medium mb-2 text-lg">
-            {tab === 'image' ? (
-              <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
-            ) : (
-              <VideoIcon className="w-4 h-4 text-brand-300" aria-hidden="true" />
-            )}
-            {tab === 'image' ? t.demo.techBanner.image.title : t.demo.techBanner.video.title}
+          {/* Tech explainer banner — image / video tab 分別不同說明 */}
+          <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/10 shadow-glow-md">
+            <div className="flex items-center gap-2 text-white font-medium mb-2 text-lg">
+              {tab === 'image' ? (
+                <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
+              ) : (
+                <VideoIcon className="w-4 h-4 text-brand-300" aria-hidden="true" />
+              )}
+              {tab === 'image' ? t.demo.techBanner.image.title : t.demo.techBanner.video.title}
+            </div>
+            <p className="text-gray-400 text-base leading-relaxed">
+              {tab === 'image' ? t.demo.techBanner.image.description : t.demo.techBanner.video.description}
+            </p>
           </div>
-          <p className="text-gray-400 text-base leading-relaxed">
-            {tab === 'image' ? t.demo.techBanner.image.description : t.demo.techBanner.video.description}
-          </p>
         </div>
       </div>
     </section>

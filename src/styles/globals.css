@@ -54,12 +54,22 @@
   .animate-chev-step-1 { animation: chevron-pulse-step-1 1.4s ease-in-out infinite; }
   .animate-chev-step-2 { animation: chevron-pulse-step-2 1.4s ease-in-out infinite; }
 
+  /* tab 切換 — 內容淡入 + 微微滑入 */
+  @keyframes fade-in-slide {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-slide { animation: fade-in-slide 0.35s ease-out both; }
+
   /* 尊重 prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-chev-step-1,
     .animate-chev-step-2 {
       animation: none;
       opacity: 1;
+    }
+    .animate-fade-in-slide {
+      animation: none;
     }
   }
 }
