@@ -70,17 +70,24 @@ export function Hero() {
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
           className="w-10 h-10 mx-auto mt-16 animate-bounce"
           aria-label={t.hero.scrollHint}
           role="img"
         >
-          {/* 滑鼠外殼 — 灰色 */}
-          <rect x="5" y="2" width="14" height="20" rx="7" className="stroke-gray-400" />
+          {/* 滑鼠外殼 — 灰色細線 + 透明 */}
+          <rect
+            x="5"
+            y="2"
+            width="14"
+            height="20"
+            rx="7"
+            strokeWidth={1.25}
+            className="stroke-gray-400/60"
+          />
           {/* 內部滾輪 — primary 紫色 */}
-          <path d="M12 6v4" className="stroke-brand-300" />
+          <path d="M12 6v4" strokeWidth={2} className="stroke-brand-300" />
         </svg>
       </div>
     </section>
