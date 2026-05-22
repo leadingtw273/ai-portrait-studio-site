@@ -19,7 +19,7 @@ export function FinalCTA() {
               href={TELEGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg transition-colors shadow-glow-md min-h-[44px]"
+              className="inline-flex items-center gap-2 px-12 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg transition-colors shadow-glow-md min-h-[44px] min-w-[280px]"
             >
               <Sparkles className="w-4 h-4" aria-hidden="true" />
               {t.finalCta.button}
