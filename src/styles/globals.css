@@ -72,30 +72,20 @@
       animation: none;
     }
   }
+}
 
-  /* AddOnCard container query：依卡片本身寬度切 tag/price 同行 vs 換行 */
-  .addon-card {
-    container-type: inline-size;
+/* AddOnCard container query (依卡片寬度切 tag/price 排版) — plain CSS + !important
+   避免 Tailwind utility cascade 衝突 */
+.addon-card-cq {
+  container-type: inline-size;
+}
+@container (min-width: 330px) {
+  .addon-card-cq-bottom {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
   }
-  .addon-card-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
-    margin-top: auto;
-  }
-  .addon-card-price {
-    text-align: right;
-  }
-  @container (min-width: 330px) {
-    .addon-card-bottom {
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-    .addon-card-price {
-      margin-left: auto;
-    }
+  .addon-card-cq-bottom > .addon-card-cq-price {
+    margin-left: auto !important;
   }
 }

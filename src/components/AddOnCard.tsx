@@ -16,12 +16,8 @@ export function AddOnCard({
   className,
 }: Props) {
   return (
-    <div
-      className={cn(
-        'addon-card h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col',
-        className,
-      )}
-    >
+    <div className={cn('addon-card-cq h-full', className)}>
+      <div className="h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col">
       {/* icon + 標題 + 副標題 同行排列、icon 縮小 0.7×、垂直置中 */}
       <div className="flex items-center gap-4 mb-4 flex-1">
         <div className="text-[42px] leading-none shrink-0 self-center" aria-hidden="true">
@@ -33,9 +29,9 @@ export function AddOnCard({
         </div>
       </div>
 
-      {/* Bottom row：用 CSS container query 依卡片寬度切 stack / row
-          (< 340px 寬: 垂直 stack 全靠右；≥ 340px: 左下 tag / 右下 price 同行) */}
-      <div className="addon-card-bottom">
+      {/* Bottom row：依卡片寬度切 stack / row
+          (< 330px: 垂直 stack 全靠右；≥ 330px: 左下 tag / 右下 price 同行) */}
+      <div className="addon-card-cq-bottom flex flex-col items-end gap-2 mt-auto">
         {tagLabel && (
           <span
             className={cn(
@@ -48,9 +44,10 @@ export function AddOnCard({
             {tagLabel}
           </span>
         )}
-        <div className="addon-card-price text-brand-300 text-xl font-bold whitespace-nowrap">
+        <div className="addon-card-cq-price text-brand-300 text-xl font-bold whitespace-nowrap text-right">
           {priceMain}
         </div>
+      </div>
       </div>
     </div>
   )
