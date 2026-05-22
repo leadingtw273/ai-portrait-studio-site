@@ -37,12 +37,12 @@ export function Demo() {
             >
               {/* mobile: 雙下箭頭、光點由上到下 */}
               <div className="tablet:hidden flex flex-col items-center">
-                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-6" strokeWidth={2.5} aria-hidden="true" />
+                <ChevronDown className="w-10 h-10 animate-chev-step-1 -mb-8" strokeWidth={2.5} aria-hidden="true" />
                 <ChevronDown className="w-10 h-10 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
               </div>
               {/* tablet+: 雙右箭頭、光點由左到右 */}
               <div className="hidden tablet:inline-flex items-center">
-                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-7" strokeWidth={2.5} aria-hidden="true" />
+                <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-1 -mr-9" strokeWidth={2.5} aria-hidden="true" />
                 <ChevronRight className="w-12 h-12 desktop:w-14 desktop:h-14 animate-chev-step-2" strokeWidth={2.5} aria-hidden="true" />
               </div>
             </div>
