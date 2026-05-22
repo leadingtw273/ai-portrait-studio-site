@@ -27,7 +27,7 @@ export function PlanCard({
       className={cn(
         'relative rounded-2xl p-6 flex flex-col h-full',
         highlighted
-          ? 'border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg desktop:scale-105 desktop:z-10'
+          ? 'border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg desktop:scale-[1.07] desktop:z-10'
           : 'border border-border-subtle bg-surface',
         className,
       )}
