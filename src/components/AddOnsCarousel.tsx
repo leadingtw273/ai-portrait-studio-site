@@ -109,7 +109,6 @@ export function AddOnsCarousel() {
                   name={i18nCard.name}
                   desc={i18nCard.desc}
                   priceMain={i18nCard.priceMain}
-                  priceBonus={i18nCard.priceBonus || undefined}
                   tagLabel={'tagLabel' in i18nCard ? i18nCard.tagLabel : undefined}
                   tagVariant={card.tagVariant}
                 />

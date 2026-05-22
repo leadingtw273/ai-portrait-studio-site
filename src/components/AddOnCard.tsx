@@ -5,41 +5,26 @@ type Props = {
   emoji: string
   name: string
   desc: string
-  priceMain: string         // 'NT$ 1,800 / 套 (20 張變化)' or '+ 30% 費用'
-  priceBonus?: string       // '買 3 套 NT$ 4,800（省 NT$600）'
-  tagLabel?: string         // 'Pro 包月免費 ⭐' / '限 Pro 客戶 🔒'
+  priceMain: string
+  tagLabel?: string
   tagVariant?: AddOnTagVariant
   className?: string
 }
 
 export function AddOnCard({
-  emoji, name, desc, priceMain, priceBonus, tagLabel, tagVariant,
+  emoji, name, desc, priceMain, tagLabel, tagVariant,
   className,
 }: Props) {
   return (
     <div
       className={cn(
-        'relative h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col',
+        'h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col',
         className,
       )}
     >
-      {/* Tag — 右上角、variant 控色 */}
-      {tagLabel && (
-        <span
-          className={cn(
-            'absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-glow-md whitespace-nowrap',
-            tagVariant === 'pro-only'
-              ? 'bg-[#D4AF37] text-black'
-              : 'bg-brand-500 text-white',
-          )}
-        >
-          {tagLabel}
-        </span>
-      )}
-
-      {/* icon + 標題 + 副標題 同行排列 */}
-      <div className="flex items-start gap-3 mb-4 flex-1">
-        <div className="text-4xl leading-none shrink-0" aria-hidden="true">
+      {/* icon + 標題 + 副標題 同行排列、icon 大小與 name+desc 兩行高度齊 */}
+      <div className="flex items-center gap-4 mb-4 flex-1">
+        <div className="text-6xl leading-none shrink-0 self-center" aria-hidden="true">
           {emoji}
         </div>
         <div className="flex-1 min-w-0">
@@ -48,12 +33,25 @@ export function AddOnCard({
         </div>
       </div>
 
-      {/* Price 區（push to bottom）*/}
-      <div className="mt-auto">
-        <div className="text-brand-300 text-xl font-bold whitespace-nowrap">{priceMain}</div>
-        {priceBonus && (
-          <div className="text-gray-400 text-xs mt-1">{priceBonus}</div>
+      {/* Bottom row：左下 tag (optional) + 右下 price */}
+      <div className="flex items-end justify-between gap-3 mt-auto">
+        {tagLabel ? (
+          <span
+            className={cn(
+              'px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-glow-md whitespace-nowrap',
+              tagVariant === 'pro-only'
+                ? 'bg-[#D4AF37] text-black'
+                : 'bg-brand-500 text-white',
+            )}
+          >
+            {tagLabel}
+          </span>
+        ) : (
+          <span aria-hidden="true" />
         )}
+        <div className="text-brand-300 text-xl font-bold whitespace-nowrap text-right">
+          {priceMain}
+        </div>
       </div>
     </div>
   )
