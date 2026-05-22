@@ -12,7 +12,7 @@ export const zhHans: Messages = {
     subtitle:     '专业的 AI 人像生成与视频制作服务',
     description:  '透过先进的 LoRA 训练技术与 AI 视频生成，为您打造独一无二的数位人像作品',
     ctaPrimary:   '查看作品展示',
-    ctaSecondary: '立即咨询',
+    ctaSecondary: '方案咨询',
     scrollHint:   '向下滚动探索',
   },
   demo: {

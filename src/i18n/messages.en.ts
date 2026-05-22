@@ -12,7 +12,7 @@ export const en: Messages = {
     subtitle:     'Professional AI portrait generation & video production',
     description:  'Custom LoRA training and AI video generation, crafted to create a one-of-a-kind digital persona for you',
     ctaPrimary:   'View Showcase',
-    ctaSecondary: 'Contact Us',
+    ctaSecondary: 'View Plans',
     scrollHint:   'Scroll to explore',
   },
   demo: {

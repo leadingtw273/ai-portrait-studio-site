@@ -10,7 +10,7 @@ export const zhHant = {
     subtitle:     '專業的 AI 人像生成與影片製作服務',
     description:  '透過先進的 LoRA 訓練技術與 AI 影片生成，為您打造獨一無二的數位人像作品',
     ctaPrimary:   '查看作品展示',
-    ctaSecondary: '立即諮詢',
+    ctaSecondary: '方案諮詢',
     scrollHint:   '向下滾動探索',
   },
   demo: {
