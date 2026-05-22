@@ -43,11 +43,36 @@ export const PLAN_HIGHLIGHTED: PlanTier = 'pro'  // 中卡突出「最熱門」
 // Discovery Pack — 試做卡（介於方案三卡與加購之間的入門包）
 export const DISCOVERY_PRICE = 3500
 
-// 加購服務
-export type AddOnKey = 'extraVideo' | 'rushDelivery' | 'extraTrainingPhotos'
-export type AddOn = { key: AddOnKey; price: number; unit: 'video' | 'order' | 'photo' }
-export const ADDONS: AddOn[] = [
-  { key: 'extraVideo',           price: 500, unit: 'video' },
-  { key: 'rushDelivery',         price: 800, unit: 'order' },
-  { key: 'extraTrainingPhotos',  price: 15,  unit: 'photo' },
+// 加購服務 — 9 張卡 carousel
+export type AddOnKey =
+  | 'extraOutfit'
+  | 'extraScene'
+  | 'styleTransfer'
+  | 'loraRetrain'
+  | 'loraHandover'
+  | 'strategyCall'
+  | 'advancedStyle'
+  | 'rush48h'
+  | 'rush24h'
+
+// pro-free: 紫色 ⭐ 「Pro 包月/首次/每月免費 N 次」
+// pro-only: 金色 🔒 「限 Pro 客戶」
+export type AddOnTagVariant = 'pro-free' | 'pro-only'
+
+export type AddOnCardData = {
+  key: AddOnKey
+  emoji: string
+  tagVariant?: AddOnTagVariant
+}
+
+export const ADDON_CARDS: AddOnCardData[] = [
+  { key: 'extraOutfit',    emoji: '👗' },
+  { key: 'extraScene',     emoji: '🏞' },
+  { key: 'styleTransfer',  emoji: '🎨' },
+  { key: 'loraRetrain',    emoji: '🔄', tagVariant: 'pro-free' },
+  { key: 'loraHandover',   emoji: '📦', tagVariant: 'pro-free' },
+  { key: 'strategyCall',   emoji: '💬', tagVariant: 'pro-free' },
+  { key: 'advancedStyle',  emoji: '🎬', tagVariant: 'pro-only' },
+  { key: 'rush48h',        emoji: '⚡', tagVariant: 'pro-free' },
+  { key: 'rush24h',        emoji: '🔥', tagVariant: 'pro-free' },
 ]

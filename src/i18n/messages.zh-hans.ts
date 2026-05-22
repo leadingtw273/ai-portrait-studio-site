@@ -112,20 +112,69 @@ export const zhHans: Messages = {
   addons: {
     title:    '加购服务',
     subtitle: '根据您的需求，灵活地增加额外服务',
-    extraVideo: {
-      name: '额外 AI 视频',
-      desc: '3-5 秒高品质人像动态视频',
-      unit: '/ 支',
-    },
-    rushDelivery: {
-      name: '加速交付',
-      desc: '缩短至 6 小时内完成',
-      unit: '/ 次',
-    },
-    extraTrainingPhotos: {
-      name: '额外训练照片',
-      desc: '在现有方案基础上增加照片数量',
-      unit: '/ 张',
+    prevLabel: '上一张',
+    nextLabel: '下一张',
+    cards: {
+      extraOutfit: {
+        name:        '额外服装包',
+        desc:        '新增服装，沿用既有 LoRA 延伸',
+        priceMain:   'NT$ 1,800 / 套 (20 张变化)',
+        priceBonus:  '买 3 套 NT$ 4,800（省 NT$600）',
+      },
+      extraScene: {
+        name:        '额外场景包',
+        desc:        '新增场景，沿用既有 LoRA 延伸',
+        priceMain:   'NT$ 2,400 / 场景 (25 张变化)',
+        priceBonus:  '买 3 场景 NT$ 6,300（省 NT$900）',
+      },
+      styleTransfer: {
+        name:        '风格迁移试水',
+        desc:        '把现有素材转成新美学（动漫风、油画风、赛博朋克等）',
+        priceMain:   'NT$ 2,800 / 风格 (20 张试水)',
+        priceBonus:  '',
+      },
+      loraRetrain: {
+        name:        'LoRA 季度重训',
+        desc:        '用新素材升级 LoRA，维持质感',
+        priceMain:   'NT$ 4,800',
+        priceBonus:  '',
+        tagLabel:    'Pro 包月免费 ⭐',
+      },
+      loraHandover: {
+        name:        'LoRA 完整档案移交',
+        desc:        '完整档案 + 加密 + 教学视频',
+        priceMain:   'NT$ 12,800',
+        priceBonus:  '',
+        tagLabel:    'Pro 首次合作免费 ⭐',
+      },
+      strategyCall: {
+        name:        '策略咨询通话',
+        desc:        '1 小时，平台策略 / 定价 / 内容规划',
+        priceMain:   'NT$ 2,800',
+        priceBonus:  '',
+        tagLabel:    'Pro 包月免费 ⭐',
+      },
+      advancedStyle: {
+        name:        '进阶风格内容',
+        desc:        '电影感光影、特殊质感、复杂场景（如雨夜霓虹、底片质感）',
+        priceMain:   'NT$ 4,800 / 主题 (20 张)',
+        priceBonus:  '',
+        tagLabel:    '限 Pro 客户 🔒',
+      },
+      rush48h: {
+        name:        '急件加成 (48 小时内)',
+        desc:        '缩短至 48 小时内交付',
+        priceMain:   '+ 30% 费用',
+        priceBonus:  '',
+        tagLabel:    'Pro 每月免费 2 次 ⭐',
+      },
+      rush24h: {
+        name:        '急件加成 (24 小时内)',
+        desc:        '缩短至 24 小时内交付',
+        priceMain:   '+ 60% 费用',
+        priceBonus:  '',
+        tagLabel:    'Pro 每月免费 1 次 ⭐',
+      },
     },
   },
   finalCta: {

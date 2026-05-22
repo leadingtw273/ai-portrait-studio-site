@@ -14,7 +14,8 @@ describe('Pricing', () => {
     expect(screen.getByText('Mini Launch')).toBeInTheDocument()
     expect(screen.getByText('Standard Launch')).toBeInTheDocument()
     expect(screen.getByText('Pro Launch')).toBeInTheDocument()
-    expect(screen.getByText(/12,800/)).toBeInTheDocument()
+    // 12,800 同時出現於 Mini Launch (plan) 與 AddOn loraHandover — 用 getAllByText
+    expect(screen.getAllByText(/12,800/).length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText(/78,800/)).toBeInTheDocument()
     expect(screen.getByText(/168,800/)).toBeInTheDocument()
     // 兩張 ctaInquiry (basic + pro) + 一張 enterprise ctaLabel (預約 Pro 諮詢) = 3 ctas

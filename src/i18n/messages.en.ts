@@ -112,20 +112,69 @@ export const en: Messages = {
   addons: {
     title:    'Add-ons',
     subtitle: 'Flexibly add extra services based on your needs',
-    extraVideo: {
-      name: 'Extra AI Video',
-      desc: '3-5 sec high-quality portrait motion video',
-      unit: '/ video',
-    },
-    rushDelivery: {
-      name: 'Rush Delivery',
-      desc: 'Shortened to 6-hour turnaround',
-      unit: '/ order',
-    },
-    extraTrainingPhotos: {
-      name: 'Extra Training Photos',
-      desc: 'Add more photos to your existing plan',
-      unit: '/ photo',
+    prevLabel: 'Previous',
+    nextLabel: 'Next',
+    cards: {
+      extraOutfit: {
+        name:        'Extra Outfit Pack',
+        desc:        'Add new outfits using your existing LoRA',
+        priceMain:   'NT$ 1,800 / set (20 variations)',
+        priceBonus:  '3 sets for NT$ 4,800 (save NT$ 600)',
+      },
+      extraScene: {
+        name:        'Extra Scene Pack',
+        desc:        'Add new scenes using your existing LoRA',
+        priceMain:   'NT$ 2,400 / scene (25 variations)',
+        priceBonus:  '3 scenes for NT$ 6,300 (save NT$ 900)',
+      },
+      styleTransfer: {
+        name:        'Style Transfer Trial',
+        desc:        'Convert existing content to new aesthetics (anime, oil painting, cyberpunk, etc.)',
+        priceMain:   'NT$ 2,800 / style (20-piece trial)',
+        priceBonus:  '',
+      },
+      loraRetrain: {
+        name:        'Quarterly LoRA Retrain',
+        desc:        'Upgrade LoRA with new source material, maintain quality',
+        priceMain:   'NT$ 4,800',
+        priceBonus:  '',
+        tagLabel:    'Free for Pro monthly ⭐',
+      },
+      loraHandover: {
+        name:        'LoRA Full Handover',
+        desc:        'Complete files + encryption + tutorial video',
+        priceMain:   'NT$ 12,800',
+        priceBonus:  '',
+        tagLabel:    'Free for first Pro engagement ⭐',
+      },
+      strategyCall: {
+        name:        'Strategy Consultation Call',
+        desc:        '1-hour session: platform strategy / pricing / content planning',
+        priceMain:   'NT$ 2,800',
+        priceBonus:  '',
+        tagLabel:    'Free for Pro monthly ⭐',
+      },
+      advancedStyle: {
+        name:        'Advanced Style Content',
+        desc:        'Cinematic lighting, special textures, complex scenes (e.g. neon rain, film texture)',
+        priceMain:   'NT$ 4,800 / theme (20 pieces)',
+        priceBonus:  '',
+        tagLabel:    'Pro clients only 🔒',
+      },
+      rush48h: {
+        name:        'Rush Delivery (48h)',
+        desc:        'Shortened to within 48 hours',
+        priceMain:   '+ 30% fee',
+        priceBonus:  '',
+        tagLabel:    'Free 2x / month for Pro ⭐',
+      },
+      rush24h: {
+        name:        'Rush Delivery (24h)',
+        desc:        'Shortened to within 24 hours',
+        priceMain:   '+ 60% fee',
+        priceBonus:  '',
+        tagLabel:    'Free 1x / month for Pro ⭐',
+      },
     },
   },
   finalCta: {

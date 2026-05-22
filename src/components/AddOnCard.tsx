@@ -1,27 +1,59 @@
 import { cn } from '@/lib/cn'
+import type { AddOnTagVariant } from '@/data/content'
 
 type Props = {
+  emoji: string
   name: string
   desc: string
-  price: number
-  unit: string
-  priceLabel?: string
+  priceMain: string         // 'NT$ 1,800 / 套 (20 張變化)' or '+ 30% 費用'
+  priceBonus?: string       // '買 3 套 NT$ 4,800（省 NT$600）'
+  tagLabel?: string         // 'Pro 包月免費 ⭐' / '限 Pro 客戶 🔒'
+  tagVariant?: AddOnTagVariant
   className?: string
 }
 
-export function AddOnCard({ name, desc, price, unit, priceLabel = 'NT$', className }: Props) {
+export function AddOnCard({
+  emoji, name, desc, priceMain, priceBonus, tagLabel, tagVariant,
+  className,
+}: Props) {
   return (
     <div
       className={cn(
-        'rounded-2xl p-5 border border-border-subtle bg-surface',
+        'relative h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col',
         className,
       )}
     >
+      {/* Tag — 右上角、variant 控色 */}
+      {tagLabel && (
+        <span
+          className={cn(
+            'absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-glow-md whitespace-nowrap',
+            tagVariant === 'pro-only'
+              ? 'bg-[#D4AF37] text-black'
+              : 'bg-brand-500 text-white',
+          )}
+        >
+          {tagLabel}
+        </span>
+      )}
+
+      {/* Emoji icon */}
+      <div className="text-4xl mb-3 leading-none" aria-hidden="true">
+        {emoji}
+      </div>
+
+      {/* Name */}
       <div className="text-white text-lg font-medium mb-1">{name}</div>
-      <div className="text-gray-400 text-sm mb-3">{desc}</div>
-      <div className="text-brand-300 text-2xl font-bold">
-        {priceLabel} {price.toLocaleString()}{' '}
-        <span className="text-gray-500 text-base font-normal">{unit}</span>
+
+      {/* Description */}
+      <div className="text-gray-400 text-sm mb-4 leading-relaxed flex-1">{desc}</div>
+
+      {/* Price */}
+      <div>
+        <div className="text-brand-300 text-xl font-bold whitespace-nowrap">{priceMain}</div>
+        {priceBonus && (
+          <div className="text-gray-400 text-xs mt-1">{priceBonus}</div>
+        )}
       </div>
     </div>
   )

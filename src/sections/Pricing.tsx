@@ -1,19 +1,12 @@
 import { Sparkles, Star, Crown, Sprout, Check } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { PlanCard } from '@/components/PlanCard'
-import { AddOnCard } from '@/components/AddOnCard'
+import { AddOnsCarousel } from '@/components/AddOnsCarousel'
 import { useT } from '@/i18n/useT'
-import { PLAN_PRICES, PLAN_HIGHLIGHTED, ADDONS, DISCOVERY_PRICE, TELEGRAM_URL } from '@/data/content'
+import { PLAN_PRICES, PLAN_HIGHLIGHTED, DISCOVERY_PRICE, TELEGRAM_URL } from '@/data/content'
 
 export function Pricing() {
   const { t } = useT()
-
-  // 加購服務 i18n bundle map
-  const addonI18nByKey = {
-    extraVideo: t.addons.extraVideo,
-    rushDelivery: t.addons.rushDelivery,
-    extraTrainingPhotos: t.addons.extraTrainingPhotos,
-  } as const
 
   return (
     <section
@@ -124,27 +117,13 @@ export function Pricing() {
           </div>
         </div>
 
-        {/* 加購服務 — 內嵌為 Pricing 的 sub-section */}
+        {/* 加購服務 — Carousel (9 卡、autoplay + 左右切換) */}
         <div className="mt-12 tablet:mt-16">
           <div className="text-center mb-6">
             <h3 className="text-xl tablet:text-2xl font-semibold text-white mb-2">{t.addons.title}</h3>
             <p className="text-gray-400 text-base">{t.addons.subtitle}</p>
           </div>
-          <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-4">
-            {ADDONS.map((a) => {
-              const i = addonI18nByKey[a.key]
-              return (
-                <AddOnCard
-                  key={a.key}
-                  name={i.name}
-                  desc={i.desc}
-                  price={a.price}
-                  unit={i.unit}
-                  priceLabel={t.pricing.priceLabel}
-                />
-              )
-            })}
-          </div>
+          <AddOnsCarousel />
         </div>
       </div>
     </section>
