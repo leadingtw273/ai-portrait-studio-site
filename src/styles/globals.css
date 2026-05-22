@@ -87,7 +87,7 @@
   .addon-card-price {
     text-align: right;
   }
-  @container (min-width: 340px) {
+  @container (min-width: 330px) {
     .addon-card-bottom {
       flex-direction: row;
       align-items: flex-end;
