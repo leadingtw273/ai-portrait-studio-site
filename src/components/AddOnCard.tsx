@@ -22,9 +22,9 @@ export function AddOnCard({
         className,
       )}
     >
-      {/* icon + 標題 + 副標題 同行排列、icon 大小與 name+desc 兩行高度齊 */}
+      {/* icon + 標題 + 副標題 同行排列、icon 縮小 0.7×、垂直置中 */}
       <div className="flex items-center gap-4 mb-4 flex-1">
-        <div className="text-6xl leading-none shrink-0 self-center" aria-hidden="true">
+        <div className="text-[42px] leading-none shrink-0 self-center" aria-hidden="true">
           {emoji}
         </div>
         <div className="flex-1 min-w-0">
