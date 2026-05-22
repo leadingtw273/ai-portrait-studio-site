@@ -76,23 +76,30 @@ export function Pricing() {
               {t.pricing.discovery.badge}
             </span>
 
-            <div className="flex flex-col desktop:flex-row items-center gap-6 desktop:gap-8">
+            <div className="flex flex-col tablet:flex-row tablet:items-start gap-6 tablet:gap-8">
               {/* 左：icon */}
               <span
                 aria-hidden="true"
-                className="shrink-0 inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/20 border border-border-brand"
+                className="shrink-0 self-center tablet:self-start inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/20 border border-border-brand"
               >
                 <Sprout className="w-8 h-8 text-brand-300" />
               </span>
 
-              {/* 中：內容 */}
-              <div className="flex-1 text-center desktop:text-left w-full">
-                <div className="text-xl font-medium text-white mb-1">{t.pricing.discovery.name}</div>
-                <div className="text-gray-400 text-base mb-3">{t.pricing.discovery.tagline}</div>
-                <div className="text-3xl font-bold text-white mb-3 whitespace-nowrap">
-                  {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
+              {/* 右側：標題列 + deliverables + CTA */}
+              <div className="flex-1 flex flex-col w-full min-w-0">
+                {/* 標題列：左 name+tagline / 右 price 同行 */}
+                <div className="flex flex-col mobile:flex-row mobile:items-start mobile:justify-between mobile:gap-4 mb-4 text-center mobile:text-left">
+                  <div className="min-w-0">
+                    <div className="text-xl font-medium text-white mb-1">{t.pricing.discovery.name}</div>
+                    <div className="text-gray-400 text-base">{t.pricing.discovery.tagline}</div>
+                  </div>
+                  <div className="text-3xl font-bold text-white whitespace-nowrap shrink-0 mt-2 mobile:mt-0">
+                    {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
+                  </div>
                 </div>
-                <ul className="grid grid-cols-1 mobile:grid-cols-2 gap-x-6 gap-y-1 text-left">
+
+                {/* deliverables 2x2 grid */}
+                <ul className="grid grid-cols-1 mobile:grid-cols-2 gap-x-6 gap-y-2 mb-5 text-left">
                   {t.pricing.discovery.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-2 text-gray-300 text-sm">
                       <Check className="w-4 h-4 text-brand-300 mt-0.5 flex-none" aria-hidden="true" />
@@ -100,17 +107,19 @@ export function Pricing() {
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              {/* 右：CTA */}
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 inline-flex items-center justify-center px-6 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-base shadow-glow-md min-h-[44px] transition-colors"
-              >
-                {t.pricing.discovery.ctaLabel}
-              </a>
+                {/* CTA：右下（mobile 全寬置中）*/}
+                <div className="flex justify-center tablet:justify-end">
+                  <a
+                    href={TELEGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-10 py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-semibold text-base shadow-glow-md min-h-[44px] min-w-[200px] tablet:min-w-[240px] transition-colors"
+                  >
+                    {t.pricing.discovery.ctaLabel}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
