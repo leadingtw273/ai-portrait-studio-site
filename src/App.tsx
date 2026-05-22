@@ -58,6 +58,47 @@ export function App() {
     })
   }, [])
 
+  // Hero dead-zone snap：當使用者 scroll 停在 hero 80%~100% 區間（剩 20%
+  // 內），自動平滑 snap 到 #demo，避免 hero 與 demo 之間因 layout 留白
+  // 而停在尷尬位置。用 scroll-end debounce 150ms 避免干擾正在快速滾動的
+  // 使用者；prefers-reduced-motion: reduce 則不觸發。
+  useEffect(() => {
+    // jsdom 不支援 matchMedia、加 guard 避免 test 環境炸
+    if (typeof window.matchMedia === 'function') {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    }
+
+    let endTimer: ReturnType<typeof setTimeout> | undefined
+    let isAutoScrolling = false
+    let releaseTimer: ReturnType<typeof setTimeout> | undefined
+
+    const onScroll = () => {
+      if (isAutoScrolling) return
+      if (endTimer) clearTimeout(endTimer)
+      endTimer = setTimeout(() => {
+        const vh = window.innerHeight
+        const y = window.scrollY
+        // 只 snap 在 hero 80%~100% 區間（dead zone）
+        if (y > vh * 0.8 && y < vh) {
+          const demo = document.getElementById('demo')
+          if (!demo) return
+          isAutoScrolling = true
+          demo.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          // 等 smooth scroll 完成後解鎖（~800ms）
+          releaseTimer = setTimeout(() => {
+            isAutoScrolling = false
+          }, 800)
+        }
+      }, 150)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (endTimer) clearTimeout(endTimer)
+      if (releaseTimer) clearTimeout(releaseTimer)
+    }
+  }, [])
+
   const blur = progress * MAX_BLUR_PX
   const bgOpacity = BASE_BG_OPACITY + progress * MAX_EXTRA_BG_OPACITY
 
