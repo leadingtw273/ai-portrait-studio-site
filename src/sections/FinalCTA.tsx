@@ -6,7 +6,7 @@ export function FinalCTA() {
   const { t } = useT()
   return (
     <section id="contact" className="px-4 py-12 tablet:py-16">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="glow-border-gradient shadow-glow-xl">
           <div className="p-8 tablet:p-10 text-center">
             <h3 className="text-3xl tablet:text-4xl font-bold text-white mb-3">
