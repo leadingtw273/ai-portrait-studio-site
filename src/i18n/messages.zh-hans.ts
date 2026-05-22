@@ -27,6 +27,7 @@ export const zhHans: Messages = {
     loraBefore: '训练前：原始照片',
     loraAfter: '训练后：LoRA 生成范例',
     loraArrowLabel: 'LoRA 训练流程：原始照片转换为训练后输出',
+    loraAiGeneratedTag: 'AI 生成',
     videoCard: {
       title1: '电影级人像动态',
       desc1:  '流畅自然的人像动态视频',

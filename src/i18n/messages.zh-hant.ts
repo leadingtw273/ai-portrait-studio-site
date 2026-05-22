@@ -25,6 +25,7 @@ export const zhHant = {
     loraBefore: '訓練前：原始照片',
     loraAfter: '訓練後：LoRA 生成範例',
     loraArrowLabel: 'LoRA 訓練流程：原始照片轉換為訓練後輸出',
+    loraAiGeneratedTag: 'AI 生成',
     videoCard: {
       title1: '電影級人像動態',
       desc1:  '流暢自然的人像動態影片',

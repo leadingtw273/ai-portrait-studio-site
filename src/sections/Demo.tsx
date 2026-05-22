@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image as ImageIcon, Video as VideoIcon, Sparkles, ArrowRight } from 'lucide-react'
+import { Image as ImageIcon, Video as VideoIcon, Sparkles, ArrowRight, Zap } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
@@ -41,7 +41,15 @@ export function Demo() {
                 aria-hidden="true"
               />
             </div>
-            <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
+            <div className="relative">
+              <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
+              <span
+                className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand text-xs text-purple-200 shadow-glow-md"
+              >
+                <Zap className="w-3.5 h-3.5 text-brand-300" fill="currentColor" aria-hidden="true" />
+                {t.demo.loraAiGeneratedTag}
+              </span>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">

@@ -27,6 +27,7 @@ export const en: Messages = {
     loraBefore: 'Before: source photo',
     loraAfter: 'After: LoRA-generated samples',
     loraArrowLabel: 'LoRA training flow: source photo transformed to trained output',
+    loraAiGeneratedTag: 'AI Generated',
     videoCard: {
       title1: 'Cinematic Portrait Motion',
       desc1:  'Smooth, natural motion for portrait video',
