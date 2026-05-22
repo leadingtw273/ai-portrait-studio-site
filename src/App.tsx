@@ -70,11 +70,20 @@ export function App() {
     let endTimer: ReturnType<typeof setTimeout> | undefined
     let isAutoScrolling = false
     let releaseTimer: ReturnType<typeof setTimeout> | undefined
+    let lastY = window.scrollY
+    let lastDirection: 'up' | 'down' = 'down'
 
     const onScroll = () => {
       if (isAutoScrolling) return
+      const currentY = window.scrollY
+      if (currentY !== lastY) {
+        lastDirection = currentY > lastY ? 'down' : 'up'
+        lastY = currentY
+      }
       if (endTimer) clearTimeout(endTimer)
       endTimer = setTimeout(() => {
+        // 只在「下滑」時 snap、上滑（從 demo 回 hero）不打擾
+        if (lastDirection !== 'down') return
         const vh = window.innerHeight
         const y = window.scrollY
         // 只 snap 在 hero 70%~100% 區間（dead zone）
