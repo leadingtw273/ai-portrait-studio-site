@@ -20,7 +20,7 @@ export const zhHans: Messages = {
     title:    'AI 生成作品范例',
     subtitle: '透过先进的 AI 技术，为您打造专业级的人像作品',
     tabs: {
-      image: '图片人像生成',
+      image: 'LoRA 人像训练',
       video: '视频人像生成',
     },
     imageCardAlt: 'AI 生成人像示意图',
@@ -32,8 +32,14 @@ export const zhHans: Messages = {
       playLabel: '点击播放视频',
     },
     techBanner: {
-      title:      'AI 视频人像生成',
-      description: '透过先进的 AI 视频生成技术，我们可以将静态人像转换为流畅自然的动态视频。无论是微笑、眨眼、转头等动作，都能以电影级的品质呈现，适合用于社群媒体、数位分身、虚拟主播等多场景应用。',
+      image: {
+        title:       '什么是 LoRA 训练？',
+        description: 'LoRA（Low-Rank Adaptation）是一种高效的 AI 模型微调技术。我们使用您提供的照片进行专属训练，让 AI 学习您的独特面部特征、表情和风格。训练完成后，即可生成各种场景、风格和姿态的专业人像照片，且都保持您的真实特征。',
+      },
+      video: {
+        title:       'AI 视频人像生成',
+        description: '透过先进的 AI 视频生成技术，我们可以将静态人像转换为流畅自然的动态视频。无论是微笑、眨眼、转头等动作，都能以电影级的品质呈现，适合用于社群媒体、数位分身、虚拟主播等多场景应用。',
+      },
     },
     pricingCta: '精选方案',
   },
