@@ -10,10 +10,12 @@ describe('Demo', () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
   })
 
-  it('defaults to image tab (LoRA 人像訓練) — image grid visible, video hidden', () => {
+  it('defaults to image tab (LoRA 人像訓練) — before/after layout visible', () => {
     render(<LanguageProvider><Demo /></LanguageProvider>)
     expect(screen.getByRole('tab', { name: /LoRA 人像訓練/ })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getAllByAltText(/AI 生成人像示意圖/).length).toBeGreaterThan(0)
+    expect(screen.getByAltText(/訓練前/)).toBeInTheDocument()
+    expect(screen.getByAltText(/訓練後/)).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /LoRA 訓練流程/ })).toBeInTheDocument()
   })
 
   it('renders LoRA tech banner on image tab', () => {

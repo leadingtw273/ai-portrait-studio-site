@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Image as ImageIcon, Video as VideoIcon, Sparkles } from 'lucide-react'
+import { Image as ImageIcon, Video as VideoIcon, Sparkles, ArrowRight } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
 import { useT } from '@/i18n/useT'
-import { DEMO_IMAGES, DEMO_VIDEOS } from '@/data/content'
+import { DEMO_VIDEOS } from '@/data/content'
+import loraBefore from '@/assets/lora-before.jpg'
+import loraAfter from '@/assets/lora-after.png'
 
 type TabId = 'image' | 'video'
 
@@ -26,10 +28,20 @@ export function Demo() {
         </div>
 
         {tab === 'image' ? (
-          <div className="grid grid-cols-1 mobile:grid-cols-2 desktop:grid-cols-3 gap-4">
-            {DEMO_IMAGES.map((img, i) => (
-              <DemoCard key={i} variant="image" src={img.src} alt={t.demo.imageCardAlt} />
-            ))}
+          <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-4 tablet:gap-6">
+            <DemoCard variant="image" src={loraBefore} alt={t.demo.loraBefore} />
+            <div
+              className="flex items-center justify-center text-brand-300"
+              role="img"
+              aria-label={t.demo.loraArrowLabel}
+            >
+              <ArrowRight
+                className="w-10 h-10 tablet:w-12 tablet:h-12 rotate-90 tablet:rotate-0"
+                strokeWidth={2.5}
+                aria-hidden="true"
+              />
+            </div>
+            <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
           </div>
         ) : (
           <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">

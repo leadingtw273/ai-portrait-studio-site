@@ -24,6 +24,9 @@ export const zhHans: Messages = {
       video: '视频人像生成',
     },
     imageCardAlt: 'AI 生成人像示意图',
+    loraBefore: '训练前：原始照片',
+    loraAfter: '训练后：LoRA 生成范例',
+    loraArrowLabel: 'LoRA 训练流程：原始照片转换为训练后输出',
     videoCard: {
       title1: '电影级人像动态',
       desc1:  '流畅自然的人像动态视频',
