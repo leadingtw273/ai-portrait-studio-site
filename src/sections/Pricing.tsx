@@ -24,7 +24,7 @@ export function Pricing() {
         <SectionHeader badge={t.pricing.badge} title={t.pricing.title} subtitle={t.pricing.subtitle} />
 
         {/* Pricing 三卡 */}
-        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8 mt-16 desktop:items-stretch">
+        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8 mt-16 tablet:max-w-lg tablet:mx-auto desktop:max-w-none desktop:items-stretch">
           <PlanCard
             name={t.pricing.basic.name}
             icon={<Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />}

@@ -79,7 +79,7 @@ export function PlanCard({
           'transition-colors',
           highlighted
             ? 'bg-brand-500 text-white hover:bg-brand-400'
-            : 'border border-border-subtle text-gray-200 hover:bg-surface-hover',
+            : 'border border-border-brand text-gray-200 hover:bg-surface-hover',
         )}
       >
         {ctaLabel}
