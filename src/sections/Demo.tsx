@@ -64,7 +64,7 @@ export function Demo() {
               <DemoCard
                 variant="video"
                 source={{ type: 'mp4', src: teaPromo }}
-                durationSec="15-30"
+                durationSec="10"
                 title={t.demo.videoCard.title1}
                 desc={t.demo.videoCard.desc1}
                 playLabel={t.demo.videoCard.playLabel}
