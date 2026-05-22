@@ -1,3 +1,4 @@
+import { Sparkles, Star, Crown } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { PlanCard } from '@/components/PlanCard'
 import { AddOnCard } from '@/components/AddOnCard'
@@ -23,9 +24,10 @@ export function Pricing() {
         <SectionHeader badge={t.pricing.badge} title={t.pricing.title} subtitle={t.pricing.subtitle} />
 
         {/* Pricing 三卡 */}
-        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8 mt-10">
+        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8 mt-10 desktop:items-stretch">
           <PlanCard
             name={t.pricing.basic.name}
+            icon={<Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />}
             tagline={t.pricing.basic.tagline}
             price={PLAN_PRICES.basic}
             priceLabel={t.pricing.priceLabel}
@@ -37,6 +39,7 @@ export function Pricing() {
           />
           <PlanCard
             name={t.pricing.pro.name}
+            icon={<Star className="w-4 h-4 text-brand-300" fill="currentColor" aria-hidden="true" />}
             tagline={t.pricing.pro.tagline}
             price={PLAN_PRICES.pro}
             priceLabel={t.pricing.priceLabel}
@@ -48,6 +51,7 @@ export function Pricing() {
           />
           <PlanCard
             name={t.pricing.enterprise.name}
+            icon={<Crown className="w-4 h-4 text-brand-300" aria-hidden="true" />}
             tagline={t.pricing.enterprise.tagline}
             price={PLAN_PRICES.enterprise}
             priceLabel={t.pricing.priceLabel}

@@ -1,8 +1,10 @@
+import { type ReactNode } from 'react'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 type Props = {
   name: string
+  icon?: ReactNode            // 標題左側 icon（紫色圓底內）
   tagline?: string
   price: number
   priceLabel?: string         // 'NT$' 等
@@ -15,7 +17,7 @@ type Props = {
 }
 
 export function PlanCard({
-  name, tagline, price, priceLabel = 'NT$',
+  name, icon, tagline, price, priceLabel = 'NT$',
   deliverables, ctaLabel, ctaHref,
   highlighted, hottestLabel,
   className,
@@ -25,7 +27,7 @@ export function PlanCard({
       className={cn(
         'relative rounded-2xl p-6 flex flex-col h-full',
         highlighted
-          ? 'border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg'
+          ? 'border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg desktop:scale-105 desktop:z-10'
           : 'border border-border-subtle bg-surface',
         className,
       )}
@@ -33,17 +35,29 @@ export function PlanCard({
       {highlighted && hottestLabel && (
         <span
           className={cn(
-            'absolute px-3 py-1 rounded-full text-sm font-semibold',
+            'absolute px-3 py-1 text-sm font-semibold',
             'bg-brand-500 text-white shadow-glow-md',
-            // desktop：右上角；mobile：卡頂置中
-            'top-3 right-3 desktop:top-3 desktop:right-3',
-            'mobile:top-[-12px] mobile:left-1/2 mobile:-translate-x-1/2 mobile:right-auto desktop:translate-x-0',
+            // mobile 預設：膠囊浮在卡頂置中
+            'top-[-12px] left-1/2 -translate-x-1/2 rounded-full',
+            // desktop：corner-attached、貼卡片右上角
+            'desktop:top-0 desktop:right-0 desktop:left-auto desktop:translate-x-0',
+            'desktop:rounded-tl-none desktop:rounded-br-none desktop:rounded-tr-2xl desktop:rounded-bl-2xl',
           )}
         >
           {hottestLabel}
         </span>
       )}
-      <div className="text-gray-200 text-xl font-medium mb-1">{name}</div>
+      <div className="flex items-center gap-3 mb-2">
+        {icon && (
+          <span
+            aria-hidden="true"
+            className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full bg-brand-500/20 border border-border-brand"
+          >
+            {icon}
+          </span>
+        )}
+        <div className="text-gray-200 text-xl font-medium">{name}</div>
+      </div>
       {tagline && <div className="text-gray-400 text-base mb-3">{tagline}</div>}
       <div className="text-5xl font-bold text-white mb-5 whitespace-nowrap">
         {priceLabel} {price.toLocaleString()}
