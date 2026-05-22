@@ -18,6 +18,13 @@ const BASE_BG_OPACITY = 0.45
 const MAX_EXTRA_BG_OPACITY = 0.35
 const MAX_BLUR_PX = 40
 
+// Section dead-zone snap 規則：當使用者下滑停在 fromId section 的末端
+// (threshold ~ 100% 區間)、自動 snap 到 toId。只在下滑時觸發。
+const SNAP_RULES = [
+  { fromId: 'top', toId: 'demo', threshold: 0.7 },      // hero 70%+ → demo
+  { fromId: 'demo', toId: 'pricing', threshold: 0.9 },  // demo 90%+ → pricing
+] as const
+
 export function App() {
   const [progress, setProgress] = useState(0)
 
@@ -82,20 +89,26 @@ export function App() {
       }
       if (endTimer) clearTimeout(endTimer)
       endTimer = setTimeout(() => {
-        // 只在「下滑」時 snap、上滑（從 demo 回 hero）不打擾
+        // 只在「下滑」時 snap、上滑（從下方 section 回上方）不打擾
         if (lastDirection !== 'down') return
-        const vh = window.innerHeight
         const y = window.scrollY
-        // 只 snap 在 hero 70%~100% 區間（dead zone）
-        if (y > vh * 0.7 && y < vh) {
-          const demo = document.getElementById('demo')
-          if (!demo) return
-          isAutoScrolling = true
-          demo.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          // 等 smooth scroll 完成後解鎖（~800ms）
-          releaseTimer = setTimeout(() => {
-            isAutoScrolling = false
-          }, 800)
+        for (const rule of SNAP_RULES) {
+          const fromEl = document.getElementById(rule.fromId)
+          const toEl = document.getElementById(rule.toId)
+          if (!fromEl || !toEl) continue
+          const rect = fromEl.getBoundingClientRect()
+          const sectionTop = rect.top + y
+          const sectionHeight = rect.height
+          const sectionBottom = sectionTop + sectionHeight
+          // viewport top 在 fromSection 的 [threshold, 100%] 區間 → snap
+          if (y > sectionTop + sectionHeight * rule.threshold && y < sectionBottom) {
+            isAutoScrolling = true
+            toEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            releaseTimer = setTimeout(() => {
+              isAutoScrolling = false
+            }, 800)
+            return
+          }
         }
       }, 150)
     }
