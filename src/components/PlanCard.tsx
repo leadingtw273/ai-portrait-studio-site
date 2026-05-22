@@ -45,7 +45,7 @@ export function PlanCard({
       )}
       <div className="text-gray-200 text-xl font-medium mb-1">{name}</div>
       {tagline && <div className="text-gray-400 text-base mb-3">{tagline}</div>}
-      <div className="text-6xl font-bold text-white mb-5">
+      <div className="text-5xl font-bold text-white mb-5 whitespace-nowrap">
         {priceLabel} {price.toLocaleString()}
       </div>
       <ul className="space-y-2 mb-6 flex-1">

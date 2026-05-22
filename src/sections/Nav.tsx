@@ -16,7 +16,7 @@ export function Nav() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-30 w-full',
+        'fixed inset-x-0 top-0 z-30',
         'bg-bg-base/50 backdrop-blur-card border-b border-border-subtle',
       )}
     >
