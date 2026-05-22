@@ -16,18 +16,21 @@ export function ScrollToTop() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  if (!visible) return null
-
   return (
     <button
       type="button"
       aria-label={t.scrollToTop.label}
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className={cn(
         'fixed right-8 bottom-8 z-40',
         'w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-400',
-        'shadow-glow-lg transition-colors',
-        'flex items-center justify-center',
+        'shadow-glow-lg flex items-center justify-center',
+        'transition-all duration-300 ease-out',
+        visible
+          ? 'opacity-100 scale-100 pointer-events-auto'
+          : 'opacity-0 scale-90 pointer-events-none',
       )}
     >
       <ChevronUp className="w-6 h-6 text-white" aria-hidden="true" />
