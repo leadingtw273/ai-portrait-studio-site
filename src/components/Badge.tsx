@@ -6,13 +6,13 @@ export function Badge({ children, className }: { children: ReactNode; className?
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full text-sm',
-        'border border-border-brand bg-white/5 backdrop-blur-md text-purple-200',
+        'inline-flex items-center gap-2.5 px-5 py-1.5 rounded-full text-sm',
+        'border border-border-brand bg-white/[0.04] backdrop-blur-sm text-purple-200',
         'shadow-glow-md',
         className,
       )}
     >
-      <Sparkles className="w-3 h-3" aria-hidden="true" />
+      <Sparkles className="w-3 h-3 text-brand-300" aria-hidden="true" />
       {children}
     </span>
   )
