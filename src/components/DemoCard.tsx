@@ -26,8 +26,8 @@ export function DemoCard(props: Props) {
   if (props.variant === 'image') {
     const { src, alt, className } = props
     return (
-      <div className={cn('rounded-xl overflow-hidden border border-border-subtle h-full', className)}>
-        <img src={src} alt={alt} className="w-full h-full block object-cover" loading="lazy" />
+      <div className={cn('rounded-xl overflow-hidden border border-border-subtle', className)}>
+        <img src={src} alt={alt} className="w-full aspect-square block object-cover" loading="lazy" />
       </div>
     )
   }
@@ -40,8 +40,8 @@ function VideoDemoCard({
   const [playing, setPlaying] = useState(false)
 
   return (
-    <div className={cn('rounded-xl overflow-hidden border border-border-subtle bg-bg-elevated h-full flex flex-col', className)}>
-      <div className="relative flex-1 min-h-0 bg-black">
+    <div className={cn('rounded-xl overflow-hidden border border-border-subtle bg-bg-elevated', className)}>
+      <div className="relative aspect-video bg-black">
         {playing ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
