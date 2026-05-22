@@ -48,6 +48,7 @@ export function Pricing() {
             ctaHref={TELEGRAM_URL}
             highlighted={PLAN_HIGHLIGHTED === 'pro'}
             hottestLabel={t.pricing.hottest}
+            className="order-first desktop:order-none"
           />
           <PlanCard
             name={t.pricing.enterprise.name}
