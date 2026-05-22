@@ -2,6 +2,8 @@ import { type ReactNode } from 'react'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
+type BadgeVariant = 'brand' | 'gold'
+
 type Props = {
   name: string
   icon?: ReactNode            // 標題左側 icon（紫色圓底內）
@@ -12,16 +14,17 @@ type Props = {
   ctaLabel: string
   ctaHref: string
   highlighted?: boolean
-  hottestLabel?: string       // '最熱門' / 'Most Popular'
+  badge?: { label: string; variant?: BadgeVariant } // 'brand' (紫) | 'gold' (#D4AF37)
   className?: string
 }
 
 export function PlanCard({
   name, icon, tagline, price, priceLabel = 'NT$',
   deliverables, ctaLabel, ctaHref,
-  highlighted, hottestLabel,
+  highlighted, badge,
   className,
 }: Props) {
+  const badgeVariant: BadgeVariant = badge?.variant ?? 'brand'
   return (
     <div
       className={cn(
@@ -32,11 +35,13 @@ export function PlanCard({
         className,
       )}
     >
-      {highlighted && hottestLabel && (
+      {badge && (
         <span
           className={cn(
-            'absolute px-3 py-1 text-sm font-semibold',
-            'bg-brand-500 text-white shadow-glow-md',
+            'absolute px-3 py-1 text-sm font-semibold shadow-glow-md',
+            badgeVariant === 'gold'
+              ? 'bg-[#D4AF37] text-black'
+              : 'bg-brand-500 text-white',
             // mobile 預設：膠囊浮在卡頂置中
             'top-[-12px] left-1/2 -translate-x-1/2 rounded-full',
             // desktop：corner-attached、貼卡片右上角
@@ -44,7 +49,7 @@ export function PlanCard({
             'desktop:rounded-tl-none desktop:rounded-br-none desktop:rounded-tr-2xl desktop:rounded-bl-2xl',
           )}
         >
-          {hottestLabel}
+          {badge.label}
         </span>
       )}
       <div className="flex items-center gap-3 mb-2">

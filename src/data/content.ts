@@ -34,9 +34,9 @@ export const DEMO_VIDEOS: DemoVideo[] = [
 // 方案資料（結構性、文案描述放 i18n、這裡只放數字 + 視覺 flag）
 export type PlanTier = 'basic' | 'pro' | 'enterprise'
 export const PLAN_PRICES: Record<PlanTier, number> = {
-  basic:      1200,
-  pro:        2800,
-  enterprise: 5800,
+  basic:      12800,
+  pro:        78800,
+  enterprise: 168800,
 }
 export const PLAN_HIGHLIGHTED: PlanTier = 'pro'  // 中卡突出「最熱門」
 

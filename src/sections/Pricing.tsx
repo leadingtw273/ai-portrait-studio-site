@@ -35,7 +35,6 @@ export function Pricing() {
             ctaLabel={t.pricing.ctaInquiry}
             ctaHref={TELEGRAM_URL}
             highlighted={PLAN_HIGHLIGHTED === 'basic'}
-            hottestLabel={t.pricing.hottest}
           />
           <PlanCard
             name={t.pricing.pro.name}
@@ -47,7 +46,7 @@ export function Pricing() {
             ctaLabel={t.pricing.ctaInquiry}
             ctaHref={TELEGRAM_URL}
             highlighted={PLAN_HIGHLIGHTED === 'pro'}
-            hottestLabel={t.pricing.hottest}
+            badge={{ label: t.pricing.hottest, variant: 'brand' }}
             className="order-first desktop:order-none"
           />
           <PlanCard
@@ -57,10 +56,10 @@ export function Pricing() {
             price={PLAN_PRICES.enterprise}
             priceLabel={t.pricing.priceLabel}
             deliverables={t.pricing.enterprise.deliverables}
-            ctaLabel={t.pricing.ctaInquiry}
+            ctaLabel={t.pricing.enterprise.ctaLabel}
             ctaHref={TELEGRAM_URL}
             highlighted={PLAN_HIGHLIGHTED === 'enterprise'}
-            hottestLabel={t.pricing.hottest}
+            badge={{ label: t.pricing.limited, variant: 'gold' }}
           />
         </div>
 
