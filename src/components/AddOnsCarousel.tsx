@@ -31,10 +31,13 @@ export function AddOnsCarousel() {
     return () => window.removeEventListener('resize', compute)
   }, [])
 
-  // visibleCount 變動時若 startIdx 超出範圍、reset
-  useEffect(() => {
+  // visibleCount 縮小可能讓 startIdx 超出新的 maxStart — 在 render 中即時調整
+  // (取代 useEffect + setStartIdx、避免 react-hooks/set-state-in-effect)
+  const [prevMaxStart, setPrevMaxStart] = useState(maxStart)
+  if (maxStart !== prevMaxStart) {
+    setPrevMaxStart(maxStart)
     if (startIdx > maxStart) setStartIdx(0)
-  }, [maxStart, startIdx])
+  }
 
   // Autoplay：每 AUTOPLAY_MS 往後移一張（循環）
   useEffect(() => {
