@@ -1,7 +1,6 @@
 import { Badge } from '@/components/Badge'
 import { useT } from '@/i18n/useT'
 import { cn } from '@/lib/cn'
-import heroBg from '@/assets/hero-bg.jpg'
 
 export function Hero() {
   const { t } = useT()
@@ -10,22 +9,16 @@ export function Hero() {
       id="top"
       className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28 overflow-hidden"
     >
-      {/* 背景圖 */}
+      {/* dark gradient overlay — 確保 hero 文字在背景圖上仍可讀 */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
-      {/* dark gradient overlay — 確保文字可讀（下半部較暗、CTA 周圍對比夠） */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(14,11,31,0.35) 0%, rgba(14,11,31,0.55) 50%, rgba(14,11,31,0.8) 100%)',
+            'linear-gradient(to bottom, rgba(14,11,31,0.25) 0%, rgba(14,11,31,0.45) 50%, rgba(14,11,31,0.7) 100%)',
         }}
       />
-      {/* 微弱紫光（保留 hero 氛圍） */}
+      {/* 微弱紫光 */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-30 pointer-events-none"
