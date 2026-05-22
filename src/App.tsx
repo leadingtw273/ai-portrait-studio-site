@@ -22,6 +22,7 @@ const MAX_BLUR_PX = 40
 export function App() {
   const [progress, setProgress] = useState(0)
 
+  // Scroll-driven blur/bg overlay progress
   useEffect(() => {
     let raf = 0
     const compute = () => {
@@ -40,6 +41,21 @@ export function App() {
       cancelAnimationFrame(raf)
       window.removeEventListener('scroll', onScroll)
     }
+  }, [])
+
+  // 處理 SPA 初始載入時 URL 含 #hash 的情況：
+  // 瀏覽器在 page navigation 時 hash anchor element 尚未 mount，
+  // 預設 scroll 找不到目標 → 停在 top。Mount 後手動 scroll 到 target。
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash) return
+    const id = hash.slice(1) // 去 '#' 前綴
+    if (!id) return
+    // 等 sections render + layout 穩定後再 scroll
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' })
+    })
   }, [])
 
   const blur = progress * MAX_BLUR_PX
