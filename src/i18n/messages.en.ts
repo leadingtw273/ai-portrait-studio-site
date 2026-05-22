@@ -97,7 +97,7 @@ export const en: Messages = {
     },
     priceLabel: 'NT$',
     discovery: {
-      badge:       'Trial pack / 100% credit within 30 days',
+      badge:       'Trial · 30-day full credit',
       name:        'Discovery Pack',
       tagline:     'First time? Try a sample before committing to a long-term plan.',
       ctaLabel:    'Start Trial',
