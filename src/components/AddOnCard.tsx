@@ -37,19 +37,19 @@ export function AddOnCard({
         </span>
       )}
 
-      {/* Emoji icon */}
-      <div className="text-4xl mb-3 leading-none" aria-hidden="true">
-        {emoji}
+      {/* icon + 標題 + 副標題 同行排列 */}
+      <div className="flex items-start gap-3 mb-4 flex-1">
+        <div className="text-4xl leading-none shrink-0" aria-hidden="true">
+          {emoji}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-white text-lg font-medium mb-1">{name}</div>
+          <div className="text-gray-400 text-sm leading-relaxed">{desc}</div>
+        </div>
       </div>
 
-      {/* Name */}
-      <div className="text-white text-lg font-medium mb-1">{name}</div>
-
-      {/* Description */}
-      <div className="text-gray-400 text-sm mb-4 leading-relaxed flex-1">{desc}</div>
-
-      {/* Price */}
-      <div>
+      {/* Price 區（push to bottom）*/}
+      <div className="mt-auto">
         <div className="text-brand-300 text-xl font-bold whitespace-nowrap">{priceMain}</div>
         {priceBonus && (
           <div className="text-gray-400 text-xs mt-1">{priceBonus}</div>
