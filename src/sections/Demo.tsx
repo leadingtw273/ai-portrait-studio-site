@@ -18,8 +18,8 @@ export function Demo() {
   ]
 
   return (
-    <section id="demo" className="px-4 py-16 tablet:py-24">
-      <div className="max-w-6xl mx-auto">
+    <section id="demo" className="min-h-screen flex flex-col justify-center px-4 py-16 tablet:py-24">
+      <div className="max-w-7xl mx-auto w-full">
         <SectionHeader badge={t.demo.badge} title={t.demo.title} subtitle={t.demo.subtitle} />
         <div className="flex justify-center my-8">
           <TabSegment tabs={tabs} value={tab} onChange={setTab} />
