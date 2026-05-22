@@ -33,9 +33,9 @@ export function AddOnCard({
         </div>
       </div>
 
-      {/* Bottom row：左下 tag (optional) + 右下 price */}
-      <div className="flex items-end justify-between gap-3 mt-auto">
-        {tagLabel ? (
+      {/* Bottom row：mobile (<tablet) 垂直 tag→price stack 避擠；tablet+ 左下 tag / 右下 price 同行 */}
+      <div className="flex flex-col items-start gap-2 tablet:flex-row tablet:items-end tablet:justify-between tablet:gap-3 mt-auto">
+        {tagLabel && (
           <span
             className={cn(
               'px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-glow-md whitespace-nowrap',
@@ -46,10 +46,8 @@ export function AddOnCard({
           >
             {tagLabel}
           </span>
-        ) : (
-          <span aria-hidden="true" />
         )}
-        <div className="text-brand-300 text-xl font-bold whitespace-nowrap text-right">
+        <div className="text-brand-300 text-xl font-bold whitespace-nowrap self-start tablet:self-auto tablet:text-right tablet:ml-auto">
           {priceMain}
         </div>
       </div>
