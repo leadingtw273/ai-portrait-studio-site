@@ -9,16 +9,7 @@ export function Hero() {
       id="top"
       className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28 overflow-hidden"
     >
-      {/* dark gradient overlay — 確保 hero 文字在背景圖上仍可讀 */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(14,11,31,0.25) 0%, rgba(14,11,31,0.45) 50%, rgba(14,11,31,0.7) 100%)',
-        }}
-      />
-      {/* 微弱紫光 */}
+      {/* 微弱紫光（hero 自身氛圍、不會造成跟 App overlay 的分界） */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-30 pointer-events-none"

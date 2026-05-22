@@ -9,10 +9,10 @@ import { FinalCTA } from './sections/FinalCTA'
 import { Footer } from './sections/Footer'
 import { ScrollToTop } from './sections/ScrollToTop'
 
-// 從 hero（scrollY=0）滑到下一視窗（scrollY=window.innerHeight）期間，
-// blur / opacity 從 0 漸增到 max；用 t² 製造指數曲線（慢起快收）。
+// 整頁固定 dark base（hero 也包含、不變化），保持整頁一致的暗色色調。
+// Scroll 從 hero 滑到下一視窗時、只額外增加毛玻璃 blur（指數曲線 t²、慢起快收）。
+const BASE_BG_OPACITY = 0.45
 const MAX_BLUR_PX = 24
-const MAX_BG_OPACITY = 0.7
 
 export function App() {
   const [progress, setProgress] = useState(0)
@@ -38,7 +38,8 @@ export function App() {
   }, [])
 
   const blur = progress * MAX_BLUR_PX
-  const bgOpacity = progress * MAX_BG_OPACITY
+  // bg 固定 — 整頁一致暗色 base、不跟著 scroll 變
+  const bgOpacity = BASE_BG_OPACITY
 
   return (
     <div className="min-h-screen bg-bg-base text-white">
