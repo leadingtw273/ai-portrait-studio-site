@@ -1,9 +1,8 @@
 // 集中所有「非翻譯」資料：URL、價格、deliverable list 結構
 // 翻譯文字（標題 / 描述）放在 i18n messages
 
-// TG 聯絡（plan 階段是 placeholder、上線前 leadi 提供真實 handle 後替換）
-export const TELEGRAM_HANDLE = '@ai_portrait_studio'  // TODO: leadi 上線前提供真實 handle
-export const TELEGRAM_URL = `https://t.me/${TELEGRAM_HANDLE.slice(1)}`
+// TG 聯絡 — 群組邀請連結（非 username，故無對應 @handle 可顯示）
+export const TELEGRAM_URL = 'https://t.me/+ggZ71bEWqas5MzRl'
 
 // Demo 區素材（placeholder 使用 Unsplash 公開圖 + YouTube 公開示範影片，上線前 leadi 換真實素材）
 export type DemoImage = { src: string; alt: string }

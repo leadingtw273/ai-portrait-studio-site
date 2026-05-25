@@ -1,6 +1,7 @@
 import { Sparkles, Send } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 import { useT } from '@/i18n/useT'
-import { TELEGRAM_URL, TELEGRAM_HANDLE } from '@/data/content'
+import { TELEGRAM_URL } from '@/data/content'
 
 export function Footer() {
   const { t } = useT()
@@ -24,9 +25,14 @@ export function Footer() {
             <Send className="w-4 h-4" aria-hidden="true" />
             {t.footer.telegramButton}
           </a>
-          <div className="text-gray-500 text-sm mt-3">
-            {t.footer.responseTime}
-            <span className="ml-2 text-gray-600 text-sm">{TELEGRAM_HANDLE}</span>
+          <div className="text-gray-500 text-sm mt-3">{t.footer.responseTime}</div>
+
+          {/* QR code — 行動裝置 (< 768px) 顯示，方便長按存圖/分享給身邊夥伴 */}
+          <div className="tablet:hidden mt-5 flex flex-col items-center gap-2">
+            <div className="p-3 rounded-lg bg-white">
+              <QRCodeSVG value={TELEGRAM_URL} size={140} level="M" aria-label={t.footer.qrCaption} />
+            </div>
+            <div className="text-gray-500 text-xs">{t.footer.qrCaption}</div>
           </div>
         </div>
 

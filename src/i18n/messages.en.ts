@@ -187,6 +187,7 @@ export const en: Messages = {
     contactTitle:   'Contact Us',
     telegramButton: 'Telegram',
     responseTime:   'Response time: usually within 24 hours',
+    qrCaption:      'Or scan QR to join',
     copyright:      '© 2026 AI Portrait Studio. All rights reserved.',
   },
   scrollToTop: {

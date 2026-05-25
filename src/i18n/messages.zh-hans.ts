@@ -187,6 +187,7 @@ export const zhHans: Messages = {
     contactTitle:   '联络我们',
     telegramButton: 'Telegram 咨询',
     responseTime:   '回复时间：通常 24 小时内',
+    qrCaption:      '或扫 QR 加入',
     copyright:      '© 2026 AI 人像工作室. All rights reserved.',
   },
   scrollToTop: {
