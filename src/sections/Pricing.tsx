@@ -3,10 +3,16 @@ import { SectionHeader } from '@/components/SectionHeader'
 import { PlanCard } from '@/components/PlanCard'
 import { AddOnsCarousel } from '@/components/AddOnsCarousel'
 import { useT } from '@/i18n/useT'
+import { useCurrency } from '@/lib/useCurrency'
+import { convertTwd } from '@/lib/currency'
 import { PLAN_PRICES, PLAN_HIGHLIGHTED, DISCOVERY_PRICE, TELEGRAM_URL } from '@/data/content'
 
 export function Pricing() {
   const { t } = useT()
+  const { currency, symbol, rate, format } = useCurrency()
+  // PlanCard 仍接 number + symbol；非 TWD 時轉成換算後數值、靠 PlanCard 內 toLocaleString 顯示
+  const planPrice = (twd: number): number =>
+    rate === null ? twd : convertTwd(twd, currency, rate)
 
   return (
     <section
@@ -22,8 +28,9 @@ export function Pricing() {
             name={t.pricing.basic.name}
             icon={<Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />}
             tagline={t.pricing.basic.tagline}
-            price={PLAN_PRICES.basic}
-            priceLabel={t.pricing.priceLabel}
+            price={planPrice(PLAN_PRICES.basic)}
+            priceLabel={symbol}
+            priceFractionDigits={currency === 'TWD' ? 0 : 1}
             deliverables={t.pricing.basic.deliverables}
             ctaLabel={t.pricing.ctaInquiry}
             ctaHref={TELEGRAM_URL}
@@ -33,8 +40,9 @@ export function Pricing() {
             name={t.pricing.pro.name}
             icon={<Star className="w-4 h-4 text-brand-300" fill="currentColor" aria-hidden="true" />}
             tagline={t.pricing.pro.tagline}
-            price={PLAN_PRICES.pro}
-            priceLabel={t.pricing.priceLabel}
+            price={planPrice(PLAN_PRICES.pro)}
+            priceLabel={symbol}
+            priceFractionDigits={currency === 'TWD' ? 0 : 1}
             deliverables={t.pricing.pro.deliverables}
             ctaLabel={t.pricing.ctaInquiry}
             ctaHref={TELEGRAM_URL}
@@ -46,8 +54,9 @@ export function Pricing() {
             name={t.pricing.enterprise.name}
             icon={<Crown className="w-4 h-4 text-brand-300" aria-hidden="true" />}
             tagline={t.pricing.enterprise.tagline}
-            price={PLAN_PRICES.enterprise}
-            priceLabel={t.pricing.priceLabel}
+            price={planPrice(PLAN_PRICES.enterprise)}
+            priceLabel={symbol}
+            priceFractionDigits={currency === 'TWD' ? 0 : 1}
             deliverables={t.pricing.enterprise.deliverables}
             ctaLabel={t.pricing.enterprise.ctaLabel}
             ctaHref={TELEGRAM_URL}
@@ -61,7 +70,7 @@ export function Pricing() {
           <div className="relative rounded-2xl p-6 desktop:p-8 border border-border-brand bg-gradient-to-r from-brand-500/10 to-brand-500/5 shadow-glow-md">
             {/* Badge — mobile 浮頂 / desktop corner-attached */}
             <span
-              className="absolute px-3 py-1 text-sm font-semibold bg-brand-500 text-white shadow-glow-md
+              className="absolute px-4 py-1 text-sm font-semibold bg-brand-500 text-white shadow-glow-md whitespace-nowrap
                          top-[-12px] left-1/2 -translate-x-1/2 rounded-full
                          desktop:top-0 desktop:right-0 desktop:left-auto desktop:translate-x-0
                          desktop:rounded-tl-none desktop:rounded-br-none desktop:rounded-tr-2xl desktop:rounded-bl-2xl"
@@ -88,7 +97,7 @@ export function Pricing() {
 
                 {/* row 1 / col 2：price（與標題副標同行、text-5xl 對齊 plan card）*/}
                 <div className="text-5xl font-bold text-white whitespace-nowrap shrink-0 text-center tablet:text-right tablet:pt-2">
-                  {t.pricing.priceLabel} {DISCOVERY_PRICE.toLocaleString()}
+                  {format(DISCOVERY_PRICE)}
                 </div>
 
                 {/* row 2 / col 1：deliverables 2x2、只占左欄寬 */}

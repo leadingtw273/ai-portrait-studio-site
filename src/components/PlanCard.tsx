@@ -9,7 +9,8 @@ type Props = {
   icon?: ReactNode            // 標題左側 icon（紫色圓底內）
   tagline?: string
   price: number
-  priceLabel?: string         // 'NT$' 等
+  priceLabel?: string         // 'NT$' / 'US$' / '¥' 等
+  priceFractionDigits?: number // 顯示小數位數；TWD=0、其他幣別=1
   deliverables: ReadonlyArray<string>
   ctaLabel: string
   ctaHref: string
@@ -19,7 +20,7 @@ type Props = {
 }
 
 export function PlanCard({
-  name, icon, tagline, price, priceLabel = 'NT$',
+  name, icon, tagline, price, priceLabel = 'NT$', priceFractionDigits = 0,
   deliverables, ctaLabel, ctaHref,
   highlighted, badge,
   className,
@@ -65,7 +66,10 @@ export function PlanCard({
       </div>
       {tagline && <div className="text-gray-400 text-base mb-3">{tagline}</div>}
       <div className="text-5xl font-bold text-white mb-5 whitespace-nowrap">
-        {priceLabel} {price.toLocaleString()}
+        {priceLabel} {price.toLocaleString(undefined, {
+          minimumFractionDigits: priceFractionDigits,
+          maximumFractionDigits: priceFractionDigits,
+        })}
       </div>
       <ul className="space-y-2 mb-6 flex-1">
         {deliverables.map((d) => (

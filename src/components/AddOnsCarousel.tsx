@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { AddOnCard } from './AddOnCard'
 import { ADDON_CARDS } from '@/data/content'
 import { useT } from '@/i18n/useT'
+import { useCurrency } from '@/lib/useCurrency'
 import { cn } from '@/lib/cn'
 
 const AUTOPLAY_MS = 5000
@@ -16,6 +17,7 @@ function getVisibleCount(width: number): number {
 
 export function AddOnsCarousel() {
   const { t } = useT()
+  const { format } = useCurrency()
   const [visibleCount, setVisibleCount] = useState(3)
   const [startIdx, setStartIdx] = useState(0)
   const pauseUntilRef = useRef(0) // timestamp (ms) — autoplay 在此之前都暫停
@@ -111,6 +113,14 @@ export function AddOnsCarousel() {
           >
             {ADDON_CARDS.map((card) => {
               const i18nCard = t.addons.cards[card.key]
+              // priceTwd 存在 → 用 hook 換算 + 加 unit 後綴；否則（rush 類型）讀 i18n.priceFee 原字串
+              const priceMain = card.priceTwd !== undefined
+                ? card.priceUnitKey
+                  ? `${format(card.priceTwd)} / ${t.addons.units[card.priceUnitKey]}`
+                  : format(card.priceTwd)
+                : 'priceFee' in i18nCard
+                  ? i18nCard.priceFee
+                  : ''
               return (
                 <div
                   key={card.key}
@@ -121,7 +131,7 @@ export function AddOnsCarousel() {
                     emoji={card.emoji}
                     name={i18nCard.name}
                     desc={i18nCard.desc}
-                    priceMain={i18nCard.priceMain}
+                    priceMain={priceMain}
                     tagLabel={'tagLabel' in i18nCard ? i18nCard.tagLabel : undefined}
                     tagVariant={card.tagVariant}
                   />

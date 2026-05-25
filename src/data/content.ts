@@ -42,20 +42,25 @@ export type AddOnKey =
 // pro-only: 金色 🔒 「限 Pro 客戶」
 export type AddOnTagVariant = 'pro-free' | 'pro-only'
 
+// priceUnitKey：對應 i18n.addons.units 內的 key
+export type AddOnUnitKey = 'set' | 'scene' | 'style' | 'theme'
+
 export type AddOnCardData = {
   key: AddOnKey
   emoji: string
   tagVariant?: AddOnTagVariant
+  priceTwd?: number       // 數值底價（TWD）；undefined → 為 rush 類型、改讀 i18n.priceFee 字串
+  priceUnitKey?: AddOnUnitKey
 }
 
 export const ADDON_CARDS: AddOnCardData[] = [
-  { key: 'extraOutfit',    emoji: '👗' },
-  { key: 'extraScene',     emoji: '🏞' },
-  { key: 'styleTransfer',  emoji: '🎨' },
-  { key: 'loraRetrain',    emoji: '🔄', tagVariant: 'pro-free' },
-  { key: 'loraHandover',   emoji: '📦', tagVariant: 'pro-free' },
-  { key: 'strategyCall',   emoji: '💬', tagVariant: 'pro-free' },
-  { key: 'advancedStyle',  emoji: '🎬', tagVariant: 'pro-only' },
-  { key: 'rush48h',        emoji: '⚡', tagVariant: 'pro-free' },
-  { key: 'rush24h',        emoji: '🔥', tagVariant: 'pro-free' },
+  { key: 'extraOutfit',    emoji: '👗', priceTwd: 1800,  priceUnitKey: 'set' },
+  { key: 'extraScene',     emoji: '🏞', priceTwd: 2400,  priceUnitKey: 'scene' },
+  { key: 'styleTransfer',  emoji: '🎨', priceTwd: 2800,  priceUnitKey: 'style' },
+  { key: 'loraRetrain',    emoji: '🔄', priceTwd: 4800,                          tagVariant: 'pro-free' },
+  { key: 'loraHandover',   emoji: '📦', priceTwd: 12800,                         tagVariant: 'pro-free' },
+  { key: 'strategyCall',   emoji: '💬', priceTwd: 2800,                          tagVariant: 'pro-free' },
+  { key: 'advancedStyle',  emoji: '🎬', priceTwd: 4800,  priceUnitKey: 'theme',  tagVariant: 'pro-only' },
+  { key: 'rush48h',        emoji: '⚡',                                          tagVariant: 'pro-free' },
+  { key: 'rush24h',        emoji: '🔥',                                          tagVariant: 'pro-free' },
 ]
