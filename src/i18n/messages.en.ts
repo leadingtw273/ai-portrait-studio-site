@@ -31,8 +31,8 @@ export const en: Messages = {
     videoCard: {
       title1: 'Product Commercial',
       desc1:  'Brand visual: AI face × tea garden × product in hand',
-      title2: 'Dynamic Expression',
-      desc2:  'Realistic smiles and facial expressions',
+      title2: 'Brand KV Concept Film',
+      desc2:  'Cinematic edit: AI talent × automotive KV × multi-shot narrative',
       playLabel: 'Click to play',
     },
     techBanner: {

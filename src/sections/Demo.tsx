@@ -4,10 +4,10 @@ import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
 import { useT } from '@/i18n/useT'
-import { DEMO_VIDEOS } from '@/data/content'
 import loraBefore from '@/assets/lora-before.jpg'
 import loraAfter from '@/assets/lora-after.png'
 import teaPromo from '@/assets/tea-product-promo.mp4'
+import automotiveKv from '@/assets/automotive-kv-promo.mp4'
 
 type TabId = 'image' | 'video'
 
@@ -71,9 +71,8 @@ export function Demo() {
               />
               <DemoCard
                 variant="video"
-                source={{ type: 'youtube', id: DEMO_VIDEOS[1].youtubeId }}
-                posterUrl={DEMO_VIDEOS[1].posterUrl}
-                durationSec={DEMO_VIDEOS[1].durationSec}
+                source={{ type: 'mp4', src: automotiveKv }}
+                durationSec="15"
                 title={t.demo.videoCard.title2}
                 desc={t.demo.videoCard.desc2}
                 playLabel={t.demo.videoCard.playLabel}

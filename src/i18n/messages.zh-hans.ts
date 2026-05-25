@@ -31,8 +31,8 @@ export const zhHans: Messages = {
     videoCard: {
       title1: '产品宣传短片',
       desc1:  '品牌代言视觉：AI 人脸 × 茶园实景 × 产品手持',
-      title2: '动态表情生成',
-      desc2:  '逼真的微笑与表情变化',
+      title2: '品牌 KV 概念片',
+      desc2:  '电影分镜叙事：AI 人物 × 汽车 KV × 多镜头剪辑',
       playLabel: '点击播放视频',
     },
     techBanner: {

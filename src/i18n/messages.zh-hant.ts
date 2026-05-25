@@ -29,8 +29,8 @@ export const zhHant = {
     videoCard: {
       title1: '產品宣傳短片',
       desc1:  '品牌代言視覺：AI 人臉 × 茶園實景 × 產品手持',
-      title2: '動態表情生成',
-      desc2:  '逼真的微笑與表情變化',
+      title2: '品牌 KV 概念片',
+      desc2:  '電影分鏡敘事：AI 人物 × 汽車 KV × 多鏡頭剪輯',
       playLabel: '點擊播放影片',
     },
     techBanner: {
