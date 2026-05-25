@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Play } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
@@ -42,58 +42,59 @@ export function DemoCard(props: Props) {
 function VideoDemoCard({
   source, posterUrl, durationSec, title, desc, playLabel, className,
 }: VideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
+
+  const handlePlay = () => {
+    setPlaying(true)
+    // mp4：在 click handler 內同步呼叫 .play() 保留 user gesture
+    // (依賴 autoPlay 屬性在 React re-render 後可能被瀏覽器擋有聲影片)
+    if (source.type === 'mp4') {
+      videoRef.current?.play()?.catch(() => {})
+    }
+  }
 
   return (
     <div className={cn('rounded-xl overflow-hidden border border-border-subtle bg-bg-elevated', className)}>
       <div className="relative aspect-video bg-black">
-        {playing ? (
-          source.type === 'youtube' ? (
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${source.id}?autoplay=1&rel=0`}
-              title={title}
-              className="absolute inset-0 w-full h-full"
-              allow="accelerated-2d-canvas; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <video
-              src={source.src}
-              poster={posterUrl}
-              title={title}
+        {source.type === 'mp4' ? (
+          // mp4：單一 <video> 元素始終 mount、controls 隨 playing 切換、避免 re-mount 失去 gesture
+          <video
+            ref={videoRef}
+            src={source.src}
+            poster={posterUrl}
+            title={title}
+            className="absolute inset-0 w-full h-full object-cover"
+            controls={playing}
+            playsInline
+            preload="metadata"
+          />
+        ) : playing ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${source.id}?autoplay=1&rel=0`}
+            title={title}
+            className="absolute inset-0 w-full h-full"
+            allow="accelerated-2d-canvas; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          posterUrl && (
+            <img
+              src={posterUrl}
+              alt={title}
               className="absolute inset-0 w-full h-full object-cover"
-              controls
-              autoPlay
-              playsInline
+              loading="lazy"
             />
           )
-        ) : (
+        )}
+        {!playing && (
           <>
-            {posterUrl && (
-              <img
-                src={posterUrl}
-                alt={title}
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-              />
-            )}
-            {/* mp4 沒 poster 時直接顯示影片第一禎、不自動播放 */}
-            {!posterUrl && source.type === 'mp4' && (
-              <video
-                src={source.src}
-                title={title}
-                className="absolute inset-0 w-full h-full object-cover"
-                muted
-                playsInline
-                preload="metadata"
-              />
-            )}
             <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-xs">
               {durationSec} 秒
             </span>
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={handlePlay}
               aria-label={playLabel}
               className={cn(
                 'absolute inset-0 flex items-center justify-center group',
