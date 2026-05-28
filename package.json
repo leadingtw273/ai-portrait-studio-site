@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "prerender": "tsx --tsconfig tsconfig.app.json scripts/prerender.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.1.0",
@@ -37,12 +38,15 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "jsdom": "^29.0.2",
+    "node-html-parser": "^7.0.0",
+    "playwright": "^1.49.0",
     "postcss": "^8.5.10",
     "tailwindcss": "^3.4.19",
     "tsx": "^4.19.0",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.58.0",
     "vite": "^8.0.4",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.4",
+    "wait-on": "^8.0.0"
   }
 }
