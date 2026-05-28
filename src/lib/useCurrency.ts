@@ -12,6 +12,16 @@ import {
 } from './currency'
 
 export function useCurrency() {
+  // Hydration-safety contract (Task 14 + 附錄 E Task 14):
+  // - Initial `rate` is `1` for TWD or `null` for CNY/USD — deterministic per lang.
+  // - When `rate === null`, `format()` falls back to `NT$ {twd}` (TWD 原價).
+  // - prerender (Task 16) blocks open.er-api.com fetch → rate stays null →
+  //   prerender HTML shows TWD 原價 for all langs.
+  // - Client hydration first frame also has rate=null → matches prerender → no mismatch.
+  // - After mount, useEffect triggers fetchRates; rate updates → React re-renders
+  //   with converted price (mount-after, doesn't affect hydration).
+  // Do NOT change this initial state or fallback behavior without re-validating
+  // hydration consistency in tests + Task 16 prerender flow.
   const { lang } = useT()
   const currency: Currency = LANG_TO_CURRENCY[lang]
   const [rate, setRate] = useState<number | null>(currency === 'TWD' ? 1 : null)
