@@ -22,9 +22,8 @@ jobs:
         with:
           fetch-depth: 0  # need full history for git log lastmod in generate-sitemap
 
+      # pnpm version read from package.json "packageManager" field (single source of truth)
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
