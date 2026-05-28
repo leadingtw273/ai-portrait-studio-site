@@ -3,11 +3,12 @@ import { Sparkles, Menu, X } from 'lucide-react'
 import { useT } from '@/i18n/useT'
 import type { Lang } from '@/i18n/LanguageProvider'
 import { cn } from '@/lib/cn'
+import { buildLangUrl } from '@/lib/seo/langNav'
 
 const LANGS: Lang[] = ['zh-Hant', 'zh-Hans', 'en']
 
 export function Nav() {
-  const { t, lang, setLang } = useT()
+  const { t, lang } = useT()
   const [open, setOpen] = useState(false)
 
   const openMenuLabel = lang === 'en' ? 'Open menu' : '開啟選單'
@@ -42,7 +43,7 @@ export function Nav() {
               <button
                 key={l}
                 type="button"
-                onClick={() => setLang(l)}
+                onClick={() => window.location.assign(buildLangUrl(l, window.location.hash))}
                 className={cn(
                   'px-2 py-1 rounded min-w-[44px] min-h-[32px] transition-colors',
                   lang === l

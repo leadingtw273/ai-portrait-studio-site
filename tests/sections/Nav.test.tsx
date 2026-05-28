@@ -1,18 +1,38 @@
 import { type ReactNode } from 'react'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterAll, vi } from 'vitest'
 import { Nav } from '@/sections/Nav'
 import { LanguageProvider } from '@/i18n/LanguageProvider'
+import { BASE_PATH } from '@/lib/seo/canonicalUrl'
 
 function withProvider(node: ReactNode) {
   return <LanguageProvider>{node}</LanguageProvider>
 }
 
+// jsdom does not allow vi.spyOn on window.location.assign (non-configurable).
+// We replace window.location with a plain object that has a spy on assign.
+const mockAssign = vi.fn()
+const originalLocation = window.location
+Object.defineProperty(window, 'location', {
+  value: { ...window.location, assign: mockAssign },
+  writable: true,
+  configurable: true,
+})
+
 describe('Nav', () => {
+  afterAll(() => {
+    Object.defineProperty(window, 'location', {
+      value: originalLocation,
+      writable: true,
+      configurable: true,
+    })
+  })
+
   beforeEach(() => {
     localStorage.clear()
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
+    mockAssign.mockClear()
   })
 
   it('renders logo and language switcher always', () => {
@@ -60,9 +80,9 @@ describe('Nav', () => {
     expect(screen.queryByRole('navigation', { name: 'Mobile navigation' })).not.toBeInTheDocument()
   })
 
-  it('switching language updates header text', async () => {
+  it('switching language calls window.location.assign with the correct lang URL', async () => {
     render(withProvider(<Nav />))
     await userEvent.click(screen.getByRole('button', { name: 'EN' }))
-    expect(screen.getByText(/AI Portrait Studio/)).toBeInTheDocument()
+    expect(mockAssign).toHaveBeenCalledWith(`${BASE_PATH}/en/`)
   })
 })
