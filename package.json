@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "prerender": "tsx --tsconfig tsconfig.app.json scripts/prerender.ts"
+    "prerender": "tsx --tsconfig tsconfig.app.json scripts/prerender.ts",
+    "generate-sitemap": "tsx scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.1.0",
