@@ -13,7 +13,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "prerender": "tsx --tsconfig tsconfig.app.json scripts/prerender.ts",
-    "generate-sitemap": "tsx scripts/generate-sitemap.ts"
+    "generate-sitemap": "tsx scripts/generate-sitemap.ts",
+    "verify-prerender": "tsx scripts/verify-prerender.ts",
+    "verify-launch": "LAUNCH_VERIFY=true tsx scripts/verify-prerender.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.1.0",
