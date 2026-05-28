@@ -1,7 +1,7 @@
 import type { Lang } from '@/i18n/LanguageProvider'
 
 // build 時透過 vite define / env 注入；目前 hardcoded、上線確認 GH username 後改 env
-export const SITE_ORIGIN = 'https://leadingtw.github.io'
+export const SITE_ORIGIN = 'https://leadingtw273.github.io'
 export const BASE_PATH = '/ai-portrait-studio-site'
 
 function joinUrl(...parts: string[]): string {

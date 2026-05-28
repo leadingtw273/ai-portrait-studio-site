@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leadingtw.github.io/ai-portrait-studio-site/sitemap.xml
+Sitemap: https://leadingtw273.github.io/ai-portrait-studio-site/sitemap.xml

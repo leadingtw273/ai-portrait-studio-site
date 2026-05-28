@@ -94,7 +94,7 @@ Expected: FAIL — `Failed to resolve import "@/lib/seo/canonicalUrl"`
 import type { Lang } from '@/i18n/LanguageProvider'
 
 // build 時透過 vite define / env 注入；目前 hardcoded、上線確認 GH username 後改 env
-export const SITE_ORIGIN = 'https://leadingtw.github.io'
+export const SITE_ORIGIN = 'https://leadingtw273.github.io'
 export const BASE_PATH = '/ai-portrait-studio-site'
 
 function joinUrl(...parts: string[]): string {
@@ -168,14 +168,14 @@ git commit -m "feat(seo): add canonicalUrl helper — single source for all craw
     <meta name="keywords" content="AI 人像,AI 寫真,LoRA 訓練,AI 影片,人像生成,商品形象,AI portrait,AI headshot" />
     <meta name="robots" content="index, follow" />
 
-    <link rel="canonical" href="https://leadingtw.github.io/ai-portrait-studio-site/" />
+    <link rel="canonical" href="https://leadingtw273.github.io/ai-portrait-studio-site/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="AI 人像工作室｜LoRA 訓練・AI 寫真・影片人像生成" />
     <meta property="og:description" content="專業 AI 人像工作室。LoRA 個人模型訓練 + AI 商品形象寫真 + AI 影片人像生成。" />
-    <meta property="og:url" content="https://leadingtw.github.io/ai-portrait-studio-site/" />
-    <meta property="og:image" content="https://leadingtw.github.io/ai-portrait-studio-site/og/og-zh-Hant.jpg" />
+    <meta property="og:url" content="https://leadingtw273.github.io/ai-portrait-studio-site/" />
+    <meta property="og:image" content="https://leadingtw273.github.io/ai-portrait-studio-site/og/og-zh-Hant.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="zh_TW" />
@@ -185,7 +185,7 @@ git commit -m "feat(seo): add canonicalUrl helper — single source for all craw
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AI 人像工作室｜LoRA 訓練・AI 寫真・影片人像生成" />
     <meta name="twitter:description" content="專業 AI 人像工作室。LoRA 個人模型訓練 + AI 商品形象寫真 + AI 影片人像生成。" />
-    <meta name="twitter:image" content="https://leadingtw.github.io/ai-portrait-studio-site/og/og-zh-Hant.jpg" />
+    <meta name="twitter:image" content="https://leadingtw273.github.io/ai-portrait-studio-site/og/og-zh-Hant.jpg" />
   </head>
   <body class="bg-bg-base text-white antialiased">
     <div id="root"></div>
@@ -233,31 +233,31 @@ git commit -m "feat(seo): enrich index.html meta with full OG / Twitter Card / c
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/" />
-    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw.github.io/ai-portrait-studio-site/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <loc>https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/" />
+    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw273.github.io/ai-portrait-studio-site/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/" />
-    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw.github.io/ai-portrait-studio-site/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <loc>https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/" />
+    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw273.github.io/ai-portrait-studio-site/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://leadingtw.github.io/ai-portrait-studio-site/en/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/" />
-    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw.github.io/ai-portrait-studio-site/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <loc>https://leadingtw273.github.io/ai-portrait-studio-site/en/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/" />
+    <xhtml:link rel="alternate" hreflang="en"      href="https://leadingtw273.github.io/ai-portrait-studio-site/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
     <lastmod>2026-05-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -273,7 +273,7 @@ git commit -m "feat(seo): enrich index.html meta with full OG / Twitter Card / c
 User-agent: *
 Allow: /
 
-Sitemap: https://leadingtw.github.io/ai-portrait-studio-site/sitemap.xml
+Sitemap: https://leadingtw273.github.io/ai-portrait-studio-site/sitemap.xml
 ```
 
 - [ ] **Step 3.3：build + 驗證複製**
@@ -710,11 +710,11 @@ git commit -m "feat(build): copy index.html to /zh-Hant/ /zh-Hans/ /en/ for 3-la
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
-    <link rel="alternate" hreflang="zh-Hant" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
-    <link rel="alternate" hreflang="zh-Hans" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/" />
-    <link rel="alternate" hreflang="en"      href="https://leadingtw.github.io/ai-portrait-studio-site/en/" />
-    <link rel="alternate" hreflang="x-default" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <link rel="canonical" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/" />
+    <link rel="alternate" hreflang="en"      href="https://leadingtw273.github.io/ai-portrait-studio-site/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/" />
     <meta http-equiv="refresh" content="0; url=./zh-Hant/" />
     <title>AI 人像工作室 — AI Portrait Studio</title>
   </head>
@@ -2548,9 +2548,9 @@ git push origin main
 
 ```bash
 # 三條 URL 都該回 200 + 含完整 prerender 內容
-curl -sL https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/ | grep -E "Mini Launch|<title>" | head -3
-curl -sL https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/ | grep -E "Mini Launch|<title>" | head -3
-curl -sL https://leadingtw.github.io/ai-portrait-studio-site/en/ | grep -E "Mini Launch|<title>" | head -3
+curl -sL https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/ | grep -E "Mini Launch|<title>" | head -3
+curl -sL https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hans/ | grep -E "Mini Launch|<title>" | head -3
+curl -sL https://leadingtw273.github.io/ai-portrait-studio-site/en/ | grep -E "Mini Launch|<title>" | head -3
 ```
 
 Expected: 三條都看到該語言 title + Mini Launch 文字。
@@ -2559,7 +2559,7 @@ Expected: 三條都看到該語言 title + Mini Launch 文字。
 
 開瀏覽器：
 - https://validator.schema.org/
-- 貼入 `https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/`
+- 貼入 `https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/`
 - 確認 ProfessionalService + 2 個 VideoObject 都 0 error
 
 對三條語言都跑一次。
@@ -2576,13 +2576,13 @@ placeholder 階段：三條 og:image 都長一樣（zh-Hant placeholder），tit
 - [ ] **Step 21.5：PageSpeed Insights LCP**
 
 開 https://pagespeed.web.dev/、跑 mobile + desktop：
-- https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/
+- https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/
 - LCP 目標 < 2.5s
 
 - [ ] **Step 21.6：Search Console 提交 sitemap（leadi 手動）**
 
 1. 開 https://search.google.com/search-console/
-2. 加 URL prefix property：`https://leadingtw.github.io/ai-portrait-studio-site/`
+2. 加 URL prefix property：`https://leadingtw273.github.io/ai-portrait-studio-site/`
 3. 用 HTML meta tag / DNS / file 任一方式驗證 ownership
 4. 左側 Sitemaps → 新增 sitemap：輸入 `sitemap.xml`、submit
 5. 上線後 1-2 週回來看「Coverage / Indexing」是否三條 URL 都被 index
@@ -2590,9 +2590,9 @@ placeholder 階段：三條 og:image 都長一樣（zh-Hant placeholder），tit
 - [ ] **Step 21.7：Bing Webmaster Tools 提交 sitemap（leadi 手動）**
 
 1. 開 https://www.bing.com/webmasters/
-2. 加站台：`https://leadingtw.github.io/ai-portrait-studio-site/`
+2. 加站台：`https://leadingtw273.github.io/ai-portrait-studio-site/`
 3. 驗證 ownership（可從 Search Console 一鍵 import）
-4. Sitemaps → 提交 `https://leadingtw.github.io/ai-portrait-studio-site/sitemap.xml`
+4. Sitemaps → 提交 `https://leadingtw273.github.io/ai-portrait-studio-site/sitemap.xml`
 
 - [ ] **Step 21.8：完成 Infrastructure Deploy 驗收（§1.3.1 8 項全綠）**
 
@@ -2752,7 +2752,7 @@ Expected:
 
 - [ ] **Step 22.8：上線後驗證 GoatCounter 收到 PV（leadi 動作）**
 
-push 後等 GH Actions 跑完、開 https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/ 一次。然後：
+push 後等 GH Actions 跑完、開 https://leadingtw273.github.io/ai-portrait-studio-site/zh-Hant/ 一次。然後：
 
 1. 開 https://ai-portrait-studio.goatcounter.com/
 2. 等 1-2 分鐘（GoatCounter ingestion 有延遲）
@@ -2970,7 +2970,7 @@ function useCurrency(): {
 | **Task 18 poster 存在**：verify 只查 thumbnailUrl startsWith https、沒查對應 jpg 檔案存在 | verify-prerender 加規則：解析 thumbnailUrl 取檔名、`fs.access(dist/video-posters/<name>.jpg)`、不存在則 fail | Task 18 |
 | **Task 20 順序**：generate-video-poster 在 build 後跑、但 Vite build 已複製 public/ 進 dist、新 poster 不會進 dist | 二選一：(a) generate-video-poster **移到 `pnpm build` 之前**（讓 Vite 複製）、或 (b) 輸出直接寫 `dist/video-posters/`。建議 (a) + poster commit 進 repo（CI 不依賴生成） | Task 20 |
 | **Task 20 Playwright deps**：cache hit 跳過 `playwright install --with-deps`、但 Linux system deps 不在 browser cache | 拆兩步：`playwright install-deps chromium`（每次都跑、裝 system deps）+ `playwright install chromium`（cache miss 才跑、裝 browser binary） | Task 20 |
-| **Task 21 robots 措辭**：subpath sitemap 不「解決」GH Pages root robots 限制、Google 只看 host root robots | 改措辭：sitemap 提交是「補 URL discovery」、不是 robots 限制的解法；robots 限制本身在無 custom domain 下無解、但因 `leadingtw.github.io/robots.txt` 未必擋爬、實務影響小 | Task 21 / spec §6.2 |
+| **Task 21 robots 措辭**：subpath sitemap 不「解決」GH Pages root robots 限制、Google 只看 host root robots | 改措辭：sitemap 提交是「補 URL discovery」、不是 robots 限制的解法；robots 限制本身在無 custom domain 下無解、但因 `leadingtw273.github.io/robots.txt` 未必擋爬、實務影響小 | Task 21 / spec §6.2 |
 | **Task 21 ownership**：Search Console ownership 不能假設 DNS（非自有 domain） | 明確推薦 **HTML meta tag verification**：Google 給的 `<meta name="google-site-verification">` 放進 root redirect page（`scripts/__fixtures__/root-redirect-template.html` 的 head）；Bing 從 Search Console 一鍵 import | Task 21 |
 | **附錄 B rollback**：太粗、Phase 4 後 build pipeline 已依賴 copy-html-entries/prerender/verify、單 revert 一個 task 會留下 CI 指向不存在 script | 改 **phase-level rollback**：列出每個 phase 需「一起 revert 的 task commit set」；Phase 4/5 不可單 task revert（package.json scripts + deploy.yml 與 scripts/ 綁定） | 附錄 B |
 

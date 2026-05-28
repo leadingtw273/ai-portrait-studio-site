@@ -130,7 +130,7 @@ async function main() {
         }
         // Allow external URLs (t.me/...) — only check that absolute is present
         // For internal URLs (our domain), require BASE_PATH
-        if (u.includes('leadingtw.github.io') && !u.includes(BASE_PATH)) {
+        if (u.includes('leadingtw273.github.io') && !u.includes(BASE_PATH)) {
           throw new Error(
             `${lang}: JSON-LD url field "${u}" on our domain missing base path "${BASE_PATH}"`
           )
