@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hans/" />
+    <link rel="alternate" hreflang="en"      href="https://leadingtw.github.io/ai-portrait-studio-site/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/" />
+    <meta http-equiv="refresh" content="0; url=./zh-Hant/" />
+    <title>AI 人像工作室 — AI Portrait Studio</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var BASE = '/ai-portrait-studio-site';
+        var nav = (navigator.language || '').toLowerCase();
+        var target = 'zh-Hant';
+        if (nav === 'zh-cn' || nav.indexOf('zh-hans') === 0 || nav === 'zh-sg' || nav === 'zh-my') {
+          target = 'zh-Hans';
+        } else if (nav.indexOf('zh') === 0) {
+          target = 'zh-Hant';
+        } else if (nav.indexOf('en') === 0) {
+          target = 'en';
+        }
+        location.replace(BASE + '/' + target + '/' + location.hash);
+      })();
+    </script>
+    <noscript>
+      <p>請前往 <a href="./zh-Hant/">繁體中文版</a>、<a href="./zh-Hans/">简体中文版</a> 或 <a href="./en/">English</a>。</p>
+    </noscript>
+  </body>
+</html>
