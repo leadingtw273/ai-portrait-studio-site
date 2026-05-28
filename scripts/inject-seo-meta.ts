@@ -100,6 +100,7 @@ export function injectSeoMeta(html: string, lang: Lang, videoFiles: VideoFileMap
     <meta name="description" content="${escapeAttr(meta.description)}" />
     <meta name="keywords" content="${escapeAttr(meta.keywords)}" />
     <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="F6fVD42fTf4IZA1cgCdm9NxWHuLfu3rfQhFfPqido7s" />
     <link rel="canonical" href="${url}" />
 
     <meta property="og:type" content="website" />
