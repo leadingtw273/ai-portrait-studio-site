@@ -54,6 +54,7 @@ export const en: Messages = {
     hottest:  'Most Popular',
     limited:  'Monthly limit: 3',
     ctaInquiry: 'Contact Us',
+    currencyNote: 'Prices shown are estimated conversions; billed in TWD',
     basic: {
       name:        'Mini Launch',
       tagline:     'For creators just starting out',

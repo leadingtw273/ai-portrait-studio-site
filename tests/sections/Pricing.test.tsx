@@ -29,3 +29,34 @@ describe('Pricing', () => {
     expect(screen.getAllByText('每月限 3 位')).toHaveLength(1)
   })
 })
+
+describe('Pricing — currencyNote (Task 9)', () => {
+  function renderInLang(lang: 'zh-Hant' | 'zh-Hans' | 'en') {
+    localStorage.clear()
+    window.history.replaceState({}, '', `/ai-portrait-studio-site/${lang}/`)
+    return render(
+      <LanguageProvider>
+        <Pricing />
+      </LanguageProvider>,
+    )
+  }
+
+  beforeEach(() => {
+    window.history.replaceState({}, '', '/')
+  })
+
+  it('zh-Hant does NOT show currencyNote (TWD is the actual quote)', () => {
+    renderInLang('zh-Hant')
+    expect(screen.queryByText(/實際以 TWD 報價|实际以 TWD 报价|billed in TWD/i)).not.toBeInTheDocument()
+  })
+
+  it('zh-Hans shows currencyNote "实际以 TWD 报价"', () => {
+    renderInLang('zh-Hans')
+    expect(screen.getByText(/实际以 TWD 报价/)).toBeInTheDocument()
+  })
+
+  it('en shows currencyNote "billed in TWD"', () => {
+    renderInLang('en')
+    expect(screen.getByText(/billed in TWD/i)).toBeInTheDocument()
+  })
+})

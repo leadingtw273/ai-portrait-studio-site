@@ -21,6 +21,9 @@ export function Pricing() {
     >
       <div className="max-w-6xl mx-auto w-full">
         <SectionHeader badge={t.pricing.badge} title={t.pricing.title} subtitle={t.pricing.subtitle} />
+        {t.pricing.currencyNote && (
+          <p className="text-xs text-gray-400 mt-2 text-center">{t.pricing.currencyNote}</p>
+        )}
 
         {/* Pricing 三卡 */}
         <div className="grid grid-cols-1 desktop:grid-cols-3 gap-6 desktop:gap-8 mt-16 tablet:max-w-lg tablet:mx-auto desktop:max-w-none desktop:items-stretch">

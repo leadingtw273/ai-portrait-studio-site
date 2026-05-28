@@ -54,6 +54,7 @@ export const zhHans: Messages = {
     hottest:  '最热门',
     limited:  '每月限 3 位',
     ctaInquiry: '立即咨询',
+    currencyNote: '价格为参考换算、实际以 TWD 报价',
     basic: {
       name:        'Mini Launch',
       tagline:     '适合刚起步、想试水的创作者',

@@ -52,6 +52,7 @@ export const zhHant = {
     hottest:  '最熱門',
     limited:  '每月限 3 位',
     ctaInquiry: '立即諮詢',
+    currencyNote: '',  // 繁中以 TWD 原價顯示、不需註解
     basic: {
       name:        'Mini Launch',
       tagline:     '適合剛起步、想試水的創作者',
