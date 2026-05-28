@@ -2833,6 +2833,29 @@ Task 22 (GoatCounter analytics — 並入 Step 5、依賴 Task 16a inject-seo-me
 
 spec §8 三項 Performance 改善、Task 12 已完成 (a) 砍 Inter 400；剩餘 (b) hero-bg preload + (c) video preload="metadata" 列為可選優化。執行時機：Phase 4 結束後（Task 18 完成）、Phase 5 開始前、或 Final Launch 階段補做。
 
+### Optional Task C：React hydration warning #418（上線後 console 觀察、P2 backlog）
+
+**2026-05-28 上線後 Playwright 抓到**：production zh-Hant 載入後 console 出現 1 條 `Minified React error #418; args[]=text&args[]=`（hydration mismatch、text 類）。
+
+**詳細調查**：
+- Playwright dump prerender HTML root 內容（50862 bytes）vs client hydrated root 內容（50862 bytes）→ **byte-by-byte 完全一致**、無實質 text diff
+- React 自動 recover、recovered DOM 與 prerender 一致
+- 結論：React 19 production build 內部 fiber diff 在 hydration phase 短暫 mismatch、known minor pattern（GitHub issues 有 SVG / lucide icon 類似報告）
+
+**實際影響**：
+- 使用者視覺 / 互動性 / Web Vitals / SEO 全部 0 影響
+- 唯一表現：production console 1 條 error 訊息
+
+**為什麼不修**：
+- bisect 找 root cause 需 1-2 hours + 多次 CI roundtrip（加 `onRecoverableError` callback → deploy → Playwright 抓 → 比對）
+- 修法可能動 main.tsx / 某 SVG 渲染、collateral 風險高
+- cost / benefit 不划算
+
+**列 backlog 觸發條件**：
+- React 19.x patch update 變嚴格、recovered 變 fatal
+- 或 production user 反映互動異常
+- 或想做 Sentry / error tracking、要清乾淨 noise
+
 ### Optional Task B：Image compression（上線後實測發現、P2 backlog）
 
 **2026-05-28 上線後 Playwright lab 量測**：
