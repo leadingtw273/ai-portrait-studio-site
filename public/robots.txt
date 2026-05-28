@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leadingtw.github.io/ai-portrait-studio-site/sitemap.xml
