@@ -166,6 +166,23 @@ async function main() {
     assert(foundService, `${lang}: no ProfessionalService JSON-LD found`)
     assert(foundVideo, `${lang}: no VideoObject JSON-LD found`)
 
+    // 規則 9: GoatCounter analytics script 注入（Task 22）
+    const gcScript = root.querySelectorAll('script').find(
+      (el) => el.getAttribute('data-goatcounter') !== undefined
+             && el.getAttribute('data-goatcounter') !== null
+    )
+    assert(gcScript, `${lang}: missing GoatCounter script tag (data-goatcounter)`)
+    const gcUrl = gcScript!.getAttribute('data-goatcounter')
+    assert(gcUrl?.startsWith('https://') && gcUrl.endsWith('/count'),
+           `${lang}: GoatCounter URL "${gcUrl}" malformed`)
+    const gcSrc = gcScript!.getAttribute('src')
+    assert(gcSrc === '//gc.zgo.at/count.js',
+           `${lang}: GoatCounter script src is "${gcSrc}", expected "//gc.zgo.at/count.js"`)
+    const gcAsync = gcScript!.getAttribute('async')
+    assert(gcAsync !== undefined && gcAsync !== null,
+           `${lang}: GoatCounter script must be async (avoid LCP regression)`)
+    console.log(`✓ ${lang}: 規則 9 GoatCounter script 注入`)
+
     // 規則 7 collect (validated after loop)
     hreflangSets[lang] = new Set(hreflangLinks.map((l) => l.getAttribute('href')!))
 
@@ -173,7 +190,7 @@ async function main() {
     const ogImg = root.querySelector('meta[property="og:image"]')?.getAttribute('content')
     if (ogImg) ogImages.add(ogImg)
 
-    console.log(`✓ ${lang}: 規則 1-5 + 5b 通過`)
+    console.log(`✓ ${lang}: 規則 1-5 + 5b + 9 通過`)
   }
 
   // 規則 6: root index.html noindex

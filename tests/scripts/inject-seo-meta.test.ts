@@ -60,3 +60,28 @@ describe('injectSeoMeta', () => {
     expect(out).toMatch(/og:locale"\s+content="en_US"/)
   })
 })
+
+describe('inject-seo-meta — GoatCounter script (Task 22)', () => {
+  const SAMPLE = `<!doctype html><html lang="zh-Hant"><head></head><body><div id="root"><main>x</main></div></body></html>`
+  const VIDEOS = {
+    'tea-product-promo': 'tea-product-promo-abc123.mp4',
+    'automotive-kv-promo': 'automotive-kv-promo-def456.mp4',
+  }
+
+  it('injects GoatCounter script tag in zh-Hant HTML', () => {
+    const out = injectSeoMeta(SAMPLE, 'zh-Hant', VIDEOS)
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+    expect(out).toMatch(/src="\/\/gc\.zgo\.at\/count\.js"/)
+    expect(out).toMatch(/<script[^>]*\basync\b/)
+  })
+
+  it('same GoatCounter URL in zh-Hans HTML (single site code, GoatCounter auto-segments by URL)', () => {
+    const out = injectSeoMeta(SAMPLE, 'zh-Hans', VIDEOS)
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+  })
+
+  it('GoatCounter script in en HTML', () => {
+    const out = injectSeoMeta(SAMPLE, 'en', VIDEOS)
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+  })
+})

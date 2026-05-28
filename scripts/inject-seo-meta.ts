@@ -7,6 +7,8 @@ import type { Lang } from '../src/i18n/LanguageProvider'
 
 const LANGS: readonly Lang[] = ['zh-Hant', 'zh-Hans', 'en']
 
+const GOATCOUNTER_TRACKING_URL = 'https://ai-portrait-studio.goatcounter.com/count'
+
 export type VideoFileMap = {
   'tea-product-promo': string
   'automotive-kv-promo': string
@@ -111,6 +113,7 @@ export function injectSeoMeta(html: string, lang: Lang, videoFiles: VideoFileMap
 
     <script type="application/ld+json">${JSON.stringify(buildProfessionalServiceJsonLd(lang), null, 2)}</script>
     ${buildVideoObjectsJsonLd(videoFiles)}
+    <script data-goatcounter="${GOATCOUNTER_TRACKING_URL}" async src="//gc.zgo.at/count.js"></script>
   `
 
   head.insertAdjacentHTML('beforeend', newHead)
