@@ -16,7 +16,7 @@ export function AddOnCard({
   className,
 }: Props) {
   return (
-    <div className={cn('addon-card-cq h-full', className)}>
+    <div role="article" className={cn('addon-card-cq h-full', className)}>
       <div className="h-full rounded-2xl p-5 border border-border-subtle bg-surface flex flex-col">
       {/* icon + 標題 + 副標題 同行排列、icon 縮小 0.7×、垂直置中 */}
       <div className="flex items-center gap-4 mb-4 flex-1">
