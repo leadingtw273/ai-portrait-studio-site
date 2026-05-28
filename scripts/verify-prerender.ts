@@ -54,6 +54,13 @@ async function main() {
       !html.includes('<script type="module" src="/src/main.tsx"'),
       `${lang}: dev URL leak — /src/main.tsx reference in prod HTML`
     )
+    // 規則 1c: production JS bundle script tag MUST be present (otherwise React never mounts,
+    // hydration never happens, useEffect never runs — page is functionally broken).
+    // This rule was added after a real incident where injectSeoMeta accidentally removed it.
+    assert(
+      /<script[^>]*type="module"[^>]*src="[^"]*assets\/index-[^"]*\.js"/.test(html),
+      `${lang}: missing production JS bundle <script type="module" src="...assets/index-*.js"> — React will not mount`
+    )
 
     // 規則 2: <html lang>
     const htmlLang = root.querySelector('html')?.getAttribute('lang')

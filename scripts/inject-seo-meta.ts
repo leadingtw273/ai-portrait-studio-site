@@ -73,8 +73,18 @@ export function injectSeoMeta(html: string, lang: Lang, videoFiles: VideoFileMap
     if (el.getAttribute('hreflang')) el.remove()
   })
   head.querySelectorAll('script').forEach((el) => {
-    if (el.getAttribute('type') === 'application/ld+json') el.remove()
-    if (el.getAttribute('data-goatcounter') !== null) el.remove()
+    const type = el.getAttribute('type')
+    if (type === 'application/ld+json') {
+      el.remove()
+      return
+    }
+    // node-html-parser getAttribute returns undefined (not null) for missing attrs;
+    // prior `!== null` check matched every script and clobbered the Vite module bundle.
+    // Truthy check only matches scripts that actually have a non-empty data-goatcounter value.
+    const gc = el.getAttribute('data-goatcounter')
+    if (typeof gc === 'string' && gc.length > 0) {
+      el.remove()
+    }
   })
 
   // 3. Build new head fragment
