@@ -1,9 +1,8 @@
 import { render, screen, act } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { describe, it, expect, beforeEach } from 'vitest'
 import { LanguageProvider } from '@/i18n/LanguageProvider'
 import { useT } from '@/i18n/useT'
-
-const STORAGE_KEY = 'ai-portrait-studio-lang'
 
 function Probe() {
   const { t, lang, setLang } = useT()
@@ -21,6 +20,8 @@ describe('i18n', () => {
   beforeEach(() => {
     localStorage.clear()
     document.documentElement.lang = ''
+    // reset pathname to root (no lang prefix) so navigator.language fallback governs
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/')
   })
 
   it('defaults to zh-Hant title on first visit when navigator.language is zh-TW', () => {
@@ -49,14 +50,15 @@ describe('i18n', () => {
     expect(screen.getByTestId('lang').textContent).toBe('zh-Hant')
   })
 
-  it('setLang switches dictionary and updates localStorage + html lang', async () => {
+  it('setLang switches dictionary and updates html lang (no longer writes localStorage)', async () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
     render(<LanguageProvider><Probe /></LanguageProvider>)
     expect(screen.getByTestId('title').textContent).toBe('AI 人像工作室')
 
     act(() => { screen.getByTestId('to-en').click() })
     expect(screen.getByTestId('title').textContent).toBe('AI Portrait Studio')
-    expect(localStorage.getItem(STORAGE_KEY)).toBe('en')
+    // Task 5: localStorage is no longer written — URL is the truth source
+    expect(localStorage.getItem('ai-portrait-studio-lang')).toBeNull()
     expect(document.documentElement.lang).toBe('en')
 
     act(() => { screen.getByTestId('to-hans').click() })
@@ -64,14 +66,85 @@ describe('i18n', () => {
     expect(document.documentElement.lang).toBe('zh-Hans')
   })
 
-  it('reads from localStorage on next mount', () => {
+  it('ignores localStorage on mount (URL is truth source after Task 5)', () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
-    localStorage.setItem(STORAGE_KEY, 'en')
+    // localStorage says 'en' but URL has no lang prefix → navigator.language governs
+    localStorage.setItem('ai-portrait-studio-lang', 'en')
     render(<LanguageProvider><Probe /></LanguageProvider>)
-    expect(screen.getByTestId('lang').textContent).toBe('en')
+    // navigator.language is zh-TW → zh-Hant (localStorage is ignored)
+    expect(screen.getByTestId('lang').textContent).toBe('zh-Hant')
   })
 
   it('useT outside provider throws', () => {
     expect(() => render(<Probe />)).toThrow(/LanguageProvider/)
+  })
+})
+
+describe('LanguageProvider — URL path detection (Task 5)', () => {
+  beforeEach(() => {
+    // 重置 location pathname
+    window.history.replaceState({}, '', '/')
+    localStorage.clear()
+  })
+
+  it('detects zh-Hant from /ai-portrait-studio-site/zh-Hant/', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/zh-Hant/')
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('zh-Hant')
+  })
+
+  it('detects zh-Hans from /ai-portrait-studio-site/zh-Hans/', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/zh-Hans/')
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('zh-Hans')
+  })
+
+  it('detects en from /ai-portrait-studio-site/en/', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/en/')
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('en')
+  })
+
+  it('fallback: navigator zh-TW → zh-Hant', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/')
+    Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('zh-Hant')
+  })
+
+  it('fallback: navigator zh-CN → zh-Hans', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/')
+    Object.defineProperty(navigator, 'language', { value: 'zh-CN', configurable: true })
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('zh-Hans')
+  })
+
+  it('fallback: navigator en-US → en', () => {
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/')
+    Object.defineProperty(navigator, 'language', { value: 'en-US', configurable: true })
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    expect(result.current.lang).toBe('en')
+  })
+
+  it('does NOT read localStorage anymore (URL is the only truth source)', () => {
+    localStorage.setItem('ai-portrait-studio-lang', 'en')
+    window.history.replaceState({}, '', '/ai-portrait-studio-site/zh-Hant/')
+    const { result } = renderHook(() => useT(), {
+      wrapper: ({ children }) => <LanguageProvider>{children}</LanguageProvider>,
+    })
+    // URL 是 zh-Hant、就算 localStorage 有 en、也是 zh-Hant
+    expect(result.current.lang).toBe('zh-Hant')
   })
 })
