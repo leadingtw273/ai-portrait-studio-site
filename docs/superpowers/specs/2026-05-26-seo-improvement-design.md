@@ -898,7 +898,7 @@ jobs:
 | **Custom domain** | v2 議題、會額外牽動 sitemap absolute URL、og:url、canonical 等多處 | 等品牌 domain 確定 |
 | **Blog / Case Study route** | 一頁式 scope；landing v1 已 lock-out；prerender 架構 ready 但本版不接路由 | 累積案例後加 |
 | **多於三語** | 三語已涵蓋目標市場；多語要重寫 i18n state 模型 | 加日 / 韓時 |
-| **接 Google Analytics / Search Console event tracking** | landing v1 已 lock-out 不接 analytics；本版維持 | 開始 A/B / 追轉換時 |
+| ~~接 analytics~~ → **改為採納 GoatCounter（2026-05-28 leadi 決策）** | ~~landing v1 已 lock-out 不接 analytics；本版維持~~ → **採 GoatCounter：免費 / 無 cookie / async ~1.5KB JS / 自動 bot 過濾 / 三語 URL 自動分流統計**。詳見 §13 鎖定前提 + plan Task 22 | Google Analytics 4 / Plausible / Umami 仍 out-of-scope（cookie banner 拖累 LCP / 付費 / 自架 overhead） |
 | **AMP（Accelerated Mobile Pages）** | Google 2024+ 已不強推、單頁 site 不值得雙版本維護 | 永不做 |
 | **接 reCAPTCHA / 表單** | landing v1 已 lock-out（無表單）| 開始收 lead form 時 |
 | **動態 og:image 生成（Vercel OG / Satori）** | 三語三張、手做 Figma 比動態生成簡單 | 內容變動頻繁時 |
@@ -958,7 +958,8 @@ jobs:
 ### 工期 / 驗收
 - ✅ 5-6 天工程量、5 階段獨立 deploy、每階段可獨立驗證
 - ✅ 成功標準拆 Infrastructure Deploy 驗收（8 項）vs Final Launch 驗收（5 項）
-- ✅ 不接 analytics、不接 SSR、不加 blog route（與 landing v1 一致）
+- ✅ 不接 SSR、不加 blog route（與 landing v1 一致）
+- ✅ **採用 GoatCounter analytics（2026-05-28 leadi 決策、與 landing v1「不接 analytics」決策分歧）**：免費 / 無 cookie / async ~1.5KB JS / 自動 bot 過濾 / 三語 URL 自動分流統計；plan Task 22 整合進 Phase 5；不接 GA4 / Plausible / Umami（cookie banner / 付費 / 自架 overhead 與接案門面定位不符）
 
 ---
 

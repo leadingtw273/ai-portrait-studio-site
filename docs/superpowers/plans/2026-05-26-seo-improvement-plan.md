@@ -14,7 +14,7 @@
 
 **工作分支**：`main`（這個 repo 用 main 不是 master）。
 
-**21 個 task 分 5 phase**：每個 phase 結束都可以獨立 deploy / 驗證、即使中途暫停也不破壞 production。
+**22 個 task 分 5 phase**：每個 phase 結束都可以獨立 deploy / 驗證、即使中途暫停也不破壞 production。Task 22 為 leadi 2026-05-28 追加 GoatCounter analytics 整合（Phase 5 收尾）。
 
 > **★ v2（codex plan review 後）**：plan v1 的部分 test code 與現有 component 真實 API 不符（codex 抓到）。**執行任何 task 前先讀附錄 E**（30 條 review 意見 + 修正指引 + 真實 API）。受影響 task body 已標 `⚠️ 見附錄 E`。每個 task Step 1 一律先 `cat` 現有 component 確認 API 再寫 test。
 
@@ -2623,6 +2623,162 @@ git push origin main
 
 ---
 
+### Task 22：GoatCounter analytics 整合（Phase 5 收尾）
+
+**Files:**
+- Modify: `scripts/inject-seo-meta.ts`（newHead 加 GoatCounter script tag）
+- Modify: `scripts/verify-prerender.ts`（規則 9：驗證三條 HTML 都有 GoatCounter script）
+- 外部動作：leadi 在 [goatcounter.com](https://www.goatcounter.com/) 註冊 site 拿 subdomain
+
+**設計選擇**（採納 leadi 2026-05-28 裁決）：
+
+- 工具：GoatCounter（完全免費、無 cookie、~1.5KB async JS、自動過濾 bot、自帶 referrer/國家/瀏覽器 dashboard）
+- 從 spec §11 Out of scope 移除「不接 analytics」、加入 spec §13 鎖定前提
+- 並入 SEO plan v2 Step 5（不另開 plan）
+- 三語 URL 用同一個 GoatCounter site code、依 URL path 自動分流（`/zh-Hant/` `/zh-Hans/` `/en/` 各成獨立路線）
+- root redirect 頁**不**注入（瞬間 navigate 走、不算 PV、避免 inflate 數據）
+- script tag async 載入、不影響 LCP / 不影響 prerender HTML 與 client 第一幀一致性
+
+- [ ] **Step 22.1：leadi 在 goatcounter.com 註冊 site**
+
+外部動作（subagent 跳過此步、若 subdomain 已知則繼續）：
+
+1. 開 https://www.goatcounter.com/signup
+2. 註冊 free account（email + password）
+3. 建立 site：subdomain 命名建議 `ai-portrait-studio`（最終 URL: `https://ai-portrait-studio.goatcounter.com`）
+4. 在 Settings → Sites 確認 site code，記下 tracking URL：`https://ai-portrait-studio.goatcounter.com/count`
+5. 提供給 plan 執行者：tracking URL（執行 Step 22.2 時填進去）
+
+- [ ] **Step 22.2：寫 failing test（inject-seo-meta.ts 新增 GoatCounter script 注入）**
+
+```ts
+// tests/scripts/inject-seo-meta.test.ts（在現有 inject-seo-meta unit test 加新 describe）
+import { describe, it, expect } from 'vitest'
+import { injectSeoMeta } from '../../scripts/inject-seo-meta'
+
+describe('inject-seo-meta — GoatCounter script (Task 22)', () => {
+  const sampleHtml = '<!doctype html><html lang="zh-Hant"><head></head><body><div id="root">x</div></body></html>'
+
+  it('injects GoatCounter script tag in zh-Hant HTML', () => {
+    const out = injectSeoMeta(sampleHtml, 'zh-Hant')
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+    expect(out).toMatch(/src="\/\/gc\.zgo\.at\/count\.js"/)
+    expect(out).toContain('async')
+  })
+
+  it('same GoatCounter script in zh-Hans HTML (single site code, lang分流靠 URL path)', () => {
+    const out = injectSeoMeta(sampleHtml, 'zh-Hans')
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+  })
+
+  it('GoatCounter script in en HTML', () => {
+    const out = injectSeoMeta(sampleHtml, 'en')
+    expect(out).toMatch(/data-goatcounter="https:\/\/ai-portrait-studio\.goatcounter\.com\/count"/)
+  })
+})
+```
+
+- [ ] **Step 22.3：跑 test 確認 fail**
+
+```bash
+pnpm test tests/scripts/inject-seo-meta.test.ts -t "GoatCounter"
+```
+
+Expected: FAIL（inject-seo-meta.ts 還沒注入 GoatCounter script）
+
+- [ ] **Step 22.4：改 `scripts/inject-seo-meta.ts` newHead 末段加 GoatCounter script tag**
+
+```ts
+// scripts/inject-seo-meta.ts — newHead 字串末段（在 JSON-LD VideoObject 之後）加：
+const GOATCOUNTER_TRACKING_URL = 'https://ai-portrait-studio.goatcounter.com/count'
+// ↑ 替換成 Step 22.1 拿到的實際 URL；建議改用 env 注入：process.env.GOATCOUNTER_URL ?? '...'
+
+const newHead = `
+  ${/* ... 既有 SEO meta + JSON-LD ... */}
+  <script data-goatcounter="${GOATCOUNTER_TRACKING_URL}" async src="//gc.zgo.at/count.js"></script>
+`
+```
+
+**注意**：
+- 三條語言 HTML 用**同一個** tracking URL（GoatCounter 自動依 referer/URL path 分流）
+- script tag 加 `async` 確保不阻塞 render（不影響 LCP）
+- root redirect 頁的 `scripts/__fixtures__/root-redirect-template.html` **不**注入（避免 redirect 瞬間 inflate 數據）
+
+- [ ] **Step 22.5：跑 test 確認 pass**
+
+```bash
+pnpm test tests/scripts/inject-seo-meta.test.ts
+```
+
+Expected: PASS（含原有 case + 新增 GoatCounter case）
+
+- [ ] **Step 22.6：擴充 `scripts/verify-prerender.ts` 規則 9**
+
+在 verify-prerender.ts 的「逐 lang 跑」loop 內加：
+
+```ts
+// 規則 9：GoatCounter analytics script 注入
+const gcScript = root.querySelector('script[data-goatcounter]')
+assert(gcScript, `${lang}: missing GoatCounter script tag`)
+const gcUrl = gcScript.getAttribute('data-goatcounter')
+assert(gcUrl?.startsWith('https://') && gcUrl.endsWith('/count'),
+       `${lang}: GoatCounter URL "${gcUrl}" malformed`)
+const gcSrc = gcScript.getAttribute('src')
+assert(gcSrc === '//gc.zgo.at/count.js',
+       `${lang}: GoatCounter script src is "${gcSrc}", expected "//gc.zgo.at/count.js"`)
+assert(gcScript.getAttribute('async') !== null,
+       `${lang}: GoatCounter script must be async (avoid LCP regression)`)
+console.log(`✓ ${lang}: 規則 9 GoatCounter script 注入`)
+```
+
+- [ ] **Step 22.7：完整 local 驗證**
+
+```bash
+pnpm build
+pnpm preview --port 4173 &
+PREVIEW_PID=$!
+sleep 3
+pnpm tsx scripts/prerender.ts
+pnpm tsx scripts/verify-prerender.ts
+grep -c "data-goatcounter" dist/zh-Hant/index.html dist/zh-Hans/index.html dist/en/index.html
+grep -c "data-goatcounter" dist/index.html || echo "✓ root redirect 頁正確不含 GoatCounter"
+kill $PREVIEW_PID 2>/dev/null
+```
+
+Expected:
+- verify-prerender 全 ✓（含規則 9）
+- 三條語言 HTML 各印 `1`（含 1 個 GoatCounter script）
+- root index.html 印 `0` 或上面 echo 訊息（**不**含 GoatCounter）
+
+- [ ] **Step 22.8：上線後驗證 GoatCounter 收到 PV（leadi 動作）**
+
+push 後等 GH Actions 跑完、開 https://leadingtw.github.io/ai-portrait-studio-site/zh-Hant/ 一次。然後：
+
+1. 開 https://ai-portrait-studio.goatcounter.com/
+2. 等 1-2 分鐘（GoatCounter ingestion 有延遲）
+3. 確認 dashboard 看到 1 條 PV、path 為 `/ai-portrait-studio-site/zh-Hant/`
+4. 對 zh-Hans / en 兩條 URL 各開一次、確認各路徑都收到
+
+- [ ] **Step 22.9：commit**
+
+```bash
+git add scripts/inject-seo-meta.ts scripts/verify-prerender.ts tests/scripts/inject-seo-meta.test.ts
+git commit -m "feat(analytics): GoatCounter integration (no-cookie, async, ~1.5KB, single site code 3-lang分流)
+
+- inject-seo-meta.ts: GoatCounter script tag 注入三條 prerender HTML（root redirect 頁不注入）
+- verify-prerender.ts: 規則 9 驗證 data-goatcounter URL + src + async
+- Spec §11 移除「不接 analytics」、§13 鎖定前提加 GoatCounter
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+"
+```
+
+**驗收（補進 §1.3.1）**：
+- ☐ verify-prerender 規則 9 ✓
+- ☐ GoatCounter dashboard 收到三語各自 PV（上線後 1-2 min）
+
+---
+
 ## 附錄 A：Task 依賴順序
 
 ```
@@ -2653,6 +2809,7 @@ Task 18 (verify-prerender)
 Task 19 (package.json)  ← 把所有 script 整合
 Task 20 (deploy.yml)
 Task 21 (上線 + Search Console)
+Task 22 (GoatCounter analytics — 並入 Step 5、依賴 Task 16a inject-seo-meta + Task 18 verify)
 ```
 
 **禁止平行**：本 plan 為線性 task、每個 task 都依賴前面所有的 commit；不要 parallel execute。
