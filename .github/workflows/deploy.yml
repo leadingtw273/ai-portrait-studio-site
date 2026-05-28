@@ -56,10 +56,10 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium
 
-      - run: pnpm build
-
-      # Generate fresh video posters (overrides committed ones if ffmpeg available)
+      # Generate fresh video posters BEFORE build so Vite copies them from public/ → dist/
       - run: pnpm generate-video-poster
+
+      - run: pnpm build
 
       # Start preview server in background, capture PID for cleanup
       - name: Start preview server

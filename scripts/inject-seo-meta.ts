@@ -74,6 +74,7 @@ export function injectSeoMeta(html: string, lang: Lang, videoFiles: VideoFileMap
   })
   head.querySelectorAll('script').forEach((el) => {
     if (el.getAttribute('type') === 'application/ld+json') el.remove()
+    if (el.getAttribute('data-goatcounter') !== null) el.remove()
   })
 
   // 3. Build new head fragment

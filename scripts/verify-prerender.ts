@@ -77,8 +77,9 @@ async function main() {
     ]
     for (const c of metaChecks) {
       const el = root.querySelector(c.selector)
-      const val = el?.getAttribute(c.attr)
-      if (!val) continue
+      assert(el, `${lang}: ${c.label} element missing from <head>`)
+      const val = el.getAttribute(c.attr)
+      assert(val, `${lang}: ${c.label} has empty or missing "${c.attr}" attribute`)
       assert(val.startsWith('https://'), `${lang}: ${c.label} = "${val}" is not absolute URL`)
       assert(
         val.includes(BASE_PATH),
@@ -108,11 +109,11 @@ async function main() {
       .querySelectorAll('script')
       .filter((el) => el.getAttribute('type') === 'application/ld+json')
     assert(
-      scripts.length >= 2,
-      `${lang}: expected >= 2 JSON-LD blocks (Service + Video×2), got ${scripts.length}`
+      scripts.length >= 3,
+      `${lang}: expected >= 3 JSON-LD blocks (1 ProfessionalService + 2 VideoObject), got ${scripts.length}`
     )
-    let foundService = false
-    let foundVideo = false
+    let serviceCount = 0
+    let videoCount = 0
     for (const script of scripts) {
       let json: Record<string, unknown>
       try {
@@ -136,13 +137,13 @@ async function main() {
         }
       }
       if (json['@type'] === 'ProfessionalService') {
-        foundService = true
+        serviceCount++
         for (const k of ['name', 'url', 'contactPoint', 'hasOfferCatalog']) {
           assert(json[k], `${lang}: ProfessionalService missing "${k}"`)
         }
       }
       if (json['@type'] === 'VideoObject') {
-        foundVideo = true
+        videoCount++
         for (const k of ['name', 'thumbnailUrl', 'uploadDate', 'description']) {
           assert(json[k], `${lang}: VideoObject missing required "${k}"`)
         }
@@ -161,10 +162,21 @@ async function main() {
             `${lang}: VideoObject thumbnailUrl points to "${fileName}" but file not at ${posterPath}`
           )
         }
+        // 規則 5c: contentUrl mp4 basename must exist in dist/assets/
+        const contentUrl = json['contentUrl'] as string | undefined
+        assert(contentUrl, `${lang}: VideoObject missing "contentUrl"`)
+        const contentBasename = path.basename(new URL(contentUrl).pathname)
+        try {
+          await fs.access(path.join(DIST, 'assets', contentBasename))
+        } catch {
+          throw new Error(
+            `${lang}: VideoObject contentUrl points to "${contentBasename}" but file not at dist/assets/`
+          )
+        }
       }
     }
-    assert(foundService, `${lang}: no ProfessionalService JSON-LD found`)
-    assert(foundVideo, `${lang}: no VideoObject JSON-LD found`)
+    assert(serviceCount === 1, `${lang}: expected 1 ProfessionalService JSON-LD, got ${serviceCount}`)
+    assert(videoCount === 2, `${lang}: expected 2 VideoObject JSON-LD, got ${videoCount}`)
 
     // 規則 9: GoatCounter analytics script 注入（Task 22）
     const gcScript = root.querySelectorAll('script').find(
