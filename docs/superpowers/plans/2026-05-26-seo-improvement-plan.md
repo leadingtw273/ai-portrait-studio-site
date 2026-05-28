@@ -2833,6 +2833,34 @@ Task 22 (GoatCounter analytics — 並入 Step 5、依賴 Task 16a inject-seo-me
 
 spec §8 三項 Performance 改善、Task 12 已完成 (a) 砍 Inter 400；剩餘 (b) hero-bg preload + (c) video preload="metadata" 列為可選優化。執行時機：Phase 4 結束後（Task 18 完成）、Phase 5 開始前、或 Final Launch 階段補做。
 
+### Optional Task B：Image compression（上線後實測發現、P2 backlog）
+
+**2026-05-28 上線後 Playwright lab 量測**：
+
+- Desktop LCP 536ms / Mobile LCP 948ms — Core Web Vitals 全綠
+- 但 **Mobile initial transfer 17.6 MB**（排除 mp4）— 不影響 LCP / CLS、但浪費流量
+- 主要肥肉：
+  - `src/assets/hero-bg.jpg` **2.7 MB**（fixed background、3840×2160 級別）
+  - `src/assets/lora-before.jpg` / `lora-after.png` 各約 1-2 MB
+  - @fontsource subset（已較難壓）
+
+**目標**：mobile initial transfer 從 17.6 MB → < 5 MB（不犧牲視覺品質）。
+
+**做法（按優先序）**：
+1. `hero-bg.jpg` 用 sharp 壓 jpg quality 75 + resize 1920×1080（或 2560×1440）→ 預期 < 500 KB
+2. `lora-before.jpg` / `lora-after.png` 同樣處理（或改 WebP）
+3. 考慮加 `<picture>` + WebP/AVIF 多版本（modern browser 享受小檔、舊瀏覽器 fallback jpg）
+4. 影片 poster 順帶確認 < 200 KB（目前 27 KB / 83 KB OK）
+
+**做不做的判斷**：
+- SEO 觀點：**Web Vitals 全綠就不必修**（Google ranking 不會因 transfer size 扣分）
+- UX 觀點：**值得做**（mobile 流量 18 MB 用戶實感體驗差、特別是中國用戶 4G / 收訊不好）
+- 商業觀點：**接案門面 + 客戶可能在手機看連結 → 值得做**
+
+預估工程量：0.5 天（sharp + npm script + 一次壓縮 + commit）。
+
+---
+
 ### Optional Task A：Hero background preload + video preload="metadata"
 
 **Files:**
