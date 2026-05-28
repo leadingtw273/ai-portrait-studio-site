@@ -19,17 +19,64 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need full history for git log lastmod in generate-sitemap
+
       - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
+
       - uses: actions/configure-pages@v5
+
       - run: pnpm install --frozen-lockfile
+
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+
+      # Playwright Chromium cache (browser binary). System deps NOT in this cache.
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # System deps must run every time (not in browser cache).
+      - name: Install Playwright system deps
+        run: pnpm exec playwright install-deps chromium
+
+      # Browser binary only if cache miss.
+      - name: Install Playwright Chromium binary
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - run: pnpm build
+
+      # Generate fresh video posters (overrides committed ones if ffmpeg available)
+      - run: pnpm generate-video-poster
+
+      # Start preview server in background, capture PID for cleanup
+      - name: Start preview server
+        run: |
+          pnpm preview --port 4173 &
+          echo "PREVIEW_PID=$!" >> $GITHUB_ENV
+      - name: Wait for preview server
+        run: pnpm exec wait-on http://localhost:4173/ai-portrait-studio-site/ --timeout 30000
+
+      - run: pnpm prerender
+      - run: pnpm generate-sitemap
+      - run: pnpm verify-prerender
+
+      - name: Stop preview server
+        if: always()
+        run: kill ${PREVIEW_PID} 2>/dev/null || true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
