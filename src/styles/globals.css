@@ -3,43 +3,61 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  :root {
+    --color-bg:             245 241 235;  /* #F5F1EB */
+    --color-surface:        252 250 246;  /* #FCFAF6 */
+    --color-surface-hover:  240 234 225;  /* #F0EAE1 */
+    --color-content:         43  36  32;  /* #2B2420 */
+    --color-content-muted:  107  95  87;  /* #6B5F57 */
+    --color-content-subtle: 116 103  93;  /* #74675D */
+    --color-primary:        111  78  55;  /* #6F4E37 */
+    --color-primary-hover:   92  63  44;  /* #5C3F2C */
+    --color-on-primary:     255 255 255;
+    --color-focus:          111  78  55;
   }
-  /* 尊重使用者「減少動畫」偏好 — instant scroll for them */
+  /* 預留：補一組 channel 值即啟用暗色主題（本次不填、不啟用） */
+  [data-theme="dark"] {
+    /* TODO(dark): --color-* channel 值 */
+  }
+
+  html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
   }
   body {
     font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
-    background-color: #0E0B1F;
-    color: white;
+    background-color: rgb(var(--color-bg));
+    color: rgb(var(--color-content));
   }
   :focus-visible {
-    outline: 2px solid #A855F7;
+    outline: 2px solid rgb(var(--color-focus));
     outline-offset: 2px;
+  }
+  ::selection {
+    background: rgb(var(--color-primary) / 0.16);
+    color: rgb(var(--color-content));
   }
 }
 
 @layer utilities {
+  /* 亮色 legacy alias：sticky / tab 等沿用 .glass 不必一次大改 */
   .glass {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgb(var(--color-surface) / 0.78);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgb(var(--color-content) / 0.1);
   }
+  /* 咖啡細框卡（FinalCTA 用）：外層咖啡描邊 + 內層暖白面 */
   .glow-border-gradient {
-    background: linear-gradient(135deg, #A855F7, #7C3AED, #3F1A6F);
+    background: rgb(var(--color-primary) / 0.25);
     padding: 1px;
     border-radius: 14px;
   }
   .glow-border-gradient > * {
-    background: linear-gradient(135deg, #1A0F2F, #100820);
+    background: rgb(var(--color-surface));
     border-radius: 13px;
   }
 
-  /* LoRA 箭頭顏色流動 — 兩個 chevron staggered opacity、模擬光點由左至右 */
+  /* LoRA 箭頭顏色流動 */
   @keyframes chevron-pulse-step-1 {
     0%, 100% { opacity: 0.25; }
     25%      { opacity: 1; }
@@ -54,22 +72,15 @@
   .animate-chev-step-1 { animation: chevron-pulse-step-1 1.4s ease-in-out infinite; }
   .animate-chev-step-2 { animation: chevron-pulse-step-2 1.4s ease-in-out infinite; }
 
-  /* tab 切換 — 內容淡入 + 微微滑入 */
   @keyframes fade-in-slide {
     0%   { opacity: 0; transform: translateY(8px); }
     100% { opacity: 1; transform: translateY(0); }
   }
   .animate-fade-in-slide { animation: fade-in-slide 0.35s ease-out both; }
 
-  /* 尊重 prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-chev-step-1,
-    .animate-chev-step-2 {
-      animation: none;
-      opacity: 1;
-    }
-    .animate-fade-in-slide {
-      animation: none;
-    }
+    .animate-chev-step-2 { animation: none; opacity: 1; }
+    .animate-fade-in-slide { animation: none; }
   }
 }

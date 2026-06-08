@@ -12,6 +12,9 @@ vi.mock('@fontsource/inter/700.css', () => ({}))
 vi.mock('@fontsource/noto-sans-tc/400.css', () => ({}))
 vi.mock('@fontsource/noto-sans-tc/600.css', () => ({}))
 vi.mock('@fontsource/noto-sans-tc/700.css', () => ({}))
+vi.mock('@fontsource/noto-serif-tc/400.css', () => ({}))
+vi.mock('@fontsource/noto-serif-tc/600.css', () => ({}))
+vi.mock('@fontsource/noto-serif-tc/700.css', () => ({}))
 vi.mock('../src/styles/globals.css', () => ({}))
 
 import { mountApp } from '@/main'

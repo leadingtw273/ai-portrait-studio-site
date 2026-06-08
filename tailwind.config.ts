@@ -12,34 +12,31 @@ export default {
     },
     extend: {
       colors: {
-        bg: {
-          base:     '#0E0B1F',
-          elevated: '#1A0F2F',
-        },
-        brand: {
-          500: '#7C3AED',
-          400: '#8B5CF6',
-          300: '#A855F7',
-          accent: '#D946EF',
-        },
+        bg: 'rgb(var(--color-bg) / <alpha-value>)',
         surface: {
-          DEFAULT: 'rgba(255,255,255,0.03)',
-          hover:   'rgba(255,255,255,0.06)',
+          DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
+          hover:   'rgb(var(--color-surface-hover) / <alpha-value>)',
         },
-        'border-subtle': 'rgba(255,255,255,0.08)',
-        'border-brand':  'rgba(168,85,247,0.4)',
+        content: {
+          DEFAULT: 'rgb(var(--color-content) / <alpha-value>)',
+          muted:   'rgb(var(--color-content-muted) / <alpha-value>)',
+          subtle:  'rgb(var(--color-content-subtle) / <alpha-value>)',
+        },
+        primary: {
+          DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+          hover:   'rgb(var(--color-primary-hover) / <alpha-value>)',
+        },
+        'on-primary': 'rgb(var(--color-on-primary) / <alpha-value>)',
+        focus:       'rgb(var(--color-focus) / <alpha-value>)',
       },
       boxShadow: {
-        'glow-md': '0 0 16px rgba(124,58,237,0.25)',
-        'glow-lg': '0 8px 24px -4px rgba(124,58,237,0.4)',
-        'glow-xl': '0 0 32px rgba(124,58,237,0.3)',
+        'soft':    '0 1px 2px rgba(43,36,32,0.06), 0 8px 24px -12px rgba(43,36,32,0.12)',
+        'soft-lg': '0 2px 4px rgba(43,36,32,0.06), 0 16px 40px -16px rgba(43,36,32,0.16)',
       },
       backdropBlur: { card: '12px' },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans TC', 'system-ui', '-apple-system', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-brand': 'linear-gradient(135deg, #A855F7, #7C3AED, #3F1A6F)',
+        sans:  ['Inter', 'Noto Sans TC', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Noto Serif TC"', 'Georgia', 'Cambria', 'serif'],
       },
     },
   },
