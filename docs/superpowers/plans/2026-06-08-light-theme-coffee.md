@@ -11,6 +11,10 @@
 
 **參考 spec：** `docs/superpowers/specs/2026-06-08-light-theme-coffee-design.md`（v2，codex review 完）
 
+**plan 版本：** v2（codex review plan 採納 6 項：opacity `/8`·`/15`·`/55` 非預設 scale → 改 arbitrary `/[0.08]`·`/[0.15]`、bg-black/60→/60；補 `Audiences.tsx` icon；Task 5 grep 兩段化 + 可審計 allowlist；過渡態措辭精修。已驗證測試零色彩 class 斷言、Audiences.tsx:30 確有 text-brand-300）。
+
+> **opacity modifier 規則（codex High #1）**：Tailwind 3 預設 opacity scale 含 `5/10/20/25/30/40/50/60/70/75/80/90/95/100`，**不含 8/12/15/55**。因此非預設值一律用 arbitrary `/[0.0X]` 形式（如 `bg-primary/[0.08]`、`border-content/[0.15]`），預設值（`/10 /20 /25 /40 /60 /70 /80`）直接用。本 plan 已全數套用此規則。
+
 ---
 
 ## File Structure
@@ -345,7 +349,7 @@ export function App() {
   - subtitle `<p>`：`text-lg tablet:text-xl text-gray-300 mb-4` → `text-lg tablet:text-xl text-content-muted mb-4`
   - description `<p>`：`text-base tablet:text-lg text-gray-400 mb-12 max-w-2xl mx-auto` → `text-base tablet:text-lg text-content-muted mb-12 max-w-2xl mx-auto`
   - 主 CTA `<a href="#demo">` 內 cn：`bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg` `transition-colors shadow-glow-md min-h-[44px]` → `bg-primary hover:bg-primary-hover text-on-primary font-semibold text-lg` `transition-colors shadow-soft min-h-[44px]`
-  - 次 CTA `<a href="#pricing">` 內 cn：`border border-border-subtle text-white hover:bg-surface-hover text-lg` → `border border-content/15 text-content hover:bg-surface-hover text-lg`
+  - 次 CTA `<a href="#pricing">` 內 cn：`border border-border-subtle text-white hover:bg-surface-hover text-lg` → `border border-content/[0.15] text-content hover:bg-surface-hover text-lg`
   - scroll svg：`<rect ... className="stroke-gray-400/60" />` → `stroke-content/40`；`<path ... className="stroke-brand-300" />` → `stroke-primary`
 
 - [ ] **Step 4：`src/sections/Nav.tsx` 改動**（逐項）
@@ -376,15 +380,15 @@ Expected：全綠。
   - 副標 `<p>`：`text-gray-300 text-lg tablet:text-xl max-w-2xl mx-auto` → `text-content-muted text-lg tablet:text-xl max-w-2xl mx-auto`
 
 - [ ] **Step 2：`Badge.tsx`**
-  - `<span>` cn：`border border-border-brand bg-white/[0.04] backdrop-blur-sm text-purple-200` `shadow-glow-md` → `border border-primary/25 bg-primary/8 backdrop-blur-sm text-primary` `shadow-soft`
+  - `<span>` cn：`border border-border-brand bg-white/[0.04] backdrop-blur-sm text-purple-200` `shadow-glow-md` → `border border-primary/25 bg-primary/[0.08] backdrop-blur-sm text-primary` `shadow-soft`
   - `<Sparkles className="w-4 h-4 text-brand-300" />` → `text-primary`
 
 - [ ] **Step 3：`Demo.tsx`**
-  - tech banner `<div>`：`border border-border-brand bg-brand-500/10 shadow-glow-md` → `border border-primary/25 bg-primary/8 shadow-soft`
+  - tech banner `<div>`：`border border-border-brand bg-brand-500/10 shadow-glow-md` → `border border-primary/25 bg-primary/[0.08] shadow-soft`
   - banner 標題行 `<div className="... text-white font-medium ...">` → `text-content`；其內 `<Sparkles ... text-brand-300>` 與 `<VideoIcon ... text-brand-300>` → `text-primary`
   - banner 說明 `<p className="text-gray-400 ...">` → `text-content-muted`
   - LoRA 箭頭容器 `<div className="... text-brand-300" role="img">` → `text-primary`
-  - **AI 生成 tag（壓在圖上、媒體例外）** `<span>`：`bg-bg-base/80 backdrop-blur-sm border border-border-brand text-purple-200 shadow-glow-md` → `bg-black/55 backdrop-blur-sm border border-white/15 text-white shadow-soft`；其內 `<Zap ... text-brand-300>` → `text-on-primary`
+  - **AI 生成 tag（壓在圖上、媒體例外）** `<span>`：`bg-bg-base/80 backdrop-blur-sm border border-border-brand text-purple-200 shadow-glow-md` → `bg-black/60 backdrop-blur-sm border border-white/[0.15] text-white shadow-soft`；其內 `<Zap ... text-brand-300>` → `text-on-primary`
 
 - [ ] **Step 4：`DemoCard.tsx`**
   - image variant 外層：`rounded-xl overflow-hidden border border-border-subtle` → `... border border-content/10`
@@ -410,17 +414,19 @@ Expected：全綠。
 
 ---
 
-## Task 4：AudienceCard + FinalCTA + Footer + ScrollToTop
+## Task 4：Audiences + AudienceCard + FinalCTA + Footer + ScrollToTop
 
-**Files:** `src/components/AudienceCard.tsx`、`src/sections/FinalCTA.tsx`、`src/sections/Footer.tsx`、`src/sections/ScrollToTop.tsx`
+**Files:** `src/sections/Audiences.tsx`、`src/components/AudienceCard.tsx`、`src/sections/FinalCTA.tsx`、`src/sections/Footer.tsx`、`src/sections/ScrollToTop.tsx`
+
+- [ ] **Step 0：`Audiences.tsx`（codex High #2 補）** — 傳給 `<AudienceCard icon={...}>` 的 `<Icon className="w-4 h-4 text-brand-300" aria-hidden="true" />`（第 30 行）→ `text-primary`。
 
 - [ ] **Step 1：`AudienceCard.tsx`**
-  - 卡外層 cn：highlighted 分支 `border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg` → `border border-primary bg-primary/8 shadow-soft-lg`；非 highlighted 分支 `border border-border-subtle bg-surface` → `border border-content/10 bg-surface shadow-soft`
+  - 卡外層 cn：highlighted 分支 `border border-brand-500 bg-gradient-to-b from-brand-500/15 to-brand-500/5 shadow-glow-lg` → `border border-primary bg-primary/[0.08] shadow-soft-lg`；非 highlighted 分支 `border border-border-subtle bg-surface` → `border border-content/10 bg-surface shadow-soft`
   - badge 變體 cn：`badgeVariant === 'gold' ? 'bg-[#D4AF37] text-black' : 'bg-brand-500 text-white'` → 非 gold 改 `'bg-primary text-on-primary'`（gold 分支為死碼、維持不變）
   - icon 圓底 `<span className="... bg-brand-500/20 border border-border-brand">` → `bg-primary/10 border border-primary/25`
   - name `<div className="text-gray-200 text-xl font-medium">` → `text-content text-xl font-medium`
   - tagline `<div className="text-gray-400 text-base mb-5">` → `text-content-muted text-base mb-5`
-  - 痛點面板 `<div className="rounded-xl bg-bg-base/40 border border-border-subtle p-4 mb-5">` → `rounded-xl bg-primary/8 border border-content/10 p-4 mb-5`
+  - 痛點面板 `<div className="rounded-xl bg-bg-base/40 border border-border-subtle p-4 mb-5">` → `rounded-xl bg-primary/[0.08] border border-content/10 p-4 mb-5`
   - 痛點標題 `<div className="text-amber-200/90 text-sm font-semibold mb-3">` → `text-content-muted text-sm font-semibold mb-3`
   - 痛點 marker `<Minus className="w-4 h-4 mt-0.5 flex-none text-amber-300/70" />` → `text-content-muted`；痛點 li `<li className="... text-gray-300 text-sm">` → `text-content-muted text-sm`
   - 解法標題 `<div className="text-brand-300 text-sm font-semibold mb-3">` → `text-primary text-sm font-semibold mb-3`
@@ -438,7 +444,7 @@ Expected：全綠。
   - 標題行 `<div className="... text-white font-semibold ...">` → `text-content`；其 `<Sparkles ... text-brand-300>` → `text-primary`
   - tagline `<p className="text-gray-400 ...">` → `text-content-muted`
   - contactTitle `<div className="text-gray-300 text-base mb-3">` → `text-content-muted text-base mb-3`
-  - **TG 按鈕咖啡化**（原 sky 藍 → 與全站咖啡 CTA 一致）：`border border-sky-500/40 bg-sky-500/10 text-sky-300 hover:bg-sky-500/20` → `border border-primary/40 bg-primary/8 text-primary hover:bg-primary/15`
+  - **TG 按鈕咖啡化**（原 sky 藍 → 與全站咖啡 CTA 一致）：`border border-sky-500/40 bg-sky-500/10 text-sky-300 hover:bg-sky-500/20` → `border border-primary/40 bg-primary/[0.08] text-primary hover:bg-primary/[0.15]`
   - responseTime `<div className="text-gray-500 text-sm mt-3">` → `text-content-subtle text-sm mt-3`
   - **QR 白底保留**（功能性、QR 需白底 quiet zone）：兩處 `<div className="p-2 rounded-lg bg-white">` / `p-3 rounded-lg bg-white` 維持 `bg-white`
   - qrCaption `<div className="text-gray-500 text-xs">` → `text-content-subtle text-xs`
@@ -463,23 +469,28 @@ Expected：全綠。
 
 **Files:** 視 gemini 意見可能微調
 
-- [ ] **Step 1：殘留 grep（應收斂到 0，扣除允許例外）**
+- [ ] **Step 1：殘留 grep — 兩段式（codex Med #3）**
 
-Run:
+**Stage A — 舊 token / 紫 / glow / sky（應 0 命中）：**
 ```bash
 grep -rEn "text-brand-|stroke-brand-|border-brand-|bg-brand-|from-brand-|to-brand-|brand-(300|400|500|accent)|purple-|text-amber-|rgba\(168,85,247|#A855F7|#7C3AED|#8B5CF6|#0E0B1F|#1A0F2F|gradient-brand|shadow-glow|bg-bg-base|bg-bg-elevated|border-border-subtle|border-border-brand|text-gray-|sky-" \
   src index.html tailwind.config.ts src/styles/globals.css
 ```
-Expected：無輸出（`gradient-brand`/`glow-border-gradient` 名稱已不在 config；`.glow-border-gradient` util 名保留但不含 `shadow-glow`）。
-**允許例外**（若命中需逐筆確認屬下列才放行）：
-- `src/data/content.ts` 的 audience key `'brand'`、型別 `AudienceKey`（非 class）
-- i18n / SEO 文案中的英文 "brand"
-- `DemoCard.tsx` 媒體 scrim：`bg-black`、`bg-black/60`、`text-white`（duration / play / video chrome）
-- `Demo.tsx` AI tag：`bg-black/55`、`border-white/15`、`text-white`（媒體例外）
-- `Footer.tsx` QR：`bg-white`（功能白底）
-- `AudienceCard.tsx` 死碼 gold `bg-[#D4AF37]`（不在 grep pattern、不會命中）
+Expected：**無輸出**。（`.glow-border-gradient` util 名保留但不含 `shadow-glow`，不會命中。）
 
-> 另跑一次 `text-white|bg-black` 確認剩餘命中**全部**落在上述媒體/功能例外清單，無遺漏的內文白字。
+**Stage B — 黑/白 literal（會有命中，須逐筆對照 allowlist）：**
+```bash
+grep -rEn "text-white|text-black|bg-black|bg-white|border-white" src --include="*.tsx"
+```
+**可審計 allowlist（命中只允許落在這些，其餘即為漏改的內文白字需修）：**
+| 檔案 | 允許 class | 原因 |
+|---|---|---|
+| `DemoCard.tsx` | `bg-black`（aspect-video 底）、`bg-black/60`（duration badge）、`text-white`（duration badge 文字） | 影片 scrim / 控制項 |
+| `Demo.tsx` | `bg-black/60`、`border-white/[0.15]`、`text-white`（AI 生成 chip） | 壓在圖上的媒體 chip |
+| `Footer.tsx` | `bg-white`（×2 QR 容器） | QR quiet zone 功能白底 |
+| `AudienceCard.tsx` | `bg-[#D4AF37] text-black`（gold badge 死碼分支） | 不渲染、Stage A pattern 不含 #D4AF37 |
+
+逐筆確認 Stage B 每個命中都對得上表內；DemoCard play icon 與 AudienceCard 等已改 `text-on-primary` 者不應再出現 `text-white`。
 
 - [ ] **Step 2：全綠 + build + prerender**
 
@@ -524,4 +535,4 @@ Expected：全綠、build 成功、verify-prerender all rules passed。完成後
 **Placeholder scan**：無 TBD/TODO（唯一 TODO 是 globals 內刻意預留的 dark 區塊註解）；每個 code step 均含完整內容或精確 old→new class。
 **Type consistency**：token 名（`--color-*`）↔ tailwind colors key ↔ class 名（`bg-bg`/`text-content`/`bg-primary`/`text-on-primary`/`focus`）三處一致；`<alpha-value>` 格式一致；`shadow-soft`/`soft-lg`、`font-serif` 名稱一致。
 
-**已知過渡態**：Task 1 後、Task 4 完成前，未重構元件因舊 class 已從 config 移除而暫時無色（視覺破但 build/test 綠），屬分支內正常遷移態，Task 4 完成即收斂。
+**已知過渡態（codex Med #4 精修）**：Task 1 後、Task 4 完成前，未重構元件視覺會「不一致但不報錯」：① 自訂 class（`bg-brand-*`、`bg-bg-base`、`shadow-glow-*`、`border-border-*`）因已從 config 移除 → **無樣式**；② Tailwind **內建** class（`text-white`、`text-gray-*`、`purple-*`、`amber-*`、`sky-*`）仍會編出 → 在亮底上顯示為**錯色**（白字/紫色）。兩者都不造成 build/test 紅（測試零色彩 class 斷言），屬分支內正常遷移態，Task 4 完成即收斂。
