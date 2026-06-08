@@ -46,7 +46,7 @@ describe('Nav', () => {
   it('renders desktop inline nav with three anchors (always in DOM, hidden by CSS on mobile/tablet)', () => {
     render(withProvider(<Nav />))
     const desktopNav = screen.getByRole('navigation', { name: 'Desktop navigation' })
-    expect(within(desktopNav).getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
+    expect(within(desktopNav).getByRole('link', { name: '服務對象' })).toHaveAttribute('href', '#pricing')
     expect(within(desktopNav).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
     expect(within(desktopNav).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
   })
@@ -67,7 +67,7 @@ describe('Nav', () => {
     render(withProvider(<Nav />))
     await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
     const drawer = screen.getByRole('navigation', { name: 'Mobile navigation' })
-    expect(within(drawer).getByRole('link', { name: '方案' })).toHaveAttribute('href', '#pricing')
+    expect(within(drawer).getByRole('link', { name: '服務對象' })).toHaveAttribute('href', '#pricing')
     expect(within(drawer).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
     expect(within(drawer).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
   })
@@ -76,7 +76,7 @@ describe('Nav', () => {
     render(withProvider(<Nav />))
     await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
     const drawer = screen.getByRole('navigation', { name: 'Mobile navigation' })
-    await userEvent.click(within(drawer).getByRole('link', { name: '方案' }))
+    await userEvent.click(within(drawer).getByRole('link', { name: '服務對象' }))
     expect(screen.queryByRole('navigation', { name: 'Mobile navigation' })).not.toBeInTheDocument()
   })
 

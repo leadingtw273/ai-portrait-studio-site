@@ -2,7 +2,7 @@ import type { Messages } from './messages.zh-hant'
 
 export const zhHans: Messages = {
   nav: {
-    plans:   '方案',
+    plans:   '服务对象',
     demo:    'Demo',
     contact: '联络',
   },
@@ -12,7 +12,7 @@ export const zhHans: Messages = {
     subtitle:     '专业的 AI 人像生成与视频制作服务',
     description:  '透过先进的 LoRA 训练技术与 AI 视频生成，为您打造独一无二的数位人像作品',
     ctaPrimary:   '查看作品展示',
-    ctaSecondary: '方案咨询',
+    ctaSecondary: '看看我们怎么帮你',
     scrollHint:   '向下滚动探索',
   },
   demo: {
@@ -45,7 +45,6 @@ export const zhHans: Messages = {
         description: '透过先进的 AI 视频生成技术，我们可以将静态人像转换为流畅自然的动态视频。无论是微笑、眨眼、转头等动作，都能以电影级的品质呈现，适合用于社群媒体、数位分身、虚拟主播等多场景应用。',
       },
     },
-    pricingCta: '精选方案',
   },
   pricing: {
     badge:    '服务方案',
@@ -229,7 +228,7 @@ export const zhHans: Messages = {
     },
   },
   finalCta: {
-    title:       '不确定哪个方案适合您？',
+    title:       '不确定你属于哪一类客户？',
     description: '欢迎透过 Telegram 与我们联系，我们将根据您的需求提供专业建议',
     button:      '免费咨询',
   },

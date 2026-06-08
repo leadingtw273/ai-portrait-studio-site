@@ -1,6 +1,6 @@
 export const zhHant = {
   nav: {
-    plans:   '方案',
+    plans:   '服務對象',
     demo:    'Demo',
     contact: '聯絡',
   },
@@ -10,7 +10,7 @@ export const zhHant = {
     subtitle:     '專業的 AI 人像生成與影片製作服務',
     description:  '透過先進的 LoRA 訓練技術與 AI 影片生成，為您打造獨一無二的數位人像作品',
     ctaPrimary:   '查看作品展示',
-    ctaSecondary: '方案諮詢',
+    ctaSecondary: '看看我們怎麼幫你',
     scrollHint:   '向下滾動探索',
   },
   demo: {
@@ -43,7 +43,6 @@ export const zhHant = {
         description: '透過先進的 AI 影片生成技術，我們可以將靜態人像轉換為流暢自然的動態影片。無論是微笑、眨眼、轉頭等動作，都能以電影級的品質呈現，適合用於社群媒體、數位分身、虛擬主播等多場景應用。',
       },
     },
-    pricingCta: '精選方案',
   },
   pricing: {
     badge:    '服務方案',
@@ -227,7 +226,7 @@ export const zhHant = {
     },
   },
   finalCta: {
-    title:       '不確定哪個方案適合您？',
+    title:       '不確定你屬於哪一類客戶？',
     description: '歡迎透過 Telegram 與我們聯繫，我們將根據您的需求提供專業建議',
     button:      '免費諮詢',
   },

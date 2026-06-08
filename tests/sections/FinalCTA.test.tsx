@@ -11,7 +11,7 @@ describe('FinalCTA', () => {
 
   it('renders the persuasion title, description, telegram CTA', () => {
     render(<LanguageProvider><FinalCTA /></LanguageProvider>)
-    expect(screen.getByText('不確定哪個方案適合您？')).toBeInTheDocument()
+    expect(screen.getByText('不確定你屬於哪一類客戶？')).toBeInTheDocument()
     const link = screen.getByRole('link', { name: /免費諮詢/ })
     expect(link).toHaveAttribute('href', expect.stringMatching(/t\.me/))
     expect(link).toHaveAttribute('target', '_blank')

@@ -3,7 +3,7 @@ import heroBg from '@/assets/hero-bg.jpg'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
 import { Demo } from './sections/Demo'
-import { Pricing } from './sections/Pricing'
+import { Audiences } from './sections/Audiences'
 import { FinalCTA } from './sections/FinalCTA'
 import { Footer } from './sections/Footer'
 import { ScrollToTop } from './sections/ScrollToTop'
@@ -146,7 +146,7 @@ export function App() {
         <main>
           <Hero />
           <Demo />
-          <Pricing />
+          <Audiences />
           <FinalCTA />
         </main>
         <Footer />

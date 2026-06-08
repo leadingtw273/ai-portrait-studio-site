@@ -2,7 +2,7 @@ import type { Messages } from './messages.zh-hant'
 
 export const en: Messages = {
   nav: {
-    plans:   'Plans',
+    plans:   'Who We Serve',
     demo:    'Demo',
     contact: 'Contact',
   },
@@ -12,7 +12,7 @@ export const en: Messages = {
     subtitle:     'Professional AI portrait generation & video production',
     description:  'Custom LoRA training and AI video generation, crafted to create a one-of-a-kind digital persona for you',
     ctaPrimary:   'View Showcase',
-    ctaSecondary: 'View Plans',
+    ctaSecondary: 'See How We Help',
     scrollHint:   'Scroll to explore',
   },
   demo: {
@@ -45,7 +45,6 @@ export const en: Messages = {
         description: 'With advanced AI video generation, we transform static portraits into smooth, natural motion video. Smile, blink, head turn — delivered with cinematic quality, ideal for social media, digital avatars, virtual hosts, and more.',
       },
     },
-    pricingCta: 'See Plans',
   },
   pricing: {
     badge:    'Plans',
@@ -229,7 +228,7 @@ export const en: Messages = {
     },
   },
   finalCta: {
-    title:       'Not sure which plan suits you?',
+    title:       'Not sure which type fits you?',
     description: 'Reach out on Telegram — we will provide tailored recommendations based on your needs',
     button:      'Free Consultation',
   },
