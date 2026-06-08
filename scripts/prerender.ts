@@ -37,8 +37,7 @@ async function main() {
       const page = await context.newPage()
 
       // 附錄 E: block ALL external domains (open.er-api.com, images.unsplash.com, etc.)
-      // Only allow the preview server origin. Keeps useCurrency rate=null
-      // → prerender HTML shows TWD 原價 for ALL langs (matches hydration-safe spec).
+      // Only allow the preview server origin.
       const allowedOrigin = new URL(BASE_URL).origin  // e.g. http://localhost:4173
       await context.route('**/*', (route: Route) => {
         const reqUrl = route.request().url()
