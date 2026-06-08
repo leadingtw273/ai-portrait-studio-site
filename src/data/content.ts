@@ -64,3 +64,18 @@ export const ADDON_CARDS: AddOnCardData[] = [
   { key: 'rush48h',        emoji: '⚡',                                          tagVariant: 'pro-free' },
   { key: 'rush24h',        emoji: '🔥',                                          tagVariant: 'pro-free' },
 ]
+
+// 服務對象 — 三類客群（文案在 i18n.audiences、這裡只放 key + 視覺 flag）
+export type AudienceKey = 'brand' | 'creator' | 'operator'
+
+export type AudienceMeta = {
+  key: AudienceKey
+  highlighted?: boolean       // 是否套用 highlighted 邊框（第三卡）
+  special?: boolean           // 是否顯示金色「特殊服務」badge（第三卡）
+}
+
+export const AUDIENCES: AudienceMeta[] = [
+  { key: 'brand' },
+  { key: 'creator' },
+  { key: 'operator', highlighted: true, special: true },
+]
