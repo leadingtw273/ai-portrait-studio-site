@@ -114,7 +114,7 @@ export function injectSeoMeta(html: string, lang: Lang, videoFiles: VideoFileMap
     <meta property="og:image:alt" content="${escapeAttr(meta.ogTitle)}" />
     <meta property="og:locale" content="${meta.ogLocale}" />
     ${altLocales}
-    <meta property="og:site_name" content="AI 人像工作室" />
+    <meta property="og:site_name" content="${escapeAttr(lang === 'en' ? 'AI Imaging Studio' : 'AI 影像工作室')}" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeAttr(meta.ogTitle)}" />
