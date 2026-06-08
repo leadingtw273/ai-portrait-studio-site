@@ -1,8 +1,8 @@
 # AI Portrait Studio Site —「服務對象」區塊改版設計規格
 
 - **日期**：2026-06-08
-- **狀態**：Spec v1，待 codex review → user review
-- **撰寫**：Claude Code (Opus 4.8) + 使用者 leadi
+- **狀態**：Spec v2，codex review 完（6 條意見，採納 5 駁回 1）、待 user review
+- **撰寫**：Claude Code (Opus 4.8) + 使用者 leadi + Codex (codex-cli 0.132) review
 - **前情**：`2026-05-21-landing-site-design.md`（landing v1）、`2026-05-26-seo-improvement-design.md`（SEO 三語）
 - **下一步**：user review → writing-plans skill 產出 implementation plan
 
@@ -31,9 +31,9 @@
 3. **三語 i18n 全部到位**：繁中 / 簡中 / EN 三檔結構一致（DeepString shape 通過），無殘留舊方案 / 加購文字。
 4. **連動文案更新**：Nav、Hero secondary CTA、Demo pricingCta、FinalCTA title 四處按 §3.4 提案更新（三語）。
 5. **錨點不變**：section `id="pricing"` 維持，nav `href="#pricing"`、App `SNAP_RULES`、SEO hash 不受影響。
-6. **SEO JSON-LD 與頁面一致**：`buildProfessionalServiceJsonLd` 不再輸出帶價 Offer 與 `priceRange`，改三客群服務目錄（不帶價）。
-7. **死碼移除乾淨**：PlanCard / AddOnCard / AddOnsCarousel / useCurrency / currency.ts 及其 import 全數移除，無 dangling import。
-8. **全綠驗收**：`pnpm typecheck`、`pnpm lint`、`pnpm test` 全通過；`pnpm build` 成功；prerender HTML 含新文案（如「品牌・廣告主」「服務對象」）。
+6. **SEO 撤價一致（含 head meta）**：`src/lib/seo/meta.ts`（SEO_META 三語 title/description）與 `index.html` 靜態 head 不再含任何價格或舊方案名；`buildProfessionalServiceJsonLd` 不再輸出帶價 Offer 與 `priceRange`，改三客群服務目錄（不帶價、補 `itemOffered: Service`）。**頁面可見內容、prerender head、structured data 三者一致撤價。**
+7. **死碼移除乾淨**：PlanCard / AddOnCard / AddOnsCarousel / useCurrency / currency.ts 及其 import、`globals.css` 的 `.addon-card-cq*` class 全數移除，無 dangling import / dead CSS。
+8. **全綠驗收**：`pnpm typecheck`、`pnpm lint`、`pnpm test` 全通過；`pnpm build` 成功；prerender HTML 含新文案（如「品牌・廣告主」「服務對象」），且**三語 HTML / head / JSON-LD 不含舊價格與舊方案字串**（負向 grep，見 §6）。
 9. **視覺驗收**：dev server 截圖（desktop + mobile）經 gemini 視覺 review，排版 / 對齊 / RWD / 對比度無重大問題。
 
 ### 1.4 不在範圍
@@ -178,15 +178,37 @@ type Props = {
 
 簡中 / EN 對應翻譯同步更新。`nav.plans` 的 i18n key 名稱維持 `plans`（避免擴大改動面），僅改 value。
 
-### 3.5 SEO JSON-LD（`src/lib/seo/jsonld.ts`）
+### 3.5 SEO 撤價：head meta + JSON-LD（codex High #1 補強）
 
-- 移除 `import { PLAN_PRICES, DISCOVERY_PRICE }`，型別移除 `priceRange` 與帶價 `Offer`。
-- `hasOfferCatalog` 改為三客群「服務」目錄，`itemListElement` 用 `@type: 'Offer'` 但 **不帶 `price` / `priceCurrency`**（schema.org 允許 Offer 省略價格），`name` 為三客群中文 / 英文名稱：
+撤價必須三處一致 —「**頁面可見內容**」「**prerender head meta**」「**structured data**」缺一不可。原 spec 只列 JSON-LD，漏了 head meta，本節補上。
+
+**(a) `src/lib/seo/meta.ts`（SEO_META 三語 title / description）**
+
+現況含舊價格與舊方案名，需改寫為客群導向（`ogTitle` / `ogDescription` 本來就無價格，維持不動；僅改 `title` + `description`）：
+
+| lang | 欄位 | 新值（草案，實作可微調） |
+|---|---|---|
+| zh-Hant | title | `AI 人像工作室｜LoRA 訓練・AI 寫真・影片人像生成 — 品牌・網紅・矩陣團隊專屬` |
+| zh-Hant | description | `專業 AI 人像工作室。為品牌廣告主、網紅自媒體、多帳號矩陣團隊打造專屬 LoRA 形象人物與 AI 影片內容，依客群需求客製方案，Telegram 即時諮詢。` |
+| zh-Hans | title | `AI 人像工作室｜LoRA 训练・AI 写真・视频人像生成 — 品牌・网红・矩阵团队专属` |
+| zh-Hans | description | `专业 AI 人像工作室。为品牌广告主、网红自媒体、多账号矩阵团队打造专属 LoRA 形象人物与 AI 视频内容，依客群需求定制方案，Telegram 即时咨询。` |
+| en | title | `AI Portrait Studio \| LoRA Training・AI Headshots・Video Portraits — For Brands, Creators & Account Networks` |
+| en | description | `Professional AI Portrait Studio. Custom LoRA characters and AI video content for brands & advertisers, creators & agencies, and multi-account teams. Tailored solutions, instant Telegram consultation.` |
+
+**(b) `index.html`（靜態 head 預設值，= zh-Hant）**
+
+`<title>`、`<meta name="description">`、`<meta property="og:title/og:description">` 的舊價格版本，同步換成上表 zh-Hant 新值。`inject-seo-meta.ts` 於 prerender 時用 SEO_META 逐語覆蓋，無硬編價格字串（已確認），故改 (a) 即連動三語 prerender head。
+
+**(c) `src/lib/seo/jsonld.ts`**
+
+- 移除 `import { PLAN_PRICES, DISCOVERY_PRICE }`；型別移除 `priceRange` 與帶價 `Offer` 欄位。
+- `hasOfferCatalog` 改三客群「服務」目錄，`itemListElement` 每項 `@type: 'Offer'` **不帶 `price` / `priceCurrency`**，並補 **`itemOffered: { '@type': 'Service', name, serviceType }`**（codex Medium #3：語意更精準、避免被理解成殘缺價格 offer）：
   - 品牌・廣告主 服務方案 / Brand & Advertiser Solutions
   - 網紅・自媒體 服務方案 / Creator & Agency Solutions
   - 多帳號矩陣 專屬產線 / Multi-account Matrix Dedicated Line
-- `priceRange` 欄位：型別改為 optional 並省略輸出（或從型別刪除）。`OfferCatalog.name` 改「服務對象」/「Service Audiences」。
-- 同步更新 `tests/lib/seo/jsonld.test.ts`：移除價格斷言，改驗證新服務名稱與「無 price 欄位」。
+- `priceRange` 從型別與輸出刪除。`OfferCatalog.name` 改「服務對象」/「Service Audiences」。
+- `verify-prerender.ts` 僅斷言 `hasOfferCatalog` key 存在（已確認、不斷言價格），保留該 key 即不破。
+- 同步更新 `tests/lib/seo/jsonld.test.ts`：移除價格 / priceRange 斷言，改驗證新服務名稱、`itemOffered.@type === 'Service'`、且輸出**不含** `price` / `priceCurrency` / `priceRange`。
 
 ---
 
@@ -196,7 +218,9 @@ type Props = {
 - `src/sections/Pricing.tsx` → 重寫為三張 AudienceCard（檔名改 `Audiences.tsx`、export `<Audiences/>`；連帶 `src/App.tsx` import 與用法）。section `id="pricing"` **維持不變**。
 - `src/data/content.ts` → 移除 `PLAN_PRICES / PLAN_HIGHLIGHTED / DISCOVERY_PRICE / ADDON_CARDS` 及相關 type；新增 `AUDIENCES` 結構（key + icon flag + highlighted/badge flag）。保留 `TELEGRAM_URL`、`DEMO_IMAGES`。
 - `src/i18n/messages.zh-hant.ts` / `messages.zh-hans.ts` / `messages.en.ts` → `pricing` + `addons` 區塊換成 `audiences`；更新 §3.4 四處連動文案。
-- `src/lib/seo/jsonld.ts` → 依 §3.5 改寫。
+- `src/lib/seo/jsonld.ts` → 依 §3.5(c) 改寫。
+- `src/lib/seo/meta.ts` → 依 §3.5(a) 改三語 title/description（撤價）。**（codex High #1 補）**
+- `index.html` → 依 §3.5(b) 改靜態 head title/description/og（撤價）。**（codex High #1 補）**
 - `src/App.tsx` → import `Audiences` 取代 `Pricing`。
 
 **新增：**
@@ -208,14 +232,15 @@ type Props = {
 - `src/components/AddOnsCarousel.tsx` + `tests/components/AddOnsCarousel.test.tsx`
 - `src/lib/useCurrency.ts` + `tests/lib/useCurrency.test.tsx`
 - `src/lib/currency.ts`
+- `src/styles/globals.css` 的 `.addon-card-cq` / `.addon-card-cq-bottom` / `.addon-card-cq-price`（約 79-88 行）**（codex Medium #4 補）**
 
 **測試連動更新：**
-- `tests/sections/Pricing.test.tsx` → 改寫為 audiences 測試（檔名可改 `Audiences.test.tsx`）
-- `tests/i18n.test.tsx` → 對齊新 shape
+- `tests/sections/Pricing.test.tsx` → 改寫為 audiences 測試（檔名可改 `Audiences.test.tsx`）；新增斷言：三張卡、每卡 4 pain + 4 solution、第三卡 gold「特殊服務」badge、三個 CTA 都連 `TELEGRAM_URL` 且 `target="_blank"` / `rel="noopener noreferrer"`、頁面不出現任何價格 / 舊方案字串。
+- `tests/i18n.test.tsx` → **檔案存在**（codex Medium #5 誤判為不存在，已駁回；此檔仍需對齊新 shape）。
 - `tests/sections.smoke.test.tsx` → 若斷言舊區塊內容需更新
-- `tests/lib/seo/jsonld.test.ts` → 依 §3.5
+- `tests/lib/seo/jsonld.test.ts` → 依 §3.5(c)
 - `tests/sections/{Nav,Hero,Demo,FinalCTA}.test.tsx` → 若斷言舊字串（方案 / 精選方案 / 方案諮詢 / 哪個方案）需更新
-- `scripts/prerender.ts` / `scripts/verify-prerender.ts` → 確認不依賴被刪 export；若 verify 規則斷言舊文案（如 `grep "Mini Launch"`）需改為新文案（如「品牌・廣告主」/「服務對象」）
+- `scripts/prerender.ts` / `scripts/verify-prerender.ts` → 已確認：prerender 等 `section#pricing`（id 保留即可）、verify 僅斷言 `hasOfferCatalog` key 存在、無舊文案 / 價格斷言，故不需改腳本邏輯，只需確認不依賴被刪 export。
 
 ---
 
@@ -236,6 +261,33 @@ type Props = {
 
 1. `pnpm typecheck && pnpm lint && pnpm test` 全綠。
 2. `pnpm build` 成功；`pnpm verify-prerender`（如適用）通過。
-3. `curl` / grep prerender 後的三語 HTML，含「服務對象」「品牌・廣告主」等新文案、不含「Mini Launch」「加購服務」等舊文案。
-4. dev server 啟動，playwright-cli 截 desktop + mobile 圖，交 gemini 視覺 review（強制流程），意見收斂。
-5. 回報使用者：變更檔案清單 + 最終截圖 + gemini review 摘要。
+3. **正向 grep**：三語 prerender HTML 含「服務對象」「品牌・廣告主」「網紅」「專業操盤手」等新文案。
+4. **負向 grep（codex High #2 補）**：三語 HTML（含 head meta 與 JSON-LD）**不得**出現以下任一舊字串 —
+   `Mini Launch`、`Standard Launch`、`Pro Launch`、`Discovery Pack`、`加購服務` / `add-ons` / `9 種加購` / `9 add-ons`、`NT$`、`US$`、`¥`、`priceRange`、`priceCurrency`、`從 NT$ 3,500`、`From US$`、`约 ¥800`。
+   建議實作為一條 grep guard（任一命中即 fail）。
+5. dev server 啟動，playwright-cli 截 desktop + mobile 圖，交 gemini 視覺 review（強制流程），意見收斂。
+6. 回報使用者：變更檔案清單 + 最終截圖 + gemini review 摘要。
+
+---
+
+## 7. 回滾策略（codex Medium #6 補）
+
+- **隔離單位**：全部變更在 git worktree `worktree-audiences-section` 分支上進行，不碰主 checkout；未合併前主線零影響。
+- **單一可回滾單位**：實作以連貫 commit 收斂（或最終 squash），確保「撤價」是一個原子變更，避免只回 UI 卻留下 head meta / JSON-LD / CI 破洞。
+- **最小回滾集合**（若 SEO / prerender 上線後出問題需局部回復）：
+  1. `id="pricing"` 全程保留 → 錨點 / snap / sitemap 永不需回滾。
+  2. 回復順序：`messages.*`（pricing/addons 區塊）→ `Pricing.tsx` + `App.tsx` import → `jsonld.ts` + `meta.ts` + `index.html` → 復原刪除的元件 / currency / CSS。
+  3. SEO 與 UI 必須**成套回滾**（同一 commit），不可只回其一造成頁面與 structured data 再度不一致。
+- **驗證回滾**：回滾後重跑 §6 全部驗收（含正向 + 負向 grep）確認狀態一致。
+
+---
+
+## 8. 實作順序建議（codex 其他意見，供 writing-plans 參考）
+
+1. 先改 `messages.zh-hant.ts`（source shape，定義新 `audiences` 結構 + 連動文案 + 移除 pricing/addons）。
+2. 同步 `messages.zh-hans.ts` / `messages.en.ts` 對齊新 shape（否則 `Messages` 型別與 typecheck 會噴大量中間錯誤）。
+3. 新增 `AudienceCard.tsx`、改 `content.ts`（新增 AUDIENCES、移除價格資料）。
+4. 改 `Pricing.tsx` → `Audiences.tsx` + `App.tsx` import。
+5. 改 SEO：`jsonld.ts` + `meta.ts` + `index.html`。
+6. 刪死碼（元件 / currency / CSS）+ 更新 / 改寫測試。
+7. 跑全綠驗收 → build → 正負向 grep → gemini 視覺 review。
