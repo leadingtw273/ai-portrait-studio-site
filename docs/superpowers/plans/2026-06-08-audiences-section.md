@@ -11,6 +11,8 @@
 
 **參考 spec：** `docs/superpowers/specs/2026-06-08-audiences-section-design.md`
 
+**版本：** plan v2（codex review 完，採納 5 條：Task 2 不單獨 commit / section 測試補 4 痛點4解法 / jsonld deep guard / 負向 grep 補具體價格數字 / og 刻意保留例外）。codex 已確認 LucideIcon、`a.cards[aud.key]` 索引、ReadonlyArray、itemOffered、`'in'` 運算子、pricingCta dead key、i18n.test 不需改、prerender 不需改 — 型別與相依假設全部成立。
+
 ---
 
 ## File Structure
@@ -475,6 +477,19 @@ describe('Audiences', () => {
     expect(screen.getByText('專業操盤手・多帳號矩陣')).toBeInTheDocument()
   })
 
+  it('each of the three cards renders its 4 pains and 4 solutions', () => {
+    renderZhHant()
+    // 各卡代表性痛點 + 解法（證明 pains/solutions 非空、確實分屬三卡）
+    expect(screen.getByText('找模特兒、租攝影棚、外拍一次就燒掉大筆預算')).toBeInTheDocument()
+    expect(screen.getByText('打造專屬品牌形象人物，一次訓練、長期沿用')).toBeInTheDocument()
+    expect(screen.getByText('內容產量永遠追不上平台演算法的胃口')).toBeInTheDocument()
+    expect(screen.getByText('建立專屬虛擬人物與 LoRA，內容產量直接拉滿')).toBeInTheDocument()
+    expect(screen.getByText('要同時養多組人設，產製量級遠超一般工作室')).toBeInTheDocument()
+    expect(screen.getByText('為每組人設訓練獨立 LoRA，角色一致、互不混淆')).toBeInTheDocument()
+    // 3 卡 × (4 痛點 + 4 解法) = 24 個 <li>（本測試僅渲染 <Audiences/>，無其他 list 干擾）
+    expect(screen.getAllByRole('listitem')).toHaveLength(24)
+  })
+
   it('third card shows the gold special badge', () => {
     renderZhHant()
     expect(screen.getByText('特殊服務')).toBeInTheDocument()
@@ -569,15 +584,11 @@ git rm src/sections/Pricing.tsx tests/sections/Pricing.test.tsx
 
 - [ ] **Step 6：跑測試確認通過** — Run: `pnpm test -- tests/sections/Audiences.test.tsx`，Expected: PASS（5 個 it 全綠）
 
-- [ ] **Step 7：全綠檢查 + commit**
+- [ ] **Step 7：跑 Audiences 測試（此處先不 commit）**
 
-```bash
-pnpm typecheck && pnpm lint && pnpm test
-git add -A
-git commit -m "feat(audiences): swap Pricing section for Audiences, keep #pricing anchor"
-```
+Run: `pnpm test -- tests/sections/Audiences.test.tsx`，Expected: PASS。
 
-Expected：全綠。注意 `tests/sections.smoke.test.tsx` 此刻仍斷言舊字串（選擇適合您的方案 / 加購服務…）— 它測的是 `<App/>`，`App` 已換成 `Audiences`，故 smoke 會 **紅**。因此 **Task 2 的 commit 前**必須先做 Task 3 的 smoke 修正，或將 Task 2 + Task 3 視為同一 commit。**執行建議：Task 2 與 Task 3 合併為一個 commit**（見 Task 3 開頭備註）。
+> **⚠️ 此 task 不單獨 commit（codex High 修正）。** `App` 換成 `Audiences` 後，`tests/sections.smoke.test.tsx` 立即失效（仍斷言「選擇適合您的方案 / 加購服務 / 哪個方案」），此刻跑 `pnpm test` 全套會 **紅**。因此 Task 2 完成後**直接續接 Task 3**，待 Task 3 修好 smoke / Nav / Hero / FinalCTA 測試、全套綠後，**Task 2 + Task 3 一起做一個 commit**（commit 指令見 Task 3 Step 7）。
 
 ---
 
@@ -673,6 +684,13 @@ Expected：全綠（含 smoke 三語）。
       for (const lang of ['zh-Hant', 'zh-Hans', 'en'] as const) {
         const json = buildProfessionalServiceJsonLd(lang)
         expect('priceRange' in json).toBe(false)
+      }
+    })
+
+    it('serialized JSON-LD contains no price-related field (deep guard)', () => {
+      for (const lang of ['zh-Hant', 'zh-Hans', 'en'] as const) {
+        const serialized = JSON.stringify(buildProfessionalServiceJsonLd(lang))
+        expect(serialized).not.toMatch(/priceCurrency|priceRange|"price":/)
       }
     })
 ```
@@ -784,12 +802,14 @@ export function buildProfessionalServiceJsonLd(lang: Lang): ProfessionalServiceJ
     description: 'Professional AI Portrait Studio. Custom LoRA characters and AI video content for brands & advertisers, creators & agencies, and multi-account teams. Tailored solutions, instant Telegram consultation.',
 ```
 
-- [ ] **Step 6：改 `index.html`**（靜態 head 預設值 = zh-Hant；只改 `<title>` 與 `<meta name="description">`，og 兩行本就無價格、不動）
+- [ ] **Step 6：改 `index.html`**（靜態 head 預設值 = zh-Hant；只改 `<title>` 與 `<meta name="description">`）
 
 ```html
     <title>AI 人像工作室｜LoRA 訓練・AI 寫真・影片人像生成 — 品牌・網紅・矩陣團隊專屬</title>
     <meta name="description" content="專業 AI 人像工作室。為品牌廣告主、網紅自媒體、多帳號矩陣團隊打造專屬 LoRA 形象人物與 AI 影片內容，依客群需求客製方案，Telegram 即時諮詢。" />
 ```
+
+> **og:title / og:description 刻意不動（codex Medium #2 裁決：保留）。** 理由：(1) `index.html` 與 `meta.ts` 的 og 兩行本就**無任何價格 / 舊方案名**，已符合 spec 成功標準 6「不再含價格或舊方案名」；(2) og 現值「專業 AI 人像生成與影片製作」語意正確、非誤導；(3) 改成客群導向屬「額外文案優化」，超出本次「撤價」scope。**撤價驗收以 §6 負向 grep 為準，og 不在撤價必改範圍。** （spec §3.5(b) 原列 og 同步，已於本裁決收斂為刻意例外。）
 
 - [ ] **Step 7：全綠檢查 + commit**
 
@@ -876,9 +896,9 @@ Expected：四條都命中（印出檔名）。
 
 - [ ] **Step 4：負向 grep guard — 不含任何舊價格 / 舊方案字串**
 
-Run（任一命中即視為失敗）:
+Run（任一命中即視為失敗；pattern 擴充自 codex Medium #4 — 收斂 `¥` 並補具體價格數字與幣別碼）:
 ```bash
-if grep -rEn 'Mini Launch|Standard Launch|Pro Launch|Discovery Pack|加購服務|加购服务|Add-ons|add-ons|9 種加購|9 add-ons|NT\$|US\$|¥|priceRange|priceCurrency|從 NT\$|From US\$|约 ¥800' \
+if grep -rEn 'Mini Launch|Standard Launch|Pro Launch|Discovery Pack|加購服務|加购服务|Add-ons|add-ons|9 種加購|9 add-ons|NT\$|US\$|约 ¥|¥[0-9]|TWD|USD|CNY|12,800|78,800|168,800|3,500|priceRange|priceCurrency|從 NT\$|From US\$' \
    dist/zh-Hant/index.html dist/zh-Hans/index.html dist/en/index.html; then
   echo "❌ FAIL：偵測到殘留舊價格 / 舊方案字串"; exit 1
 else
