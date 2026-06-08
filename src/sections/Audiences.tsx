@@ -35,8 +35,6 @@ export function Audiences() {
                 solutions={card.solutions}
                 ctaLabel={card.ctaLabel}
                 ctaHref={TELEGRAM_URL}
-                highlighted={aud.highlighted}
-                badge={aud.special ? { label: a.specialBadge, variant: 'gold' } : undefined}
               />
             )
           })}

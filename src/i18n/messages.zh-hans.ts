@@ -52,7 +52,6 @@ export const zhHans: Messages = {
     subtitle:      '以上这些专业能力，会依不同客群的需求，组成完全不同的解决方案',
     painTitle:     '你是不是遇到——',
     solutionTitle: '我们怎么帮你——',
-    specialBadge:  '特殊服务',
     cards: {
       brand: {
         name:    '品牌・广告主',

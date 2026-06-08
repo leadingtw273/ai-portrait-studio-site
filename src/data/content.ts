@@ -19,12 +19,10 @@ export type AudienceKey = 'brand' | 'creator' | 'operator'
 
 export type AudienceMeta = {
   key: AudienceKey
-  highlighted?: boolean       // 是否套用 highlighted 邊框（第三卡）
-  special?: boolean           // 是否顯示金色「特殊服務」badge（第三卡）
 }
 
 export const AUDIENCES: AudienceMeta[] = [
   { key: 'brand' },
   { key: 'creator' },
-  { key: 'operator', highlighted: true, special: true },
+  { key: 'operator' },
 ]

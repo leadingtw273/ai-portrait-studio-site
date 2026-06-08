@@ -35,11 +35,6 @@ describe('Audiences', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(24)
   })
 
-  it('third card shows the gold special badge', () => {
-    renderZhHant()
-    expect(screen.getByText('特殊服務')).toBeInTheDocument()
-  })
-
   it('renders three CTAs all pointing to Telegram, opening in new tab', () => {
     renderZhHant()
     const inquiry = screen.getAllByRole('link', { name: '聊聊我的需求' })

@@ -50,7 +50,6 @@ export const zhHant = {
     subtitle:      '以上這些專業能力，會依不同客群的需求，組成完全不同的解決方案',
     painTitle:     '你是不是遇到——',
     solutionTitle: '我們怎麼幫你——',
-    specialBadge:  '特殊服務',
     cards: {
       brand: {
         name:    '品牌・廣告主',

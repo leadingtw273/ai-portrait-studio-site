@@ -52,7 +52,6 @@ export const en: Messages = {
     subtitle:      "These capabilities combine into entirely different solutions, tailored to each audience's needs.",
     painTitle:     'Sound familiar?',
     solutionTitle: 'How we help',
-    specialBadge:  'Special Service',
     cards: {
       brand: {
         name:    'Brands & Advertisers',
