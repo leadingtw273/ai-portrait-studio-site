@@ -34,7 +34,7 @@ export function Demo() {
             <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr] items-center gap-2 tablet:gap-3">
               <DemoCard variant="image" src={loraBefore} alt={t.demo.loraBefore} />
               <div
-                className="flex items-center justify-center text-brand-300"
+                className="flex items-center justify-center text-primary"
                 role="img"
                 aria-label={t.demo.loraArrowLabel}
               >
@@ -52,9 +52,9 @@ export function Demo() {
               <div className="relative">
                 <DemoCard variant="image" src={loraAfter} alt={t.demo.loraAfter} />
                 <span
-                  className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-bg-base/80 backdrop-blur-sm border border-border-brand text-xs text-purple-200 shadow-glow-md"
+                  className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/[0.15] text-xs text-white shadow-soft"
                 >
-                  <Zap className="w-3.5 h-3.5 text-brand-300" fill="currentColor" aria-hidden="true" />
+                  <Zap className="w-3.5 h-3.5 text-on-primary" fill="currentColor" aria-hidden="true" />
                   {t.demo.loraAiGeneratedTag}
                 </span>
               </div>
@@ -81,16 +81,16 @@ export function Demo() {
           )}
 
           {/* Tech explainer banner — image / video tab 分別不同說明 */}
-          <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-border-brand bg-brand-500/10 shadow-glow-md">
-            <div className="flex items-center gap-2 text-white font-medium mb-2 text-lg">
+          <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-primary/25 bg-primary/[0.08] shadow-soft">
+            <div className="flex items-center gap-2 text-content font-medium mb-2 text-lg">
               {tab === 'image' ? (
-                <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
+                <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
               ) : (
-                <VideoIcon className="w-4 h-4 text-brand-300" aria-hidden="true" />
+                <VideoIcon className="w-4 h-4 text-primary" aria-hidden="true" />
               )}
               {tab === 'image' ? t.demo.techBanner.image.title : t.demo.techBanner.video.title}
             </div>
-            <p className="text-gray-400 text-base leading-relaxed">
+            <p className="text-content-muted text-base leading-relaxed">
               {tab === 'image' ? t.demo.techBanner.image.description : t.demo.techBanner.video.description}
             </p>
           </div>

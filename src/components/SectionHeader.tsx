@@ -15,11 +15,11 @@ export function SectionHeader({ badge, title, subtitle, className }: Props) {
           <Badge>{badge}</Badge>
         </div>
       )}
-      <h2 className="text-4xl tablet:text-5xl desktop:text-6xl font-bold text-white mb-3">
+      <h2 className="text-4xl tablet:text-5xl desktop:text-6xl font-bold font-serif text-content mb-3">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-gray-300 text-lg tablet:text-xl max-w-2xl mx-auto">
+        <p className="text-content-muted text-lg tablet:text-xl max-w-2xl mx-auto">
           {subtitle}
         </p>
       )}

@@ -31,7 +31,7 @@ export function DemoCard(props: Props) {
   if (props.variant === 'image') {
     const { src, alt, className } = props
     return (
-      <div className={cn('rounded-xl overflow-hidden border border-border-subtle', className)}>
+      <div className={cn('rounded-xl overflow-hidden border border-content/10', className)}>
         <img src={src} alt={alt} className="w-full aspect-square block object-cover" loading="lazy" />
       </div>
     )
@@ -55,7 +55,7 @@ function VideoDemoCard({
   }
 
   return (
-    <div className={cn('rounded-xl overflow-hidden border border-border-subtle bg-bg-elevated', className)}>
+    <div className={cn('rounded-xl overflow-hidden border border-content/10 bg-surface', className)}>
       <div className="relative aspect-video bg-black">
         {source.type === 'mp4' ? (
           // mp4：單一 <video> 元素始終 mount、controls 隨 playing 切換、避免 re-mount 失去 gesture
@@ -101,16 +101,16 @@ function VideoDemoCard({
                 'min-h-[44px]',
               )}
             >
-              <span className="w-14 h-14 rounded-full bg-brand-500 flex items-center justify-center shadow-glow-lg group-hover:scale-110 transition-transform">
-                <Play className="w-6 h-6 text-white" fill="currentColor" />
+              <span className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-soft-lg group-hover:scale-110 transition-transform">
+                <Play className="w-6 h-6 text-on-primary" fill="currentColor" />
               </span>
             </button>
           </>
         )}
       </div>
       <div className="p-4">
-        <div className="text-white font-medium mb-1 text-lg">{title}</div>
-        <div className="text-gray-400 text-base">{desc}</div>
+        <div className="text-content font-medium mb-1 text-lg">{title}</div>
+        <div className="text-content-muted text-base">{desc}</div>
       </div>
     </div>
   )
