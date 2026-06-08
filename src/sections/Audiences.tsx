@@ -27,7 +27,7 @@ export function Audiences() {
               <AudienceCard
                 key={aud.key}
                 name={card.name}
-                icon={<Icon className="w-4 h-4 text-brand-300" aria-hidden="true" />}
+                icon={<Icon className="w-4 h-4 text-primary" aria-hidden="true" />}
                 tagline={card.tagline}
                 painTitle={a.painTitle}
                 pains={card.pains}

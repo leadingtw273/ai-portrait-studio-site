@@ -25,15 +25,15 @@ export function ScrollToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className={cn(
         'fixed right-8 bottom-8 z-40',
-        'w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-400',
-        'shadow-glow-lg flex items-center justify-center',
+        'w-14 h-14 rounded-full bg-primary hover:bg-primary-hover',
+        'shadow-soft-lg flex items-center justify-center',
         'transition-all duration-300 ease-out',
         visible
           ? 'opacity-100 scale-100 pointer-events-auto'
           : 'opacity-0 scale-90 pointer-events-none',
       )}
     >
-      <ChevronUp className="w-6 h-6 text-white" aria-hidden="true" />
+      <ChevronUp className="w-6 h-6 text-on-primary" aria-hidden="true" />
     </button>
   )
 }
