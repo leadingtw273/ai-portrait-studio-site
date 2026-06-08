@@ -36,7 +36,7 @@ export type ProfessionalServiceJsonLd = {
 const SERVICE_NAME: Record<Lang, string> = {
   'zh-Hant': 'AI 影像工作室',
   'zh-Hans': 'AI 影像工作室',
-  'en':      'AI Portrait Studio',
+  'en':      'AI Imaging Studio',
 }
 
 const AUDIENCE_OFFERS: Record<Lang, Array<{ name: string; serviceType: string }>> = {
@@ -64,7 +64,7 @@ export function buildProfessionalServiceJsonLd(lang: Lang): ProfessionalServiceJ
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: SERVICE_NAME[lang],
-    alternateName: lang === 'en' ? undefined : 'AI Portrait Studio',
+    alternateName: lang === 'en' ? undefined : 'AI Imaging Studio',
     description: meta.description,
     url: canonical(lang),
     image: ogImage(lang),

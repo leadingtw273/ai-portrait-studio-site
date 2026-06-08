@@ -8,7 +8,7 @@ export const en: Messages = {
   },
   hero: {
     badge:        'AI ・ Innovation ・ Professional ・ Service',
-    title:        'AI Portrait Studio',
+    title:        'AI Imaging Studio',
     subtitle:     'Professional AI portrait generation & video production',
     description:  'Custom LoRA training and AI video generation, crafted to create a one-of-a-kind digital persona for you',
     ctaPrimary:   'View Showcase',
@@ -117,7 +117,7 @@ export const en: Messages = {
     telegramButton: 'Telegram',
     responseTime:   'Response time: usually within 24 hours',
     qrCaption:      'Or scan QR to join',
-    copyright:      '© 2026 AI Portrait Studio. All rights reserved.',
+    copyright:      '© 2026 AI Imaging Studio. All rights reserved.',
   },
   scrollToTop: {
     label: 'Back to top',

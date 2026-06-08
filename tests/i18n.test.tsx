@@ -56,7 +56,7 @@ describe('i18n', () => {
     expect(screen.getByTestId('title').textContent).toBe('AI 影像工作室')
 
     act(() => { screen.getByTestId('to-en').click() })
-    expect(screen.getByTestId('title').textContent).toBe('AI Portrait Studio')
+    expect(screen.getByTestId('title').textContent).toBe('AI Imaging Studio')
     // Task 5: localStorage is no longer written — URL is the truth source
     expect(localStorage.getItem('ai-portrait-studio-lang')).toBeNull()
     expect(document.documentElement.lang).toBe('en')
