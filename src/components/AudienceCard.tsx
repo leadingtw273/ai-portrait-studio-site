@@ -39,7 +39,7 @@ export function AudienceCard({
       {badge && (
         <span
           className={cn(
-            'absolute px-3 py-1 text-sm font-semibold shadow-glow-md',
+            'absolute px-3 py-1 text-sm font-semibold shadow-soft',
             badgeVariant === 'gold' ? 'bg-[#D4AF37] text-black' : 'bg-primary text-on-primary',
             'top-[-12px] left-1/2 -translate-x-1/2 rounded-full',
             'desktop:top-0 desktop:right-0 desktop:left-auto desktop:translate-x-0',
