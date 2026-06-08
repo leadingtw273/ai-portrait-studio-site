@@ -9,24 +9,15 @@ export function Hero() {
       id="top"
       className="relative min-h-screen flex items-center justify-center px-4 py-20 tablet:py-28 overflow-hidden"
     >
-      {/* 微弱紫光（hero 自身氛圍、不會造成跟 App overlay 的分界） */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at top, rgba(168,85,247,0.25), transparent 60%)',
-        }}
-      />
       <div className="relative max-w-3xl mx-auto text-center">
         <Badge className="mb-10">
           {t.hero.badge}
         </Badge>
-        <h1 className="text-5xl tablet:text-7xl desktop:text-8xl font-bold text-white mb-6">
+        <h1 className="text-5xl tablet:text-7xl desktop:text-8xl font-bold font-serif text-content mb-6">
           {t.hero.title}
         </h1>
-        <p className="text-lg tablet:text-xl text-gray-300 mb-4">{t.hero.subtitle}</p>
-        <p className="text-base tablet:text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+        <p className="text-lg tablet:text-xl text-content-muted mb-4">{t.hero.subtitle}</p>
+        <p className="text-base tablet:text-lg text-content-muted mb-12 max-w-2xl mx-auto">
           {t.hero.description}
         </p>
         <div className="flex flex-col mobile:flex-row items-center justify-center gap-3">
@@ -34,8 +25,8 @@ export function Hero() {
             href="#demo"
             className={cn(
               'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg',
-              'bg-brand-500 hover:bg-brand-400 text-white font-semibold text-lg',
-              'transition-colors shadow-glow-md min-h-[44px]',
+              'bg-primary hover:bg-primary-hover text-on-primary font-semibold text-lg',
+              'transition-colors shadow-soft min-h-[44px]',
             )}
           >
             {t.hero.ctaPrimary}
@@ -44,7 +35,7 @@ export function Hero() {
             href="#pricing"
             className={cn(
               'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg',
-              'border border-border-subtle text-white hover:bg-surface-hover text-lg',
+              'border border-content/[0.15] text-content hover:bg-surface-hover text-lg',
               'transition-colors min-h-[44px]',
             )}
           >
@@ -68,10 +59,10 @@ export function Hero() {
             height="20"
             rx="7"
             strokeWidth={1.25}
-            className="stroke-gray-400/60"
+            className="stroke-content/40"
           />
           {/* 內部滾輪 — primary 紫色 */}
-          <path d="M12 6v4" strokeWidth={2} className="stroke-brand-300" />
+          <path d="M12 6v4" strokeWidth={2} className="stroke-primary" />
         </svg>
       </div>
     </section>

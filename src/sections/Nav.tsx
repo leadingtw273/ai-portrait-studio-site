@@ -18,23 +18,23 @@ export function Nav() {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-30',
-        'bg-bg-base/50 backdrop-blur-card border-b border-border-subtle',
+        'bg-bg/80 backdrop-blur-card border-b border-content/10',
       )}
     >
       <div className="max-w-7xl mx-auto px-4 tablet:px-6 desktop:px-8 h-14 flex items-center justify-between gap-4">
-        <a href="#top" className="flex items-center gap-2 text-white font-semibold">
-          <Sparkles className="w-4 h-4 text-brand-300" aria-hidden="true" />
+        <a href="#top" className="flex items-center gap-2 text-content font-semibold">
+          <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
           <span className="text-base tablet:text-lg">{t.hero.title}</span>
         </a>
 
         {/* Desktop inline nav */}
         <nav
           aria-label="Desktop navigation"
-          className="hidden desktop:flex items-center gap-6 text-gray-300 text-base"
+          className="hidden desktop:flex items-center gap-6 text-content-muted text-base"
         >
-          <a href="#demo" className="hover:text-white">{t.nav.demo}</a>
-          <a href="#pricing" className="hover:text-white">{t.nav.plans}</a>
-          <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
+          <a href="#demo" className="hover:text-content">{t.nav.demo}</a>
+          <a href="#pricing" className="hover:text-content">{t.nav.plans}</a>
+          <a href="#contact" className="hover:text-content">{t.nav.contact}</a>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -47,8 +47,8 @@ export function Nav() {
                 className={cn(
                   'px-2 py-1 rounded min-w-[44px] min-h-[32px] transition-colors',
                   lang === l
-                    ? 'text-white bg-brand-500/25 border border-border-brand'
-                    : 'text-gray-400 hover:text-white hover:bg-surface',
+                    ? 'text-content bg-primary/10 border border-primary/25'
+                    : 'text-content-muted hover:text-content hover:bg-surface-hover',
                 )}
               >
                 {t.languageSwitcher[l]}
@@ -62,7 +62,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="nav-drawer"
             onClick={() => setOpen((o) => !o)}
-            className="desktop:hidden inline-flex items-center justify-center w-11 h-11 rounded text-gray-300 hover:text-white"
+            className="desktop:hidden inline-flex items-center justify-center w-11 h-11 rounded text-content-muted hover:text-content"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -73,27 +73,27 @@ export function Nav() {
         <nav
           id="nav-drawer"
           aria-label="Mobile navigation"
-          className="desktop:hidden border-t border-border-subtle bg-bg-elevated"
+          className="desktop:hidden border-t border-content/10 bg-surface"
         >
-          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-gray-300 text-base">
+          <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col text-content-muted text-base">
             <a
               href="#demo"
               onClick={() => setOpen(false)}
-              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-content border-b border-content/10"
             >
               {t.nav.demo}
             </a>
             <a
               href="#pricing"
               onClick={() => setOpen(false)}
-              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white border-b border-border-subtle"
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-content border-b border-content/10"
             >
               {t.nav.plans}
             </a>
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="py-3 px-3 min-h-[44px] flex items-center hover:text-white"
+              className="py-3 px-3 min-h-[44px] flex items-center hover:text-content"
             >
               {t.nav.contact}
             </a>
