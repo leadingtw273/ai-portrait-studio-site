@@ -6,7 +6,7 @@ export const zhHant = {
   },
   hero: {
     badge:        'AI 智能 ・ 創新 ・ 專業 ・ 服務',
-    title:        'AI 人像工作室',
+    title:        'AI 影像工作室',
     subtitle:     '專業的 AI 人像生成與影片製作服務',
     description:  '透過先進的 LoRA 訓練技術與 AI 影片生成，為您打造獨一無二的數位人像作品',
     ctaPrimary:   '查看作品展示',
@@ -55,8 +55,8 @@ export const zhHant = {
         name:    '品牌・廣告主',
         tagline: '需要形象與廣告素材的企業主、電商與在地商家',
         pains: [
-          '找模特兒、租攝影棚、外拍一次就燒掉大筆預算',
-          '想換季、換檔期就得重拍，素材更新永遠跟不上',
+          '找Model、租棚、每次外拍燒掉大筆預算',
+          '換季、換檔期就得重拍，素材量永遠不夠更新',
           '商品想要代言形象，卻請不起長期代言人',
           '投廣告需要大量不同版本素材做 A/B 測試',
         ],
@@ -89,8 +89,8 @@ export const zhHant = {
         name:    '專業操盤手・多帳號矩陣',
         tagline: '需要同時經營多組虛擬人設與品牌帳號的專業團隊',
         pains: [
-          '要同時養多組人設，產製量級遠超一般工作室',
-          '每組人設都要長相一致、風格各自獨立、不能撞臉',
+          '要同時養多組人設，產量遠超一般工作室',
+          '不同人設長相一致、風格獨立、不能撞臉',
           '素材需求是持續性的，產線一停內容就斷',
           '一般外包無法配合保密與專屬產製的需求',
         ],
@@ -115,7 +115,7 @@ export const zhHant = {
     telegramButton: 'Telegram 諮詢',
     responseTime:   '回覆時間：通常 24 小時內',
     qrCaption:      '或掃 QR 加入',
-    copyright:      '© 2026 AI 人像工作室. All rights reserved.',
+    copyright:      '© 2026 AI 影像工作室. All rights reserved.',
   },
   scrollToTop: {
     label: '回到頂部',

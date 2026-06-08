@@ -26,11 +26,11 @@ describe('Audiences', () => {
 
   it('each of the three cards renders its 4 pains and 4 solutions', () => {
     renderZhHant()
-    expect(screen.getByText('找模特兒、租攝影棚、外拍一次就燒掉大筆預算')).toBeInTheDocument()
+    expect(screen.getByText('找Model、租棚、每次外拍燒掉大筆預算')).toBeInTheDocument()
     expect(screen.getByText('打造專屬品牌形象人物，一次訓練、長期沿用')).toBeInTheDocument()
     expect(screen.getByText('內容產量永遠追不上平台演算法的胃口')).toBeInTheDocument()
     expect(screen.getByText('建立專屬虛擬人物與 LoRA，內容產量直接拉滿')).toBeInTheDocument()
-    expect(screen.getByText('要同時養多組人設，產製量級遠超一般工作室')).toBeInTheDocument()
+    expect(screen.getByText('要同時養多組人設，產量遠超一般工作室')).toBeInTheDocument()
     expect(screen.getByText('為每組人設訓練獨立 LoRA，角色一致、互不混淆')).toBeInTheDocument()
     expect(screen.getAllByRole('listitem')).toHaveLength(24)
   })

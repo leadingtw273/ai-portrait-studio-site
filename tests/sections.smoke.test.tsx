@@ -12,7 +12,7 @@ describe('App smoke', () => {
   it('renders all sections without crashing', () => {
     render(<LanguageProvider><App /></LanguageProvider>)
     expect(screen.getAllByRole('heading')).not.toHaveLength(0)
-    expect(screen.getAllByText(/AI 人像工作室/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/AI 影像工作室/).length).toBeGreaterThan(0)
     expect(screen.getByText('AI 生成作品範例')).toBeInTheDocument()
     expect(screen.getByText('我們服務這三類客戶')).toBeInTheDocument()
     expect(screen.getByText('品牌・廣告主')).toBeInTheDocument()

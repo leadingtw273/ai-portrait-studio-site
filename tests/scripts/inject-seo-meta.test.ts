@@ -23,7 +23,7 @@ describe('injectSeoMeta', () => {
     // Old title removed
     expect(out).not.toMatch(/<title>Old Title<\/title>/)
     // New title present with zh-Hant text
-    expect(out).toMatch(/<title>.*AI 人像工作室.*<\/title>/)
+    expect(out).toMatch(/<title>.*AI 影像工作室.*<\/title>/)
     // Old og:title removed
     expect(out).not.toContain('Old og')
     // New og:url with zh-Hant path

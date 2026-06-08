@@ -37,7 +37,7 @@ describe('Nav', () => {
 
   it('renders logo and language switcher always', () => {
     render(withProvider(<Nav />))
-    expect(screen.getByText(/AI 人像工作室/)).toBeInTheDocument()
+    expect(screen.getByText(/AI 影像工作室/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '繁中' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '简中' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'EN' })).toBeInTheDocument()

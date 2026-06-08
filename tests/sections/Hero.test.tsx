@@ -11,7 +11,7 @@ describe('Hero', () => {
 
   it('renders title, subtitle, both CTAs, badge', () => {
     render(<LanguageProvider><Hero /></LanguageProvider>)
-    expect(screen.getByRole('heading', { name: 'AI 人像工作室' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'AI 影像工作室' })).toBeInTheDocument()
     expect(screen.getByText(/AI 智能/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '查看作品展示' })).toHaveAttribute('href', '#demo')
     expect(screen.getByRole('link', { name: '看看我們怎麼幫你' })).toHaveAttribute('href', '#pricing')

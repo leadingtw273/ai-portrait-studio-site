@@ -8,7 +8,7 @@ export const zhHans: Messages = {
   },
   hero: {
     badge:        'AI 智能 ・ 创新 ・ 专业 ・ 服务',
-    title:        'AI 人像工作室',
+    title:        'AI 影像工作室',
     subtitle:     '专业的 AI 人像生成与视频制作服务',
     description:  '透过先进的 LoRA 训练技术与 AI 视频生成，为您打造独一无二的数位人像作品',
     ctaPrimary:   '查看作品展示',
@@ -57,8 +57,8 @@ export const zhHans: Messages = {
         name:    '品牌・广告主',
         tagline: '需要形象与广告素材的企业主、电商与本地商家',
         pains: [
-          '找模特儿、租摄影棚、外拍一次就烧掉大笔预算',
-          '想换季、换档期就得重拍，素材更新永远跟不上',
+          '找Model、租棚、每次外拍烧掉大笔预算',
+          '换季、换档期就得重拍，素材量永远不够更新',
           '商品想要代言形象，却请不起长期代言人',
           '投广告需要大量不同版本素材做 A/B 测试',
         ],
@@ -91,8 +91,8 @@ export const zhHans: Messages = {
         name:    '专业操盘手・多账号矩阵',
         tagline: '需要同时经营多组虚拟人设与品牌账号的专业团队',
         pains: [
-          '要同时养多组人设，产制量级远超一般工作室',
-          '每组人设都要长相一致、风格各自独立、不能撞脸',
+          '要同时养多组人设，产量远超一般工作室',
+          '不同人设长相一致、风格独立、不能撞脸',
           '素材需求是持续性的，产线一停内容就断',
           '一般外包无法配合保密与专属产制的需求',
         ],
@@ -117,7 +117,7 @@ export const zhHans: Messages = {
     telegramButton: 'Telegram 咨询',
     responseTime:   '回复时间：通常 24 小时内',
     qrCaption:      '或扫 QR 加入',
-    copyright:      '© 2026 AI 人像工作室. All rights reserved.',
+    copyright:      '© 2026 AI 影像工作室. All rights reserved.',
   },
   scrollToTop: {
     label: '回到顶部',

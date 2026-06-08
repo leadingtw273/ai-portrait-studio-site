@@ -34,8 +34,8 @@ export type ProfessionalServiceJsonLd = {
 }
 
 const SERVICE_NAME: Record<Lang, string> = {
-  'zh-Hant': 'AI 人像工作室',
-  'zh-Hans': 'AI 人像工作室',
+  'zh-Hant': 'AI 影像工作室',
+  'zh-Hans': 'AI 影像工作室',
   'en':      'AI Portrait Studio',
 }
 

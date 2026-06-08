@@ -27,7 +27,7 @@ describe('i18n', () => {
   it('defaults to zh-Hant title on first visit when navigator.language is zh-TW', () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
     render(<LanguageProvider><Probe /></LanguageProvider>)
-    expect(screen.getByTestId('title').textContent).toBe('AI 人像工作室')
+    expect(screen.getByTestId('title').textContent).toBe('AI 影像工作室')
     expect(screen.getByTestId('lang').textContent).toBe('zh-Hant')
     expect(document.documentElement.lang).toBe('zh-Hant')
   })
@@ -53,7 +53,7 @@ describe('i18n', () => {
   it('setLang switches dictionary and updates html lang (no longer writes localStorage)', async () => {
     Object.defineProperty(navigator, 'language', { value: 'zh-TW', configurable: true })
     render(<LanguageProvider><Probe /></LanguageProvider>)
-    expect(screen.getByTestId('title').textContent).toBe('AI 人像工作室')
+    expect(screen.getByTestId('title').textContent).toBe('AI 影像工作室')
 
     act(() => { screen.getByTestId('to-en').click() })
     expect(screen.getByTestId('title').textContent).toBe('AI Portrait Studio')
