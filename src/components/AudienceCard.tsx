@@ -68,7 +68,7 @@ export function AudienceCard({
         <div className="text-amber-200/90 text-sm font-semibold mb-3">{painTitle}</div>
         <ul className="space-y-2">
           {pains.map((p) => (
-            <li key={p} className="flex items-start gap-2 text-gray-400 text-sm">
+            <li key={p} className="flex items-start gap-2 text-gray-300 text-sm">
               <Minus className="w-4 h-4 mt-0.5 flex-none text-amber-300/70" aria-hidden="true" />
               <span>{p}</span>
             </li>
