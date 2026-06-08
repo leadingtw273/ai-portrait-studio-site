@@ -1,6 +1,6 @@
 import type { Lang } from '@/i18n/LanguageProvider'
 import { canonical, ogImage, videoPoster, asset } from './canonicalUrl'
-import { PLAN_PRICES, DISCOVERY_PRICE, TELEGRAM_URL } from '@/data/content'
+import { TELEGRAM_URL } from '@/data/content'
 import { SEO_META } from './meta'
 
 export type ProfessionalServiceJsonLd = {
@@ -11,7 +11,6 @@ export type ProfessionalServiceJsonLd = {
   description: string
   url: string
   image: string
-  priceRange: string
   areaServed: string[]
   contactPoint: {
     '@type': 'ContactPoint'
@@ -25,8 +24,11 @@ export type ProfessionalServiceJsonLd = {
     itemListElement: Array<{
       '@type': 'Offer'
       name: string
-      price: string
-      priceCurrency: 'TWD'
+      itemOffered: {
+        '@type': 'Service'
+        name: string
+        serviceType: string
+      }
     }>
   }
 }
@@ -37,17 +39,27 @@ const SERVICE_NAME: Record<Lang, string> = {
   'en':      'AI Portrait Studio',
 }
 
-const OFFER_NAMES: Record<Lang, { discovery: string; mini: string; standard: string; pro: string }> = {
-  'zh-Hant': { discovery: 'Discovery Pack 試做', mini: 'Mini Launch', standard: 'Standard Launch', pro: 'Pro Launch' },
-  'zh-Hans': { discovery: 'Discovery Pack 试做', mini: 'Mini Launch', standard: 'Standard Launch', pro: 'Pro Launch' },
-  'en':      { discovery: 'Discovery Pack',      mini: 'Mini Launch', standard: 'Standard Launch', pro: 'Pro Launch' },
+const AUDIENCE_OFFERS: Record<Lang, Array<{ name: string; serviceType: string }>> = {
+  'zh-Hant': [
+    { name: '品牌・廣告主 服務方案', serviceType: 'AI 品牌形象與廣告素材' },
+    { name: '網紅・自媒體 服務方案', serviceType: 'AI 虛擬人物與影音內容' },
+    { name: '多帳號矩陣 專屬產線',   serviceType: '規模化多人設 LoRA 產線' },
+  ],
+  'zh-Hans': [
+    { name: '品牌・广告主 服务方案', serviceType: 'AI 品牌形象与广告素材' },
+    { name: '网红・自媒体 服务方案', serviceType: 'AI 虚拟人物与影音内容' },
+    { name: '多账号矩阵 专属产线',   serviceType: '规模化多人设 LoRA 产线' },
+  ],
+  'en': [
+    { name: 'Brand & Advertiser Solutions',           serviceType: 'AI brand imagery & ad creatives' },
+    { name: 'Creator & Agency Solutions',             serviceType: 'AI virtual personas & video content' },
+    { name: 'Multi-account Matrix Dedicated Line',     serviceType: 'Scaled multi-persona LoRA production' },
+  ],
 }
 
 export function buildProfessionalServiceJsonLd(lang: Lang): ProfessionalServiceJsonLd {
   const meta = SEO_META[lang]
-  const offers = OFFER_NAMES[lang]
-  const minPrice = DISCOVERY_PRICE
-  const maxPrice = PLAN_PRICES.enterprise
+  const offers = AUDIENCE_OFFERS[lang]
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
@@ -56,7 +68,6 @@ export function buildProfessionalServiceJsonLd(lang: Lang): ProfessionalServiceJ
     description: meta.description,
     url: canonical(lang),
     image: ogImage(lang),
-    priceRange: `NT$${minPrice.toLocaleString()} - NT$${maxPrice.toLocaleString()}`,
     areaServed: ['TW', 'HK', 'SG', 'MY', 'CN', 'US'],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -66,13 +77,12 @@ export function buildProfessionalServiceJsonLd(lang: Lang): ProfessionalServiceJ
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: lang === 'en' ? 'Service Plans' : '服務方案',
-      itemListElement: [
-        { '@type': 'Offer', name: offers.discovery, price: String(DISCOVERY_PRICE),      priceCurrency: 'TWD' },
-        { '@type': 'Offer', name: offers.mini,      price: String(PLAN_PRICES.basic),     priceCurrency: 'TWD' },
-        { '@type': 'Offer', name: offers.standard,  price: String(PLAN_PRICES.pro),       priceCurrency: 'TWD' },
-        { '@type': 'Offer', name: offers.pro,       price: String(PLAN_PRICES.enterprise), priceCurrency: 'TWD' },
-      ],
+      name: lang === 'en' ? 'Service Audiences' : '服務對象',
+      itemListElement: offers.map((o) => ({
+        '@type': 'Offer' as const,
+        name: o.name,
+        itemOffered: { '@type': 'Service' as const, name: o.name, serviceType: o.serviceType },
+      })),
     },
   }
 }

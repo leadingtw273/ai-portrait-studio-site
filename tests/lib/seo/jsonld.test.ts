@@ -14,23 +14,31 @@ describe('JSON-LD generators (Task 10)', () => {
       expect(json.contactPoint.url).toContain('t.me/')
     })
 
-    it('OfferCatalog contains 4 plans with TWD price', () => {
+    it('OfferCatalog contains 3 audience services with itemOffered, no price', () => {
       const json = buildProfessionalServiceJsonLd('zh-Hant')
       const offers = json.hasOfferCatalog.itemListElement
-      expect(offers).toHaveLength(4)
+      expect(offers).toHaveLength(3)
       offers.forEach((o) => {
         expect(o['@type']).toBe('Offer')
-        expect(o.priceCurrency).toBe('TWD')
-        expect(Number(o.price)).toBeGreaterThan(0)
+        expect(o.itemOffered['@type']).toBe('Service')
+        expect(o.itemOffered.name).toBeTruthy()
+        // 撤價：Offer 不得帶 price / priceCurrency
+        expect('price' in o).toBe(false)
+        expect('priceCurrency' in o).toBe(false)
       })
     })
 
-    it('priceCurrency is always TWD regardless of lang (策略 A)', () => {
+    it('emits no priceRange field for any lang', () => {
       for (const lang of ['zh-Hant', 'zh-Hans', 'en'] as const) {
         const json = buildProfessionalServiceJsonLd(lang)
-        json.hasOfferCatalog.itemListElement.forEach((o) => {
-          expect(o.priceCurrency).toBe('TWD')
-        })
+        expect('priceRange' in json).toBe(false)
+      }
+    })
+
+    it('serialized JSON-LD contains no price-related field (deep guard)', () => {
+      for (const lang of ['zh-Hant', 'zh-Hans', 'en'] as const) {
+        const serialized = JSON.stringify(buildProfessionalServiceJsonLd(lang))
+        expect(serialized).not.toMatch(/priceCurrency|priceRange|"price":/)
       }
     })
   })
