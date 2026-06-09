@@ -3,14 +3,14 @@ import type { Messages } from './messages.zh-hant'
 export const en: Messages = {
   nav: {
     plans:   'Who We Serve',
-    demo:    'Demo',
+    demo:    'Showcase',
     contact: 'Contact',
   },
   hero: {
     badge:        'AI ・ Innovation ・ Professional ・ Service',
     title:        'AI Imaging Studio',
-    subtitle:     'Professional AI portrait generation & video production',
-    description:  'Custom LoRA training and AI video generation, crafted to create a one-of-a-kind digital persona for you',
+    subtitle:     'Professional AI video & image generation',
+    description:  'From AI video content to dedicated LoRA portraits — advanced generation crafting one-of-a-kind digital image assets for brands, creators, and teams',
     ctaPrimary:   'View Showcase',
     ctaSecondary: 'See How We Help',
     scrollHint:   'Scroll to explore',

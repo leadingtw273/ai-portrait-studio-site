@@ -3,14 +3,14 @@ import type { Messages } from './messages.zh-hant'
 export const zhHans: Messages = {
   nav: {
     plans:   '服务对象',
-    demo:    'Demo',
+    demo:    '作品展示',
     contact: '联络',
   },
   hero: {
     badge:        'AI 智能 ・ 创新 ・ 专业 ・ 服务',
     title:        'AI 影像工作室',
-    subtitle:     '专业的 AI 人像生成与视频制作服务',
-    description:  '透过先进的 LoRA 训练技术与 AI 视频生成，为您打造独一无二的数位人像作品',
+    subtitle:     '专业的 AI 视频与影像生成服务',
+    description:  '从 AI 视频内容到 LoRA 专属人像，以先进生成技术为品牌、创作者与团队打造独一无二的数位影像资产',
     ctaPrimary:   '查看作品展示',
     ctaSecondary: '看看我们怎么帮你',
     scrollHint:   '向下滚动探索',

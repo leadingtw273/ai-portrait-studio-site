@@ -1,14 +1,14 @@
 export const zhHant = {
   nav: {
     plans:   '服務對象',
-    demo:    'Demo',
+    demo:    '作品展示',
     contact: '聯絡',
   },
   hero: {
     badge:        'AI 智能 ・ 創新 ・ 專業 ・ 服務',
     title:        'AI 影像工作室',
-    subtitle:     '專業的 AI 人像生成與影片製作服務',
-    description:  '透過先進的 LoRA 訓練技術與 AI 影片生成，為您打造獨一無二的數位人像作品',
+    subtitle:     '專業的 AI 影片與影像生成服務',
+    description:  '從 AI 影片內容到 LoRA 專屬人像，以先進生成技術為品牌、創作者與團隊打造獨一無二的數位影像資產',
     ctaPrimary:   '查看作品展示',
     ctaSecondary: '看看我們怎麼幫你',
     scrollHint:   '向下滾動探索',

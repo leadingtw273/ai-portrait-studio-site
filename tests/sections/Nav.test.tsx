@@ -47,7 +47,7 @@ describe('Nav', () => {
     render(withProvider(<Nav />))
     const desktopNav = screen.getByRole('navigation', { name: 'Desktop navigation' })
     expect(within(desktopNav).getByRole('link', { name: '服務對象' })).toHaveAttribute('href', '#pricing')
-    expect(within(desktopNav).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
+    expect(within(desktopNav).getByRole('link', { name: '作品展示' })).toHaveAttribute('href', '#demo')
     expect(within(desktopNav).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
   })
 
@@ -68,7 +68,7 @@ describe('Nav', () => {
     await userEvent.click(screen.getByRole('button', { name: /開啟選單/ }))
     const drawer = screen.getByRole('navigation', { name: 'Mobile navigation' })
     expect(within(drawer).getByRole('link', { name: '服務對象' })).toHaveAttribute('href', '#pricing')
-    expect(within(drawer).getByRole('link', { name: 'Demo' })).toHaveAttribute('href', '#demo')
+    expect(within(drawer).getByRole('link', { name: '作品展示' })).toHaveAttribute('href', '#demo')
     expect(within(drawer).getByRole('link', { name: '聯絡' })).toHaveAttribute('href', '#contact')
   })
 
