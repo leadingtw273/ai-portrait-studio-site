@@ -21,7 +21,7 @@ export const en: Messages = {
     subtitle: 'Cutting-edge AI delivering professional-grade portraits',
     tabs: {
       image: 'LoRA Portrait Training',
-      video: 'Video Portraits',
+      video: 'Video Content',
     },
     imageCardAlt: 'AI-generated portrait sample',
     loraBefore: 'Before: source photo',
@@ -41,7 +41,7 @@ export const en: Messages = {
         description: 'LoRA (Low-Rank Adaptation) is an efficient AI model fine-tuning technique. We use your photos to train a personalized model that learns your unique facial features, expressions, and style. Once trained, it can generate professional portraits in various scenes, styles, and poses — all preserving your authentic appearance.',
       },
       video: {
-        title:       'AI Video Portrait Generation',
+        title:       'AI Video Content Generation',
         description: 'With advanced AI video generation, we transform static portraits into smooth, natural motion video. Smile, blink, head turn — delivered with cinematic quality, ideal for social media, digital avatars, virtual hosts, and more.',
       },
     },

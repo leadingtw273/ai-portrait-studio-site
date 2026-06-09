@@ -13,11 +13,11 @@ type TabId = 'image' | 'video'
 
 export function Demo() {
   const { t } = useT()
-  const [tab, setTab] = useState<TabId>('image')
+  const [tab, setTab] = useState<TabId>('video')
 
   const tabs = [
-    { id: 'image' as const, label: t.demo.tabs.image, icon: <ImageIcon className="w-4 h-4" /> },
     { id: 'video' as const, label: t.demo.tabs.video, icon: <VideoIcon className="w-4 h-4" /> },
+    { id: 'image' as const, label: t.demo.tabs.image, icon: <ImageIcon className="w-4 h-4" /> },
   ]
 
   return (
