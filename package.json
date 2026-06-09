@@ -13,6 +13,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "generate-video-poster": "tsx scripts/generate-video-poster.ts",
+    "generate-og": "tsx scripts/generate-og.ts",
     "prerender": "tsx --tsconfig tsconfig.app.json scripts/prerender.ts",
     "generate-sitemap": "tsx scripts/generate-sitemap.ts",
     "verify-prerender": "tsx scripts/verify-prerender.ts",
