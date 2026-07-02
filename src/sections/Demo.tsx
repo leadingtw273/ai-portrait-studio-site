@@ -27,8 +27,11 @@ export function Demo() {
     <section id="demo" className="min-h-screen flex flex-col justify-center px-4 py-16 tablet:py-24">
       <div className="max-w-6xl mx-auto w-full">
         <SectionHeader badge={t.demo.badge} title={t.demo.title} subtitle={t.demo.subtitle} />
-        <div className="flex justify-center my-8">
-          <TabSegment tabs={tabs} value={tab} onChange={setTab} />
+        {/* 三個 tab 在窄螢幕會超出視寬：外層可橫向捲動、內層 min-w-max 讓寬螢幕維持置中 */}
+        <div className="my-8 overflow-x-auto">
+          <div className="flex justify-center min-w-max px-4 py-1">
+            <TabSegment tabs={tabs} value={tab} onChange={setTab} />
+          </div>
         </div>
 
         {/* tab 切換時 key 變動觸發 fade-in-slide 動畫（含 grid + tech banner 同步淡入）*/}
