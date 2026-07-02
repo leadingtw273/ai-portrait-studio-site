@@ -17,6 +17,7 @@ export type VideoSource =
 type VideoProps = {
   variant: 'video'
   source: VideoSource
+  orientation?: 'landscape' | 'portrait'
   posterUrl?: string          // mp4 可選；youtube 需要
   durationSec: string
   title: string
@@ -40,7 +41,7 @@ export function DemoCard(props: Props) {
 }
 
 function VideoDemoCard({
-  source, posterUrl, durationSec, title, desc, playLabel, className,
+  source, orientation = 'landscape', posterUrl, durationSec, title, desc, playLabel, className,
 }: VideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
@@ -56,7 +57,7 @@ function VideoDemoCard({
 
   return (
     <div className={cn('rounded-xl overflow-hidden border border-content/10 bg-surface', className)}>
-      <div className="relative aspect-video bg-black">
+      <div className={cn('relative bg-black', orientation === 'portrait' ? 'aspect-[9/16]' : 'aspect-video')}>
         {source.type === 'mp4' ? (
           // mp4：單一 <video> 元素始終 mount、controls 隨 playing 切換、避免 re-mount 失去 gesture
           <video

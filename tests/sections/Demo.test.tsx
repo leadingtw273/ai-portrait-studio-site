@@ -33,4 +33,14 @@ describe('Demo', () => {
     // video banner 不再顯示
     expect(screen.queryByText('AI 影片內容生成')).not.toBeInTheDocument()
   })
+
+  it('clicking shorts tab switches cards and banner to short-form video', async () => {
+    render(<LanguageProvider><Demo /></LanguageProvider>)
+    await userEvent.click(screen.getByRole('tab', { name: /短影音生成/ }))
+
+    expect(screen.getByRole('tab', { name: /短影音生成/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText('品牌短影音・SOMA')).toBeInTheDocument()
+    expect(screen.getByText('舞蹈短影音')).toBeInTheDocument()
+    expect(screen.getByText('AI 短影音生成')).toBeInTheDocument()
+  })
 })

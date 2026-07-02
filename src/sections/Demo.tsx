@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { Image as ImageIcon, Video as VideoIcon, Sparkles, ChevronRight, ChevronDown, Zap } from 'lucide-react'
+import { Image as ImageIcon, Video as VideoIcon, Sparkles, ChevronRight, ChevronDown, Zap, Smartphone } from 'lucide-react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { TabSegment } from '@/components/TabSegment'
 import { DemoCard } from '@/components/DemoCard'
 import { useT } from '@/i18n/useT'
 import loraBefore from '@/assets/lora-before.jpg'
-import loraAfter from '@/assets/lora-after.png'
+import loraAfter from '@/assets/lora-after-grid.jpg'
 import teaPromo from '@/assets/tea-product-promo.mp4'
 import automotiveKv from '@/assets/automotive-kv-promo.mp4'
+import shortsSoma from '@/assets/shorts-soma-demo.mp4'
+import shortsDance from '@/assets/shorts-dance-demo.mp4'
 
-type TabId = 'image' | 'video'
+type TabId = 'image' | 'video' | 'shorts'
 
 export function Demo() {
   const { t } = useT()
@@ -17,6 +19,7 @@ export function Demo() {
 
   const tabs = [
     { id: 'video' as const, label: t.demo.tabs.video, icon: <VideoIcon className="w-4 h-4" /> },
+    { id: 'shorts' as const, label: t.demo.tabs.shorts, icon: <Smartphone className="w-4 h-4" /> },
     { id: 'image' as const, label: t.demo.tabs.image, icon: <ImageIcon className="w-4 h-4" /> },
   ]
 
@@ -24,8 +27,11 @@ export function Demo() {
     <section id="demo" className="min-h-screen flex flex-col justify-center px-4 py-16 tablet:py-24">
       <div className="max-w-6xl mx-auto w-full">
         <SectionHeader badge={t.demo.badge} title={t.demo.title} subtitle={t.demo.subtitle} />
-        <div className="flex justify-center my-8">
-          <TabSegment tabs={tabs} value={tab} onChange={setTab} />
+        {/* 三個 tab 在窄螢幕會超出視寬：外層可橫向捲動、內層 min-w-max 讓寬螢幕維持置中 */}
+        <div className="my-8 overflow-x-auto">
+          <div className="flex justify-center min-w-max px-4 py-1">
+            <TabSegment tabs={tabs} value={tab} onChange={setTab} />
+          </div>
         </div>
 
         {/* tab 切換時 key 變動觸發 fade-in-slide 動畫（含 grid + tech banner 同步淡入）*/}
@@ -59,6 +65,27 @@ export function Demo() {
                 </span>
               </div>
             </div>
+          ) : tab === 'shorts' ? (
+            <div className="grid grid-cols-2 gap-4 tablet:gap-6 max-w-xl tablet:max-w-2xl mx-auto">
+              <DemoCard
+                variant="video"
+                orientation="portrait"
+                source={{ type: 'mp4', src: shortsSoma }}
+                durationSec="15"
+                title={t.demo.shortsCard.title1}
+                desc={t.demo.shortsCard.desc1}
+                playLabel={t.demo.videoCard.playLabel}
+              />
+              <DemoCard
+                variant="video"
+                orientation="portrait"
+                source={{ type: 'mp4', src: shortsDance }}
+                durationSec="15"
+                title={t.demo.shortsCard.title2}
+                desc={t.demo.shortsCard.desc2}
+                playLabel={t.demo.videoCard.playLabel}
+              />
+            </div>
           ) : (
             <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
               <DemoCard
@@ -80,7 +107,7 @@ export function Demo() {
             </div>
           )}
 
-          {/* Tech explainer banner — image / video tab 分別不同說明 */}
+          {/* Tech explainer banner — image / shorts / video tab 分別不同說明 */}
           <div className="mt-10 rounded-xl p-5 tablet:p-6 border border-primary/25 bg-primary/[0.08] shadow-soft">
             <div className="flex items-center gap-2 text-content font-medium mb-2 text-lg">
               {tab === 'image' ? (
@@ -88,10 +115,18 @@ export function Demo() {
               ) : (
                 <VideoIcon className="w-4 h-4 text-primary" aria-hidden="true" />
               )}
-              {tab === 'image' ? t.demo.techBanner.image.title : t.demo.techBanner.video.title}
+              {tab === 'image'
+                ? t.demo.techBanner.image.title
+                : tab === 'shorts'
+                ? t.demo.techBanner.shorts.title
+                : t.demo.techBanner.video.title}
             </div>
             <p className="text-content-muted text-base leading-relaxed">
-              {tab === 'image' ? t.demo.techBanner.image.description : t.demo.techBanner.video.description}
+              {tab === 'image'
+                ? t.demo.techBanner.image.description
+                : tab === 'shorts'
+                ? t.demo.techBanner.shorts.description
+                : t.demo.techBanner.video.description}
             </p>
           </div>
         </div>

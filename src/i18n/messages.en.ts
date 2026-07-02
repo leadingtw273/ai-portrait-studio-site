@@ -22,10 +22,11 @@ export const en: Messages = {
     tabs: {
       image: 'LoRA Portrait Training',
       video: 'Video Content',
+      shorts: 'Short-form Video',
     },
     imageCardAlt: 'AI-generated portrait sample',
     loraBefore: 'Before: source photo',
-    loraAfter: 'After: LoRA-generated samples',
+    loraAfter: 'After: same character across scenes, generated',
     loraArrowLabel: 'LoRA training flow: source photo transformed to trained output',
     loraAiGeneratedTag: 'AI Generated',
     videoCard: {
@@ -35,6 +36,12 @@ export const en: Messages = {
       desc2:  'Cinematic edit: AI talent × automotive KV × multi-shot narrative',
       playLabel: 'Click to play',
     },
+    shortsCard: {
+      title1: 'Branded Short · SOMA',
+      desc1:  'AI virtual persona × product placement × rhythmic performance',
+      title2: 'Dance Short',
+      desc2:  'AI character dance: fluid motion × consistent identity',
+    },
     techBanner: {
       image: {
         title:       'What is LoRA training?',
@@ -43,6 +50,10 @@ export const en: Messages = {
       video: {
         title:       'AI Video Content Generation',
         description: 'With advanced AI video generation, we transform static portraits into smooth, natural motion video. Smile, blink, head turn — delivered with cinematic quality, ideal for social media, digital avatars, virtual hosts, and more.',
+      },
+      shorts: {
+        title:       'AI Short-form Video Generation',
+        description: 'We generate vertical short-form videos entirely with AI — natural, fluid motion with a consistent character identity, no on-camera talent or location shoots required. Perfect for high-frequency content on TikTok, Reels and Shorts, keeping your virtual persona visible and your content pipeline running.',
       },
     },
   },

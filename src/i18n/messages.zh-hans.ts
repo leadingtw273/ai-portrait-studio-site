@@ -22,10 +22,11 @@ export const zhHans: Messages = {
     tabs: {
       image: 'LoRA 人像训练',
       video: '视频内容生成',
+      shorts: '短视频生成',
     },
     imageCardAlt: 'AI 生成人像示意图',
     loraBefore: '训练前：原始照片',
-    loraAfter: '训练后：LoRA 生成范例',
+    loraAfter: '训练后：同一人物跨场景生成范例',
     loraArrowLabel: 'LoRA 训练流程：原始照片转换为训练后输出',
     loraAiGeneratedTag: 'AI 生成',
     videoCard: {
@@ -35,6 +36,12 @@ export const zhHans: Messages = {
       desc2:  '电影分镜叙事：AI 人物 × 汽车 KV × 多镜头剪辑',
       playLabel: '点击播放视频',
     },
+    shortsCard: {
+      title1: '品牌短视频・SOMA',
+      desc1:  'AI 虚拟人设 × 品牌产品植入 × 律动演出',
+      title2: '舞蹈短视频',
+      desc2:  'AI 人物舞蹈：动作流畅 × 角色形象一致',
+    },
     techBanner: {
       image: {
         title:       '什么是 LoRA 训练？',
@@ -43,6 +50,10 @@ export const zhHans: Messages = {
       video: {
         title:       'AI 视频内容生成',
         description: '透过先进的 AI 视频生成技术，我们可以将静态人像转换为流畅自然的动态视频。无论是微笑、眨眼、转头等动作，都能以电影级的品质呈现，适合用于社群媒体、数位分身、虚拟主播等多场景应用。',
+      },
+      shorts: {
+        title:       'AI 短视频生成',
+        description: '以 AI 直接生成竖版短视频，人物动作自然流畅、角色形象前后一致，无需真人出镜与实景拍摄。适合 TikTok、Reels、Shorts 等平台的高频内容产出，让虚拟人设持续露出、内容产线不中断。',
       },
     },
   },

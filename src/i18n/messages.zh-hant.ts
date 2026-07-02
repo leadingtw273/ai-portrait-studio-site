@@ -20,10 +20,11 @@ export const zhHant = {
     tabs: {
       image: 'LoRA 人像訓練',
       video: '影片內容生成',
+      shorts: '短影音生成',
     },
     imageCardAlt: 'AI 生成人像示意圖',
     loraBefore: '訓練前：原始照片',
-    loraAfter: '訓練後：LoRA 生成範例',
+    loraAfter: '訓練後：同一人物跨場景生成範例',
     loraArrowLabel: 'LoRA 訓練流程：原始照片轉換為訓練後輸出',
     loraAiGeneratedTag: 'AI 生成',
     videoCard: {
@@ -33,6 +34,12 @@ export const zhHant = {
       desc2:  '電影分鏡敘事：AI 人物 × 汽車 KV × 多鏡頭剪輯',
       playLabel: '點擊播放影片',
     },
+    shortsCard: {
+      title1: '品牌短影音・SOMA',
+      desc1:  'AI 虛擬人設 × 品牌產品置入 × 律動演出',
+      title2: '舞蹈短影音',
+      desc2:  'AI 人物舞蹈：動作流暢 × 角色形象一致',
+    },
     techBanner: {
       image: {
         title:       '什麼是 LoRA 訓練？',
@@ -41,6 +48,10 @@ export const zhHant = {
       video: {
         title:       'AI 影片內容生成',
         description: '透過先進的 AI 影片生成技術，我們可以將靜態人像轉換為流暢自然的動態影片。無論是微笑、眨眼、轉頭等動作，都能以電影級的品質呈現，適合用於社群媒體、數位分身、虛擬主播等多場景應用。',
+      },
+      shorts: {
+        title:       'AI 短影音生成',
+        description: '以 AI 直接生成直式短影音，人物動作自然流暢、角色形象前後一致，無需真人出鏡與實景拍攝。適合 TikTok、Reels、Shorts 等平台的高頻內容產出，讓虛擬人設持續露出、內容產線不中斷。',
       },
     },
   },
