@@ -64,5 +64,21 @@ describe('DemoCard', () => {
       expect(video.tagName.toLowerCase()).toBe('video')
       expect(video.src).toContain('/test.mp4')
     })
+
+    it('renders portrait orientation with 9:16 aspect class', () => {
+      render(
+        <DemoCard
+          variant="video"
+          orientation="portrait"
+          source={{ type: 'mp4', src: '/portrait.mp4' }}
+          durationSec="15"
+          title="直式短影音"
+          desc="短影音生成"
+          playLabel="點擊播放"
+        />,
+      )
+      const video = screen.getByTitle(/直式短影音/)
+      expect(video.parentElement).toHaveClass('aspect-[9/16]')
+    })
   })
 })
